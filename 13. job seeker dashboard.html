@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSeeker Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI';
+    }
+    body {
+      display: flex;
+      background-color: #f9fafb;
+    }
+    .sidebar {
+      width: 200px;
+      background-color: #fff;
+      padding: 20px;
+      border-right: 1px solid #ddd;
+      min-height: 100vh;
+    }
+    .sidebar img {
+      width: 150px;
+      margin-bottom: 30px;
+    }
+    .sidebar ul {
+      list-style: none;
+    }
+    .sidebar ul li {
+      padding: 12px 0;
+      color: #333;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar ul li:first-child {
+      font-weight: bold;
+      color: #2563eb;
+    }
+    .sidebar ul li i {
+      margin-right: 10px;
+    }
+    .main {
+      flex: 1;
+      padding: 20px;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-top: 50px;
+    }
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .profile-img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+    .stats {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+    .stat-card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      text-align: center;
+      flex: 1;
+    }
+    .recommended, .applications {
+      margin-bottom: 30px;
+    }
+    .recommended h3,
+    .applications h3 {
+      margin-bottom: 10px;
+    }
+    .job-card {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+    .job-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .badge {
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      margin-right: 5px;
+    }
+    .badge.full-time { background: #e0e7ff; color: #1d4ed8; }
+    .badge.remote { background: #d1fae5; color: #065f46; }
+    .badge.hybrid { background: #ede9fe; color: #6b21a8; }
+    .apply-btn {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    table {
+      width: 100%;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      font-size: 14px;
+    }
+    th {
+      background-color: #f3f4f6;
+    }
+    .status.in-review { background: #fef3c7; color: #b45309; }
+    .status.accepted { background: #d1fae5; color: #065f46; }
+    .status.rejected { background: #fee2e2; color: #b91c1c; }
+    .status {
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .right-panel {
+      width: 260px;
+      padding: 20px;
+      border-left: 1px solid #ddd;
+      background: #fff;
+      margin-top: 100px;
+    }
+    .progress-bar-container {
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 10px 0;
+    }
+    .progress-bar {
+      height: 100%;
+      background: #2563eb;
+    }
+    .message, .interview {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+    .message img, .interview img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .interview {
+      background: #f1f5f9;
+      border-radius: 10px;
+      padding: 12px;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .join-btn {
+      background: #2563eb;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .top-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      
+      .logo-section {
+        display: flex;
+        align-items: center;
+      }
+      
+      .top-bar-right {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-left: auto;
+      }
+      
+      .icon {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .profile-pic {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+      }
+      
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\job seeker img.png" alt="JobSeeker">
+    <ul>
+      <li>🏠 Dashboard</li>
+      <li>📄 Find Jobs</li>
+      <li>🔖 Saved Jobs</li>
+      <li>↺ Applied Jobs</li>
+      <li>📊 Assessments</li>
+      <li>💬 Messages</li>
+      <li>👥 AI Mock Interview</li>
+    </ul>
+  </div>
+  <div class="main">
+    <div class="header">
+      <h2>Welcome back, John! 👋</h2>
+      <div class="top-bar">
+        
+        <div class="top-bar-right">
+          <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\bellicon.png" alt="Notifications" class="icon" />
+          <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\man profile.png"alt="User Profile" class="profile-pic" />
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div>🔍</div>
+        <h3>Profile Views</h3>
+        <p>147</p>
+      </div>
+      <div class="stat-card">
+        <div>📧</div>
+        <h3>Applications</h3>
+        <p>12</p>
+      </div>
+      <div class="stat-card">
+        <div>📄</div>
+        <h3>Saved Jobs</h3>
+        <p>24</p>
+      </div>
+      <div class="stat-card">
+        <div>📢</div>
+        <h3>Unread Messages</h3>
+        <p>5</p>
+      </div>
+    </div>
+
+    <div class="recommended">
+      <h3>Recommended Jobs</h3>
+      <div class="job-card">
+        <div class="job-info">
+          <strong>Senior UX Designer</strong>
+          <span>Google • San Francisco, CA</span>
+          <div>
+            <span class="badge full-time">Full-time</span>
+            <span class="badge remote">Remote</span>
+          </div>
+          <p>$120k - $150k/year</p>
+        </div>
+        <button class="apply-btn">Apply Now</button>
+      </div>
+
+      <div class="job-card">
+        <div class="job-info">
+          <strong>Product Designer</strong>
+          <span>Microsoft • Seattle, WA</span>
+          <div>
+            <span class="badge full-time">Full-time</span>
+            <span class="badge hybrid">Hybrid</span>
+          </div>
+          <p>$110k - $140k/year</p>
+        </div>
+        <button class="apply-btn">Apply Now</button>
+      </div>
+    </div>
+
+    <div class="applications">
+      <h3>Recent Applications</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Applied Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🌟 Apple</td>
+            <td>UI/UX Designer</td>
+            <td>Jan 15, 2025</td>
+            <td><span class="status in-review">In Review</span></td>
+          </tr>
+          <tr>
+            <td>🎵 Spotify</td>
+            <td>Product Designer</td>
+            <td>Jan 12, 2025</td>
+            <td><span class="status accepted">Accepted</span></td>
+          </tr>
+          <tr>
+            <td>🪄 Slack</td>
+            <td>UX Researcher</td>
+            <td>Jan 10, 2025</td>
+            <td><span class="status rejected">Rejected</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <h3>Profile Completion</h3>
+    <div class="progress-bar-container">
+      <div class="progress-bar" style="width: 85%;"></div>
+    </div>
+    <p>Your profile is 85% complete</p>
+
+    <h3 style="margin-top: 24px;">Recent Messages</h3>
+    <div class="message">
+      <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\sarah wilson.png" alt="Sarah">
+      <div>
+        <strong>Sarah Wilson</strong>
+        <p>Hi John, I saw your profile...</p>
+      </div>
+    </div>
+    <div class="message">
+      <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\mike thompsan.png"alt="Mike">
+      <div>
+        <strong>Mike Thompson</strong>
+        <p>Thanks for applying to...</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top: 24px;">Upcoming Interviews</h3>
+    <div class="interview">
+      <div>
+        <strong>Product Designer</strong>
+        <p>Meta</p>
+        <p>🗓️ Tomorrow, 10:00 AM</p>
+      </div>
+      <button class="join-btn">Join Meeting</button>
+    </div>
+  </div>
+</body>
+</html>

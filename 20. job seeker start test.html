@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          
+          body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+          }
+          
+          .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background: white;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          
+          .left-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+          
+          .logo {
+            width: 30px;
+            height: 30px;
+          }
+          
+          .right-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
+          
+          .timer {
+            font-size: 14px;
+            color: #555;
+          }
+          
+          .submit-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          
+          .warning {
+            background-color: #fff6e5;
+            color: #d48806;
+            padding: 10px 30px;
+            font-size: 14px;
+            border-bottom: 1px solid #e0e0e0;
+          }
+          
+          .main-container {
+            display: flex;
+            margin: 20px 30px;
+            gap: 20px;
+          }
+          
+          .question-section {
+            flex: 3;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+          }
+          
+          .question-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+          }
+          
+          .question-text {
+            margin-bottom: 15px;
+          }
+          
+          .code-box {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin-bottom: 20px;
+          }
+          
+          .options {
+            margin-bottom: 20px;
+          }
+          
+          .options label {
+            display: block;
+            margin-bottom: 8px;
+          }
+          
+          .code-editor {
+            background: #111827;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+          }
+          
+          .code-editor select {
+            background: white;
+            color: black;
+            padding: 5px;
+            margin-bottom: 10px;
+          }
+          
+          .code-editor textarea {
+            width: 100%;
+            height: 150px;
+            background: #111827;
+            color: white;
+            border: none;
+            resize: none;
+            padding: 10px;
+            font-family: monospace;
+          }
+          
+          .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+          }
+          
+          .run-code {
+            background: #2563eb;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          
+          .submit-answer {
+            background: #10b981;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          
+          .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+          }
+          
+          .nav-btn {
+            background: white;
+            border: 1px solid #d1d5db;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          
+          .sidebar {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+          }
+          
+          .sidebar h3 {
+            margin-bottom: 15px;
+          }
+          
+          .question-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+          }
+          
+          .question-grid div {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+          }
+          
+          .answered {
+            background: #34d399;
+            color: white;
+          }
+          
+          .unanswered {
+            background: #f87171;
+            color: white;
+          }
+          
+          .marked {
+            background: #fbbf24;
+            color: white;
+          }
+          
+          .not-visited {
+            background: #e5e7eb;
+            color: black;
+          }
+          
+          .legend p {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+          }
+          
+          .green-dot, .red-dot, .yellow-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          
+          .green-dot {
+            background: #34d399;
+          }
+          
+          .red-dot {
+            background: #f87171;
+          }
+          
+          .yellow-dot {
+            background: #fbbf24;
+          }
+          
+
+    </style>
+</head>
+<body>
+    
+
+
+    <header class="top-bar">
+        <div class="left-header">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft Logo" class="logo">
+          <h1>Technical Assessment – Microsoft</h1>
+        </div>
+        <div class="right-header">
+          <span class="timer">⏱️ Time Left: 01:30:00</span>
+          <button class="submit-btn">Submit Test</button>
+        </div>
+      </header>
+    
+      <div class="warning">
+        ⚠️ Don't refresh or leave this page during the test.
+      </div>
+    
+      <div class="main-container">
+        <div class="question-section">
+          <div class="question-header">
+            <h2>Q1 of 20</h2>
+            <label><input type="checkbox"> Mark for Review</label>
+          </div>
+    
+          <p class="question-text">What is the output of the following code snippet?</p>
+    
+          <div class="code-box">
+            <pre>console.log(typeof undefined);</pre>
+          </div>
+    
+          <div class="options">
+            <label><input type="radio" name="option"> A. 10</label><br>
+            <label><input type="radio" name="option"> B. Error</label><br>
+            <label><input type="radio" name="option"> C. Undefined</label><br>
+            <label><input type="radio" name="option"> D. None of the above</label>
+          </div>
+    
+          <div class="code-editor">
+            <select>
+              <option>JavaScript</option>
+              <option>Python</option>
+              <option>C++</option>
+            </select>
+            <textarea placeholder="// Write your code here"></textarea>
+          </div>
+    
+          <div class="button-group">
+            <button class="run-code">Run Code</button>
+            <button class="submit-answer">Submit Answer</button>
+          </div>
+    
+          <div class="navigation-buttons">
+            <button class="nav-btn">← Previous</button>
+            <button class="nav-btn">Next →</button>
+          </div>
+        </div>
+    
+        <div class="sidebar">
+          <h3>Question Navigator</h3>
+          <div class="question-grid">
+            <div class="answered">1</div>
+            <div class="unanswered">2</div>
+            <div class="marked">3</div>
+            <div class="not-visited">4</div>
+          </div>
+    
+          <div class="legend">
+            <p><span class="green-dot"></span> Answered</p>
+            <p><span class="red-dot"></span> Unanswered</p>
+            <p><span class="yellow-dot"></span> Marked for Review</p>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

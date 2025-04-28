@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Assignments</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f9fafc;
+      padding: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .header h2 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-top: 60px;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .assignment-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .card small {
+      color: #666;
+    }
+
+    .tag {
+      float: right;
+      background: #ffe5a4;
+      color: #a66b00;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .tag.red {
+      background: #fde2e2;
+      color: #cc0000;
+    }
+
+    .tag.green {
+      background: #d1f9e5;
+      color: #007f4e;
+    }
+
+    .tag.gray {
+      background: #eee;
+      color: #555;
+    }
+
+    .card p {
+      margin: 10px 0;
+      font-size: 14px;
+    }
+
+    .progress-container {
+      background: #eee;
+      border-radius: 5px;
+      height: 6px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      background: #2e63f7;
+      height: 100%;
+      width: 60%;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .buttons button {
+      flex: 1;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: #2e63f7;
+      color: #fff;
+    }
+
+    .secondary {
+      background: #f3f3f3;
+    }
+
+    .warning-box {
+      background: #ffeaea;
+      color: #c02b2b;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    .success-text {
+      color: #10b981;
+      font-weight: 600;
+    }
+    .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+      }
+      
+      .profile-pic {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #eee;
+      }
+      
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>My Assignments</h2>
+    <div class="user-profile">
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\man profile.png" alt="User Image" class="profile-pic" />
+        <span>John Doe</span>
+      </div>
+      
+  </div>
+
+  <div class="filters">
+    <select>
+        <option value="all">All Status</option>
+        <option value="in-progress">In Progress</option>
+        <option value="not-started">Not Started</option>
+        <option value="submitted">Submitted</option>
+        <option value="overdue">Overdue</option>
+        <option value="completed">Completed</option>
+      </select>
+      
+      <select>
+        <option value="deadline">Sort by Deadline</option>
+        <option value="nearest">Deadline: Nearest First</option>
+        <option value="farthest">Deadline: Farthest First</option>
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+      
+  </div>
+
+  <div class="assignment-container">
+    <div class="card">
+      <h3>React Mini Project <span class="tag">In Progress</span></h3>
+      <small>Frontend Developer • Google</small>
+      <p>
+        ⏰ Deadline: March 15, 2025<br>
+        </> Type: Project
+      </p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <p style="text-align: right; font-size: 12px;">60%</p>
+      <div class="buttons">
+        <button class="primary">Continue</button>
+        <button class="secondary">View Details</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Technical Assessment <span class="tag red">Not Started</span></h3>
+      <small>Software Engineer • Microsoft</small>
+      <p>
+        ⏰ Deadline: March 20, 2025<br>
+        ⚡ Type: Aptitude<br>
+        ⏳ Duration: 90 minutes
+      </p>
+      <div class="buttons">
+        <button class="primary">Start Test</button>
+        <button class="secondary">View Details</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>JavaScript Quiz <span class="tag green">Submitted</span></h3>
+      <small>Full Stack Developer • Amazon</small>
+      <p>
+        ✓ Submitted: March 10, 2025<br>
+        ? Type: Quiz<br>
+        <span class="success-text">✔ Score: 92/100</span>
+      </p>
+      <div class="buttons">
+        <button class="secondary" style="width: 100%;">View Submission</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>System Design Challenge <span class="tag gray">Overdue</span></h3>
+      <small>Backend Engineer • Netflix</small>
+      <p style="color: red;">
+        ⚠ Deadline Passed: March 5, 2025<br>
+        </> Type: Project
+      </p>
+      <div class="warning-box">
+        ⚠ This assignment has expired. Please contact the recruiter.
+      </div>
+      <div class="buttons">
+        <button class="secondary" style="width: 100%;">View Details</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

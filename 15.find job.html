@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        
+            * {
+              box-sizing: border-box;
+              font-family: Arial, sans-serif;
+            }
+            body {
+              margin: 0;
+              background: #f8f9fb;
+              color: #333;
+            }
+            header {
+              background: #fff;
+              padding: 15px 30px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border-bottom: 1px solid #ddd;
+            }
+            .logo {
+              font-weight: bold;
+              color: #2563eb;
+              font-size: 20px;
+              display: flex;
+              align-items: center;
+            }
+            .right-icons {
+              display: flex;
+              align-items: center;
+              gap: 10px;
+            }
+            .bell-icon {
+              font-size: 20px;
+              cursor: pointer;
+              
+            }
+            .profile-pic {
+              width: 50px;
+              height: 40px;
+              border-radius: 50%;
+              cursor: pointer;
+
+            }
+            .search-bar {
+              display: flex;
+              gap: 10px;
+              margin: 20px 30px;
+            }
+            .search-bar input {
+              padding: 10px;
+              width: 100%;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+            }
+            .search-bar button {
+              padding: 10px 20px;
+              background: #2563eb;
+              color: #fff;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+            .container {
+              display: flex;
+              padding: 0 30px;
+              gap: 20px;
+            }
+            .filters {
+              width: 200px;
+              background: #fff;
+              padding: 20px;
+              border-radius: 8px;
+            }
+            .filters h3 {
+              margin-top: 0;
+            }
+            .filters label {
+              display: block;
+              margin: 10px 0;
+            }
+            .job-list {
+              flex: 1;
+            }
+            .job-header {
+              margin-bottom: 20px;
+              font-weight: bold;
+            }
+            .job-card {
+              background: #fff;
+              padding: 20px;
+              margin-bottom: 15px;
+              border-radius: 8px;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              
+
+              
+            }
+            .job-info {
+              display: flex;
+              flex-direction: column;
+            }
+            .job-title {
+              font-weight: bold;
+            }
+            .company-location {
+              font-size: 14px;
+              color: #666;
+            }
+            .badge {
+              display: inline-block;
+              padding: 3px 8px;
+              font-size: 12px;
+              border-radius: 5px;
+              margin-top: 5px;
+            }
+            .full-time {
+              background: #e0f0ff;
+              color: #2563eb;
+            }
+            .remote {
+              background: #d1fae5;
+              color: #10b981;
+            }
+            .salary {
+              margin-top: 5px;
+              font-weight: 500;
+            }
+            .apply-btn {
+              background: #2563eb;
+              color: white;
+              border: none;
+              padding: 8px 15px;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+            .pagination {
+              text-align: center;
+              margin: 20px 0;
+            }
+            .pagination button {
+              padding: 8px 12px;
+              margin: 0 5px;
+              border: none;
+              background: #f0f0f0;
+              border-radius: 5px;
+              cursor: pointer;
+            }
+            .pagination .active {
+              background: #2563eb;
+              color: #fff;
+            }
+
+            .salary-labels {
+              display: flex;
+              justify-content: space-between;
+              font-size: 14px;
+              color: #6b7280;
+              margin-top: 5px;
+            }
+            
+            .sort-dropdown {
+              display: flex;
+              justify-content: flex-end;
+              margin-bottom: 10px;
+              gap: 10px;
+              align-items: center;
+            }
+            
+            .sort-dropdown select {
+              padding: 6px 10px;
+              border: 1px solid #ccc;
+              border-radius: 5px;
+            }
+
+            .logo-img {
+              height: 50px;
+
+            }
+            
+            
+    </style>
+</head>
+<body>
+    
+
+    <header>
+      <div class="logo">
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\job seeker img.png" alt="JobSeeker Logo" class="logo-img" />
+      </div>
+    
+        <div class="right-icons">
+          <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\bellicon.png" alt="Notifications" class="bell-icon" />
+          <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\man profile.png" alt="User" class="profile-pic" />
+        </div>
+      </header>
+    
+      <div class="search-bar">
+        <input type="text" placeholder="Job title or keyword" />
+        <input type="text" placeholder="Location" />
+        <button>Search</button>
+      </div>
+    
+      <div class="container">
+        <div class="filters">
+          <h3>Filters</h3>
+          <strong>Experience Level</strong>
+          <label><input type="checkbox" /> Entry Level</label>
+          <label><input type="checkbox" /> Mid Level</label>
+          <label><input type="checkbox" /> Senior Level</label>
+          <br />
+          <strong>Job Type</strong>
+          <label><input type="checkbox" /> Full-time</label>
+          <label><input type="checkbox" /> Part-time</label>
+          <label><input type="checkbox" /> Contract</label>
+          <label><input type="checkbox" /> Remote</label>
+          <br />
+          <strong>Salary Range</strong>
+          <input type="range" min="0" max="200000" />
+          <div class="salary-labels">
+            <span>$0</span>
+            <span>$200k+</span>
+          </div>
+
+        </div>
+    
+        <div class="job-list">
+          <div class="job-header">2,145 jobs found</div>
+          <div class="sort-dropdown">
+            <label for="sort">Sort by:</label>
+            <select id="sort">
+              <option>Most Recent</option>
+              <option>Highest Salary</option>
+              <option>Lowest Salary</option>
+            </select>
+          </div>
+          <div class="job-card">
+            <div class="job-info">
+              <div class="job-title">Senior Product Designer</div>
+              <div class="company-location">Google • San Francisco, CA</div>
+              <span class="badge full-time">Full-time</span>
+              <div class="salary">$120k - $150k</div>
+            </div>
+            <button class="apply-btn">Apply</button>
+          </div>
+    
+          <div class="job-card">
+            <div class="job-info">
+              <div class="job-title">Frontend Developer</div>
+              <div class="company-location">Meta • New York, NY</div>
+              <span class="badge remote">Remote</span>
+              <div class="salary">$90k - $120k</div>
+            </div>
+            <button class="apply-btn">Apply</button>
+          </div>
+    
+          <div class="job-card">
+            <div class="job-info">
+              <div class="job-title">iOS Developer</div>
+              <div class="company-location">Apple • Cupertino, CA</div>
+              <span class="badge full-time">Full-time</span>
+              <div class="salary">$140k - $180k</div>
+            </div>
+            <button class="apply-btn">Apply</button>
+          </div>
+    
+          <div class="pagination">
+            <button>&lt;</button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>&gt;</button>
+          </div>
+        </div>
+      </div>
+</body>
+</html>

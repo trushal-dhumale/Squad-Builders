@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobSeeker</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background-color: #f5f7fb;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      padding: 20px;
+      gap: 20px;
+    }
+    .sidebar, .chat, .right-panel {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+    .sidebar {
+      width: 20%;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      color: #3b82f6;
+      margin-bottom: 20px;
+    }
+    .sidebar input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .message-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .message-item.active {
+      background: #e0e7ff;
+    }
+    .message-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .chat {
+      width: 55%;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+    }
+    .chat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .user-info img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+    .chat-actions button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .chat-body {
+      flex-grow: 1;
+      padding: 10px 0;
+      overflow-y: auto;
+    }
+    .message {
+      max-width: 70%;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+    .message.received {
+      background: #f1f5f9;
+      align-self: flex-start;
+    }
+    .message.sent {
+      background: #3b82f6;
+      color: white;
+      align-self: flex-end;
+    }
+    .message span {
+      display: block;
+      font-size: 12px;
+      margin-top: 4px;
+      opacity: 0.7;
+    }
+    .chat-input {
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin: 0 10px;
+    }
+    .chat-input button {
+      padding: 10px 16px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .right-panel {
+      width: 25%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 20px;
+    }
+    .panel-section {
+      background: #fff;
+      padding: 16px;
+      border-radius: 10px;
+    }
+    .panel-section h4 {
+      margin-bottom: 10px;
+    }
+    .template, .interview {
+      background: #f9fafb;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .interview {
+      background: #eef2ff;
+    }
+
+    /* Top Navigation Bar */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .logo-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    width: 24px;
+    margin-right: 8px;
+    height: 70px;
+    width: 200px;
+  }
+  
+  .logo-text {
+    font-weight: 600;
+    font-size: 18px;
+    color: #2563eb;
+  }
+  
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .notification-icon {
+    font-size: 18px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .profile-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  </style>
+</head>
+<body>
+
+    <!-- Top Navigation -->
+<header class="top-nav">
+    <div class="logo-section">
+      <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\job seeker img.png"alt="Logo" class="logo-icon" />
+    </div>
+    <div class="nav-actions">
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\bellicon.png"alt="bell icon" class="profile-pic" />
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\man profile.png" alt="User" class="profile-pic" />
+    </div>
+  </header>
+  
+  <div class="container">
+    <div class="sidebar">
+      <input type="text" placeholder="Search messages...">
+      <div class="message-item active">
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\sarah wilson.png" alt="Sarah Wilson">
+        <div>
+          <strong>Sarah Wilson</strong>
+          <p>Thanks for considering my application...</p>
+        </div>
+      </div>
+      <div class="message-item">
+        <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\mike thompsan.png" alt="Michael Chen">
+        <div>
+          <strong>Michael Chen</strong>
+          <p>Looking forward to the interview...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat">
+      <div class="chat-header">
+        <div class="user-info">
+          <img src="C:\Users\Hp\OneDrive\Desktop\screen shots\sarah wilson.png" alt="Sarah Wilson">
+          <div>
+            <h3>Sarah Wilson</h3>
+            <p>Frontend Developer Candidate</p>
+          </div>
+        </div>
+        <div class="chat-actions">
+          <button>📞</button>
+          <button>📹</button>
+          <button>⋮</button>
+        </div>
+      </div>
+      <div class="chat-body">
+        <div class="message received">
+          Thank you for considering my application for the Frontend Developer position. I’m very excited about the opportunity!
+          <span>10:30 AM</span>
+        </div>
+        <div class="message sent">
+          Hi Sarah! Your portfolio looks impressive. Would you be available for a video interview this week?
+          <span>10:32 AM</span>
+        </div>
+      </div>
+      <div class="chat-input">
+        <button>😊</button>
+        <input type="text" placeholder="Type your message...">
+        <button>Send</button>
+      </div>
+    </div>
+
+    <div class="right-panel">
+      <div class="panel-section">
+        <h4>Quick Templates</h4>
+        <div class="template">Interview Invitation</div>
+        <div class="template">Follow-up</div>
+        <div class="template">Offer Letter</div>
+      </div>
+      <div class="panel-section">
+        <h4>Upcoming Interviews</h4>
+        <div class="interview">
+          <strong>Sarah Wilson</strong><br>
+          Tomorrow<br>
+          🕙 10:00 AM – 11:00 AM
+        </div>
+        <div class="interview">
+          <strong>Michael Chen</strong><br>
+          Thu, Mar 15<br>
+          🕑 2:00 PM – 3:00 PM
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
