@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTRECRUIT</title>
+</head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+    body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+header {
+    background-color: #fff;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #3498db;
+}
+
+.auth a {
+    text-decoration: none;
+    color: #555;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.auth a:hover {
+    color: #3498db;
+}
+
+.get {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.get:hover {
+    background-color: #2980b9;
+}
+
+.ht1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    background: #f1f5f9;
+  }
+  .ht1-text {
+    max-width: 500px;
+  }
+
+  .btn-primary, .btn-secondary {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    border: none;
+  }
+  .btn-primary {
+    background-color: #3498db;
+    color: white;
+  }
+  .btn-secondary {
+    background-color: #ffffff;
+    color: #3498db;
+    border: #3498db solid 1px;
+  }
+
+  .section {
+    padding: 4rem 2rem;
+  }
+
+ 
+  .card {
+    background: white;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+  }
+ 
+ 
+
+.campus-drive {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 40px;
+}
+
+.cd-text {
+    flex: 1;
+}
+
+.cd-text h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.cd-text ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.cd-text li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.cd-text li::before {
+    content: "✓"; 
+    color: #3498db;
+    margin-right: 8px;
+}
+
+.cd-text p {
+    color: #777;
+    font-size: 14px;
+}
+
+.cd-image {
+    flex: 1;
+}
+
+.cd-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.img1{
+    flex: 1;
+}
+
+
+  .img1 img{
+   
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px; 
+  }
+
+  .ds {
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.ds h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.ds p {
+    color: #626161;
+    margin-bottom: 25px;
+}
+
+.ds1 {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card1 {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    flex: 1;
+    min-width: 300px;
+}
+
+.card1 h3 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card1 .icon {
+ 
+    font-size: 20px;
+}
+
+.card1 p {
+    color: #777;
+    font-size: 14px;
+}
+
+
+.tby {
+    text-align: center;
+    padding-bottom: 40px;
+}
+
+.tby h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.tests {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card2 {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    flex: 1;
+    min-width: 300px;
+}
+
+.test-head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info {
+    flex-grow: 1;
+}
+
+.info h4 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.info p {
+    font-size: 12px;
+    color: #777;
+    margin: 0;
+}
+
+.test-q {
+    font-style: italic;
+    color: #555;
+    font-size: 14px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.call-to-action {
+    background-color: #3498db;
+    color: #fff;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.call-to-action h2 {
+    margin-bottom: 15px;
+}
+
+.call-to-action p {
+    margin-bottom: 30px;
+}
+
+.cta-buttons button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 10px;
+}
+
+.cta-buttons .primary-button {
+    background-color: #fff;
+    color: #3498db;
+}
+
+.cta-buttons .secondary-button {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+
+footer {
+    background-color: #2c3e50;
+    color: #fff;
+    padding: 60px 0;
+}
+
+footer .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.footer-section h4 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #34495e;
+    padding-bottom: 5px;
+}
+
+.footer-section p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: #eee;
+    font-size: 14px;
+    opacity: 0.8;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #3498db;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 20px;
+    color: #eee;
+    opacity: 0.8;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #3498db;
+}
+
+.copyright {
+    background-color: #222d38;
+    color: #eee;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+
+</style>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">SmartRecruit</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Solutions</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+            <div class="auth">
+                <a href="#">Sign In</a>
+                <button class="get">Get Started</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="ht1">
+        <div class="ht1-text">
+          <h1>Enterprise Recruitment, Simplified</h1>
+          <p>Custom hiring solutions for institutions and large teams.</p>
+          <button class="btn-primary">Book a Demo <i class="fa-solid fa-arrow-right"></i></button>
+          <button class="btn-secondary">Talk to Sales</button>
+        </div>
+        <div class="img1">
+        <img src="#" alt="Dashboard Image" width="400">
+        </div>
+    </section>
+
+      <section class="section">
+        <h2 style="text-align:center">Tailored Hiring Solutions</h2>
+        <div class="features">
+          <div class="card">
+            <h3> <i class="fa-solid fa-file"></i> High-volume Resume Screening</h3>
+            <p>AI-powered screening to process thousands of applications efficiently.</p>
+          </div>
+          <div class="card">
+            <h3> <i class="fa-solid fa-share-nodes"></i> Custom Job Workflows</h3>
+            <p>Design and implement hiring workflows that match your organization’s needs.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="container1">
+        <section class="campus-drive">
+            <div class="cd-text">
+                <h2>Campus Drive Coordination</h2>
+                <ul>
+                    <li>Schedule & Manage Bulk Hiring</li>
+                    <li>Efficiently coordinate multiple campus recruitment events.</li>
+                </ul>
+                <ul>
+                    <li>Institute Integration Tools</li>
+                    <li>Seamlessly connect with university placement portals.</li>
+                </ul>
+            </div>
+            <div class="cd-image">
+                <img src="#" alt="Campus Drive Dashboard">
+            </div>
+        </section>
+
+
+        <section class="ds">
+            <h2>Data Security & Compliance</h2>
+            <p>Enterprise-grade security for your recruitment data.</p>
+            <div class="ds1">
+                <div class="card1">
+                    <h3>
+                        <span class="icon"><i class="fa-solid fa-lock"></i></span>
+                        Role-based Access Control
+                    </h3>
+                    <p>Granular permissions and access management for your team.</p>
+                </div>
+                <div class="card1">
+                    <h3>
+                        <span class="icon"><i class="fa-solid fa-location-pin"></i></span>
+                        GDPR Compliant Systems
+                    </h3>
+                    <p>Full compliance with international data protection regulations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="tby">
+            <h2>Trusted by Industry Leaders</h2>
+            <div class="tests">
+                <div class="card2">
+                    <div class="test-head">
+                        <div class="avatar">
+                            <img src="#" alt="Michael Chen">
+                        </div>
+                        <div class="info">
+                            <h4>Michael Chen</h4>
+                            <p>HR Director, Tech Corp</p>
+                        </div>
+                    </div>
+                    <p class="test-q">"The platform has transformed our campus recruitment process, making it significantly more efficient."</p>
+                </div>
+                <div class="card2">
+                    <div class="test-head">
+                        <div class="avatar">
+                            <img src="#" alt="Sarah Williams">
+                        </div>
+                        <div class="-info">
+                            <h4>Sarah Williams</h4>
+                            <p>Talent Head, Global Inc.</p>
+                        </div>
+                    </div>
+                    <p class="test-q">"The security features and compliance standards have given us complete peace of mind."</p>
+                </div>
+                <div class="card2">
+                    <div class="test-head">
+                        <div class="avatar">
+                            <img src="#" alt="David Kumar">
+                        </div>
+                        <div class="info">
+                            <h4>David Kumar</h4>
+                            <p>CEO, Enterprise Solutions</p>
+                        </div>
+                    </div>
+                    <p class="test-q">"Outstanding support team and custom solutions that perfectly fit our needs."</p>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+    <section class="call-to-action">
+        <h2>Ready to Transform Your Hiring Process?</h2>
+        <p>Join thousands of companies already hiring smarter with AI</p>
+        <div class="cta-buttons">
+            <button class="primary-button">Sign Up Now</button>
+            <button class="secondary-button">Request Demo</button>
+        </div>
+    </section>
+
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h4>SmartRecruit</h4>
+                <p>Transforming recruitment for the digital age.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Webinars</a></li>
+                    <li><a href="#">Case Studies</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+
+            <h4>Company</h4>
+                <ul>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 SmartRecruit. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+</body>
+</html>

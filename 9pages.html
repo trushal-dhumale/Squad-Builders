@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTRECRUIT</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            max-width: 90%;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        p {
+            color: #777;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form {
+            margin-bottom: 20px;
+        }
+
+        .row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .row > .form {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 0.95em;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="tel"],
+        select {
+            width: calc(100% - 12px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .profile-picture-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-picture {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-button-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #eee;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .upload-button-wrapper input[type=file] {
+            font-size: 100px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+        }
+
+        .file-name {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .section-title {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .radio-group label {
+            font-weight: normal;
+        }
+
+
+       .radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .agreement {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .agreement label {
+            font-weight: normal;
+        }
+
+        .agreement a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .agreement a:hover {
+            text-decoration: underline;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .login-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Recruiter Account</h2>
+        <p>Join thousands of companies hiring top talent</p>
+
+        <div class="section-title">Personal Information</div>
+        <div class="row">
+            <div class="form">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" name="full_name" placeholder="Enter your full name">
+            </div>
+            <div class="form">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+            </div>
+            <div class="form">
+                <label for="phone_number">Phone Number</label>
+                <input type="tel" id="phone_number" name="phone_number" placeholder="Enter your phone number">
+            </div>
+        </div>
+
+        <div class="section-title">Company Information</div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="company_name">Company Name</label>
+                <input type="text" id="company_name" name="company_name" placeholder="Enter your company name">
+            </div>
+            <div class="form-group">
+                <label for="company_website">Company Website</label>
+                <input type="text" id="company_website" name="company_website" placeholder="Enter your company website">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="industry_type">Industry Type</label>
+            <select id="industry_type" name="industry_type">
+                <option value="IT">IT</option>
+                </select>
+        </div>
+        <div class="form-group">
+            <label for="company_size">Company Size</label>
+            <select id="company_size" name="company_size">
+                <option value="1-10">1-10 employees</option>
+                </select>
+        </div>
+
+        <div class="section-title">Hiring Information</div>
+        <div class="form-group">
+            <label>Type of Roles Hiring For</label>
+            <div class="radio-group">
+                <input type="checkbox" id="entry_level" name="hiring_roles" value="entry_level">
+                <label for="entry_level">Entry-Level</label>
+                <input type="checkbox" id="mid_level" name="hiring_roles" value="mid_level">
+
+
+              <label for="mid_level">Mid-Level</label>
+                <input type="checkbox" id="senior" name="hiring_roles" value="senior">
+                <label for="senior">Senior</label>
+            </div>
+        </div>
+        <div class="form">
+            <label for="job_posting_frequency">Job Posting Frequency</label>
+            <select id="job_posting_frequency" name="job_posting_frequency">
+                <option value="rarely">Rarely (1-2 posts/month)</option>
+                </select>
+        </div>
+
+        <div class="section-title">Profile Picture</div>
+        <div class="form-group profile-picture-group">
+            <div class="profile-picture">
+                <img src="#" alt="Profile Preview" id="profile_preview"">
+            </div>
+            <div class="upload-button-wrapper">
+                <span>Choose File</span>
+                <input type="file" id="profile-picture-file" name="profile-picture-file" accept="image/*" style="display:none;">
+            </div>
+            <span class="file-name" id="file_name">No file chosen</span>
+        </div>
+
+        <div class="form-group agreement">
+            <input type="checkbox" id="terms" name="terms">
+            <label for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+        </div>
+
+        <button type="submit">Create Account</button>
+
+        <div class="login-link">
+            Already have an account? <a href="#">Sign in</a>
+        </div>
+    </div>
+
+   
+</body>
+</html>
