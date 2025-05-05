@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fcfbfb;
+
+    }
+
+    .header h1 {
+      margin-bottom: 30px;
+    }
+
+    .profile {
+      width: 1300px;
+      height: 150px;
+      margin: 20px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .button {
+      padding: 10px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3d11ec;
+      color: white;
+    }
+
+    .information {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      height: 200px;
+      width: 400px;
+      margin: 15px 0;
+      box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .stats {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      width: 110px;
+      height: 40px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+    }
+
+    .section {
+      margin-top: 30px;
+      margin: 20px;
+      background-color: white;
+      padding: 10px;
+      border-radius: 8px;
+      width: 1300px;
+      margin-top: 10px;
+      display: inline-flex;
+      gap: 15px;
+    }
+
+    .Information {
+      display: inline-flex;
+      gap: 15px;
+      margin: 20px;
+    }
+
+    .Company,
+    .Contact {
+      font-weight: bold;
+    }
+
+    .stats1 {
+      color: #4a90e2;
+    }
+
+    .stats2 {
+      color: green;
+    }
+
+    .stats3 {
+      color: rgb(157, 93, 214);
+    }
+
+    .stats4 {
+      color: orange;
+    }
+
+    .skill {
+      padding: 5px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #c7ddf6;
+      color: blue;
+    }
+
+    .deactive {
+      color: red;
+      float: inline-end;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Recruiter Profile</h1>
+  </div>
+
+  <div class="profile">
+    <strong>John Doe</strong>
+    <div>Senior Recruiter at Microsoft</div><br>
+    <div>Bengaluru, India</div><br>
+    <button class="button">Edit Profile</button>
+    <button>View Drives</button>
+  </div>
+  <br><br>
+
+  <div class="Information">
+    <div class="information">
+      <p class="Contact">Contact Information</p><br>
+      <div>Email: john@example.com</div><br>
+      <div>Phone: +91-9876543210</div><br>
+      <div>Company: Microsoft</div>
+    </div><br>
+
+    <div class="information">
+      <p class="Company">Company Details</p><br>
+      <div>Industry: IT Services</div><br>
+      <div>Company Size: 10,000+ Employees</div><br>
+      <div>Registered Since: Jan 2022</div><br>
+      <div>Website: www.microsoft.com</div>
+    </div><br>
+
+    <div class="information">
+      <div class="stats-container">
+        <div class="stats"><strong class="stats1">18</strong><br>DrivesConducted</div>
+        <div class="stats"><strong class="stats2">120</strong><br>Students Hired</div>
+        <div class="stats"><strong class="stats3">94%</strong><br>Positive Feedback</div>
+        <div class="stats"><strong class="stats4">15 March 2025</strong><br>Last Drive</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Preferred Skills</h3>
+    <div class="infoitem"> <br><br><br>
+      <span class="skill">Python</span>
+      <span class="skill">Data Stucture</span>
+      <span class="skill">Machine Learning</span>
+      <span class="skill">React</span>
+    </div>
+  </div>
+
+  <div class="deactive">Deactivate Account</div>
+
+</body>
+
+</html>

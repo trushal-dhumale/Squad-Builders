@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            color:#0905f1;
+            font-size:larger;
+        }
+
+        .stats {
+            width: 900px;
+            background: white;
+            height: 200px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            align-items: center;
+            margin: 50px;
+
+        }
+
+        .stat {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .statsbox {
+            width: 200px;
+            height: 100px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .data {
+            color: green;
+        }
+
+        .data1 {
+            color: orangered;
+        }
+
+        .candidate {
+            width: 900px;
+            background: white;
+            height: 300px;
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin: 50px;
+        }
+
+        .apply,
+        .short,
+        .interview,
+        .hire {
+            background: rgb(236, 234, 234);
+            padding: 10px;
+            width: 400px;
+            height: 220px;
+            border-radius: 6px;
+            margin: 5px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .candidate-box {
+            background: white;
+            padding: 10px;
+            width: 150px;
+            height: 80px;
+            border-radius: 6px;
+            margin: 5px 0;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .Feedback {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin: 50px;
+        }
+
+        .Feedback h3 {
+            margin-bottom: 20px;
+        }
+
+
+        .Feedback strong {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .Feedback #date {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 5px;
+        }
+
+        .Feedback {
+            width: 100%;
+        }
+
+        .button {
+            background-color:#3c0df7;
+            border: none;
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 14px;
+            float: inline-end;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ATS Dashboard</h1>
+
+    <div class="stats">
+        <div class="stat">
+            <div class="statsbox">Total Applications<br><strong>1,234</strong>
+                <div class="data">+12% from last month</div>
+            </div>
+            <div class="statsbox">Shortlisted<br><strong>456</strong>
+                <div class="data">+8% from last month</div>
+            </div>
+            <div class="statsbox">Interviews<br><strong>89</strong>
+                <div class="data1">-3% from last month</div>
+            </div>
+            <div class="statsbox">Hired<br><strong>32</strong>
+                <div class="data">+15% from last month</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="candidate">
+        <div class="apply">
+            <strong>Applied</strong>
+            <div class="candidate-box"><strong>John Smith </strong> Frontend Developer</div>
+            <div class="candidate-box"><strong>Sarah Johnson </strong>UX Designer</div>
+        </div>
+
+        <div class="short">
+            <strong>Shortlisted</strong>
+            <div class="candidate-box"><strong>Mike Wilson</strong> Backend Developer</div>
+        </div>
+
+        <div class="interview"><strong>Interview</strong>
+            <div class="candidate-box"><strong>Emma Davis</strong> Product Manager</div>
+        </div>
+
+
+        <div class="hire"><strong>Hired</strong>
+            <div class="candidate-box"><strong>David Brown</strong> DevOps Engineer</div>
+        </div>
+    </div>
+
+    <div class="Feedback">
+        <strong>Notes&Feedback</strong>
+        <button class="button">+Add Notes</button><br>
+
+        <strong>Interview Feedback-Emma Davis</strong>
+        <div id="date">Added by Sarah HR.Jan 20,2025</div>
+        Strong technical skills and great communication.Shows potencial.Recommened for next round.
+        <br><br>
+        <strong>Technical Assessment-Mike Wilson</strong>
+        <div id="date">Added by Sarah HR.Jan 18,2025</div>
+        Completed coding challenge successfully.Good problem solving approach.Consider.
+    </div>
+
+</body>
+
+</html>
