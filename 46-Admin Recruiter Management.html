@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Recruiter Management</title>
+    <style>
+        /* Resetting default margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Full-screen layout adjustments */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Main container styling */
+        .container {
+            width: 100%;
+            max-width: 1400px; /* Adjusted for full-screen layout */
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Header section styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px; /* Slightly larger for full-screen */
+        }
+
+        .header button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Filters section styling */
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filters input, .filters select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            flex: 1;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f1f1f1;
+        }
+
+        /* Status badge styling */
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .status.pending {
+            background-color: #ffc107;
+            color: #fff;
+        }
+
+        /* Action buttons styling */
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions button {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .actions .view {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .actions .block {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        /* Profile card styling */
+        .profile-card {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 20px;
+        }
+
+        .profile-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .profile-card .info {
+            flex: 1;
+        }
+
+        .profile-card .info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .profile-card .info p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .profile-card .info .verified {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            font-size: 12px;
+        }
+
+        .profile-card .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+    </style>
+
+       
+
+       
+</head>
+<body>
+    <!-- Main container -->
+    <div class="container">
+        <!-- Header section -->
+        <div class="header">
+            <h1>Recruiter Management</h1>
+            <button>Add New Job</button>
+        </div>
+
+        <!-- Filters section -->
+        <div class="filters">
+            <input type="text" placeholder="Search by Job Title, Recruiter Name, or Company">
+            <select>
+                <option>Status: All</option>
+                <option>Pending</option>
+                <option>Approved</option>
+                <option>Rejected</option>
+            </select>
+            <select>
+                <option>Select Company</option>
+                <option>Infosys</option>
+                <option>TCS</option>
+                <option>Wipro</option>
+            </select>
+            <input type="date">
+            <input type="date">
+        </div>
+
+        <!-- Job table -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Company</th>
+                    <th>Recruiter</th>
+                    <th>Posted Date</th>
+                    <th>Deadline</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Senior Frontend Developer</td>
+                    <td>Infosys</td>
+                    <td>John Smith</td>
+                    <td>Jan 15, 2025</td>
+                    <td>Feb 15, 2025</td>
+                    <td><span class="status pending">Pending</span></td>
+                    <td class="actions">
+                        <button class="view">View</button>
+                        <button class="block">Block</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Profile cards -->
+        <div class="profile-card">
+            <img src="https://i.pinimg.com/736x/33/d2/a7/33d2a732aa1d3195349ad518526c5f42.jpg" alt="Profile Picture">
+            <div class="info">
+                <h3>Michael Johnson <span class="verified">Verified</span></h3>
+                <p>michael@infosys.com</p>
+                <p>Infosys</p>
+                <p>12 Jobs Posted</p>
+            </div>
+            <div class="actions">
+                <button class="view">View Profile</button>
+                <button class="block">Block</button>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <img src="https://i.pinimg.com/736x/66/08/99/660899099be9b8c6b643bda474e1207c.jpg" alt="Profile Picture">
+            <div class="info">
+                <h3>Sarah Williams <span class="verified">Verified</span></h3>
+                <p>sarah@tcs.com</p>
+                <p>TCS</p>
+                <p>8 Jobs Posted</p>
+            </div>
+            <div class="actions">
+                <button class="view">View Profile</button>
+                <button class="block">Block</button>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <img src="https://i.pinimg.com/736x/c9/b3/ac/c9b3ac26a6b6d3b7f23ebbb8f25a249a.jpg" alt="Profile Picture">
+            <div class="info">
+                <h3>David Brown <span class="verified">verified</span></h3>
+                <p>david@wipro.com</p>
+                <p>Wipro</p>
+                <p>15 Jobs Posted</p>
+            </div>
+            <div class="actions">
+                <button class="view">View Profile</button>
+                <button class="block">Block</button>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <img src="https://i.pinimg.com/736x/17/42/b7/1742b7b991e18e49a44d0c1c8264c8ca.jpg" alt="Profile Picture">
+            <div class="info">
+                <h3>Emily Davis <span class="verified">verified</span></h3>
+                <p>emily@hcl.com</p>
+                <p>HCL</p>
+                <p>10 Jobs Posted</p>
+            </div>
+            <div class="actions">
+                <button class="view">View Profile</button>
+                <button class="block">Block</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

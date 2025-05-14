@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Home</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+        background: #f9fafb;
+        color: #111827;
+    }
+
+    .dashboard {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        background-color: #111827;
+        color: white;
+        width: 240px;
+        padding: 2rem 1rem;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 2rem;
+    }
+
+    .sidebar .nav {
+        list-style: none;
+    }
+
+    .sidebar .nav li {
+        padding: 0.8rem;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+
+    .sidebar .nav li.active,
+    .sidebar .nav li:hover {
+        background-color: #3b82f6;
+    }
+
+    /* Main Content */
+    .main-content {
+        flex: 1;
+        padding: 2rem;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header p {
+        color: gray;
+    }
+
+    .user-icon img {
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .metrics {
+        display: flex;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+
+    .card {
+        background: white;
+        padding: 1rem;
+        border-radius: 12px;
+        flex: 1;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .card .count {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .status {
+        font-size: 0.9rem;
+    }
+
+    .success {
+        color: green;
+    }
+
+    .warning {
+        color: orange;
+    }
+
+    .danger {
+        color: red;
+    }
+
+    .info-section {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .requests,
+    .security {
+        background: white;
+        padding: 1rem;
+        border-radius: 12px;
+        flex: 1;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .user-request {
+        display: flex;
+        align-items: center;
+        justify-content: space-between; /* Keeps the layout balanced */
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .user-request img {
+        width: 40px;
+        border-radius: 50%;
+    }
+
+    .btns {
+        display: flex;
+        gap: 0.5rem; /* Adds spacing between buttons */
+        margin-left: auto; /* Pushes buttons to the right */
+        
+    }
+
+    .btns button {
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+    }
+
+    .approve {
+        background-color: #10b981;
+        color: white;
+    }
+
+    .reject {
+        background-color: #ef4444;
+        color: white;
+    }
+
+    .security-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+    }
+
+    .security-item.secure {
+        color: green;
+    }
+
+    .security-item.warning {
+        color: orange;
+    }
+
+    .graph-section {
+        background: white;
+        margin-top: 2rem;
+        padding: 1rem;
+        border-radius: 12px;
+    }
+
+    .graph-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .filters button {
+        margin-left: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        background-color: #e5e7eb;
+    }
+
+    .filters .active {
+        background-color: #3b82f6;
+        color: white;
+    }
+
+    .graph-placeholder {
+        background-color: #f3f4f6;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: gray;
+        border-radius: 8px;
+    }
+</style>
+
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul class="nav">
+                <li class="active">User Management</li>
+                <li>Analytics</li>
+                <li>Security</li>
+                <li>Settings</li>
+                <li>Job Management</li>
+                <li>Interview Monitor</li>
+                <li>Recruiter Management</li>
+                <li>Platform Settings</li>
+                <li>Report</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <div>
+                    <h1>Dashboard Overview</h1>
+                    <p>Welcome back, Admin</p>
+                </div>
+                <div class="user-icon">
+                    <img src="https://i.pravatar.cc/40" alt="Profile" />
+                </div>
+            </header>
+
+            <!-- Metrics -->
+            <section class="metrics">
+                <div class="card">
+                    <h3>Total Users</h3>
+                    <p class="count">24,580</p>
+                    <span class="status success">+12% this week</span>
+                </div>
+                <div class="card">
+                    <h3>Pending Approvals</h3>
+                    <p class="count">145</p>
+                    <span class="status warning">23 urgent</span>
+                </div>
+                <div class="card">
+                    <h3>Security Alerts</h3>
+                    <p class="count">12</p>
+                    <span class="status danger">3 critical</span>
+                </div>
+                <div class="card">
+                    <h3>System Health</h3>
+                    <p class="count">98.9%</p>
+                    <span class="status success">Optimal</span>
+                </div>
+            </section>
+
+            <!-- Requests & Security -->
+            <section class="info-section">
+                <div class="requests">
+                    <div class="section-header">
+                        <h3>Recent User Requests</h3>
+                        <a href="#">View All</a>
+                    </div>
+                    <div class="user-request">
+                        <img src="https://i.pravatar.cc/40?img=1" alt="John" />
+                        <div>
+                            <strong>John Cooper</strong>
+                            <p>Employer Verification</p>
+                        </div>
+                        <div class="btns">
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </div>
+                    </div>
+                    <div class="user-request">
+                        <img src="https://i.pravatar.cc/40?img=2" alt="Sarah" />
+                        <div>
+                            <strong>Sarah Wilson</strong>
+                            <p>Account Verification</p>
+                        </div>
+                        <div class="btns">
+                            <button class="approve">Approve</button>
+                            <button class="reject">Reject</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="security">
+                    <div class="section-header">
+                        <h3>Security Overview</h3>
+                        <a href="#">View Details</a>
+                    </div>
+                    <div class="security-item secure">
+                        <span>🛡 Firewall Status</span>
+                        <strong>Secure</strong>
+                    </div>
+                    <div class="security-item warning">
+                        <span>🔒 SSL Certificate</span>
+                        <strong>Expires in 45 days</strong>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Graph Placeholder -->
+            <section class="graph-section">
+                <div class="graph-header">
+                    <h3>System Performance</h3>
+                    <div class="filters">
+                        <button>Daily</button>
+                        <button class="active">Weekly</button>
+                        <button>Monthly</button>
+                    </div>
+                </div>
+                <div class="graph-placeholder">Performance Graph Placeholder</div>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

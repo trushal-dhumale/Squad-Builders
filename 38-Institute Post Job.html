@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institute Post Job</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f9fafb;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 24px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+
+    .job-type {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .job-type button {
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #f9fafb;
+      cursor: pointer;
+    }
+
+    .job-type .active {
+      background: #eef2ff;
+      color: #2563eb;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 16px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .form-actions button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .preview-btn {
+      background: #f3f4f6;
+    }
+
+    .post-btn {
+      background: #2563eb;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Post a New Job</h2>
+    <div class="job-type">
+      <button class="active">Full-time</button>
+      <button>Internship</button>
+    </div>
+
+    <div class="form-group">
+      <label>Job Title</label>
+      <input type="text" placeholder="e.g. Senior Software Engineer" />
+    </div>
+
+    <div class="form-group">
+      <label>Description <button
+          style="font-size: 12px; background: none; color: #2563eb; border: none; cursor: pointer;">✨ AI
+          Suggestions</button></label>
+      <textarea placeholder="Write job description..." rows="4"></textarea>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Stipend/Salary</label>
+        <input type="text" placeholder="e.g. $80,000 - $120,000" />
+      </div>
+      <div class="form-group">
+        <label>Duration</label>
+        <input type="text" placeholder="e.g. 6 months" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Location</label>
+        <input type="text" placeholder="e.g. New York, NY" />
+      </div>
+      <div class="form-group">
+        <label>Application Deadline</label>
+        <input type="date" />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Required Skills</label>
+        <input type="text" placeholder="e.g. React, Node.js, MongoDB" />
+      </div>
+      <div class="form-group">
+        <label>Course Preference</label>
+        <select>
+          <option>Computer Science</option>
+          <option>Information Technology</option>
+          <option>Electronics</option>
+          <option>Any</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="preview-btn">👁️ Preview</button>
+      <button class="post-btn">📤 Post Job</button>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>institute export student Data</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f9fafb;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .institute-export {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            width: 600px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            color: #1f2937;
+            margin: 0 0 8px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #4b5563;
+            margin: 0 0 16px;
+        }
+
+        .section {
+            margin-bottom: 16px;
+        }
+
+        .section h2 {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .button {
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .button.primary {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #2563eb;
+        }
+
+        .button.secondary {
+            background: #f9fafb;
+            border-color: #d1d5db;
+            color: #4b5563;
+        }
+
+        .filters,
+        .columns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter,
+        .column {
+            background: #f3f4f6;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        .export-range {
+            display: flex;
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="institute-export">
+        <div class="header">
+            <h1>Export Students Data</h1>
+            <p>Export your students' data in your preferred format</p>
+        </div>
+        <div class="section">
+            <h2>File Format</h2>
+            <div class="buttons">
+                <button class="button primary">Excel (.xlsx)</button>
+                <button class="button secondary">CSV</button>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Applied Filters</h2>
+            <div class="filters">
+                <div class="filter">Batch: 2025</div>
+                <div class="filter">Course: B.Tech</div>
+                <div class="filter">Status: Active</div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Select Columns to Export</h2>
+            <div class="columns">
+                <div class="column">Name</div>
+                <div class="column">Email</div>
+                <div class="column">Phone</div>
+                <div class="column">Course</div>
+                <div class="column">Branch</div>
+                <div class="column">Year</div>
+                <div class="column">Resume Status</div>
+                <div class="column">Applications Count</div>
+                <div class="column">Placement Status</div>
+                <div class="column">Company Name</div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Export Range</h2>
+            <div class="export-range">
+                <button class="button primary">Export All (2,458 records)</button>
+                <button class="button secondary">Current Page (50 records)</button>
+            </div>
+        </div>
+        <div class="section buttons">
+            <button class="button secondary">Cancel</button>
+            <button class="button primary">Export Now</button>
+        </div>
+    </div>
+</body>
+
+</html>
