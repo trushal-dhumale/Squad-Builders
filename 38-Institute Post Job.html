@@ -2,175 +2,176 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Institute Post Job</title>
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post a New Job</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+    /* Simple fade animation */
+    .fade-enter {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.4s ease-in-out;
     }
-
-    body {
-      margin: 0;
-      background: #f9fafb;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 24px;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    h2 {
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-
-    .job-type {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .job-type button {
-      padding: 10px 20px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      background: #f9fafb;
-      cursor: pointer;
-    }
-
-    .job-type .active {
-      background: #eef2ff;
-      color: #2563eb;
-      font-weight: 600;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-
-    .form-row {
-      display: flex;
-      gap: 16px;
-    }
-
-    .form-row .form-group {
-      flex: 1;
-    }
-
-    .form-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 24px;
-    }
-
-    .form-actions button {
-      padding: 12px 24px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .preview-btn {
-      background: #f3f4f6;
-    }
-
-    .post-btn {
-      background: #2563eb;
-      color: white;
+    .fade-enter-active {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
 
-<body>
-  <div class="container">
-    <h2>Post a New Job</h2>
-    <div class="job-type">
-      <button class="active">Full-time</button>
-      <button>Internship</button>
+<body class="bg-gray-50 min-h-screen py-10">
+  <div class="max-w-4xl mx-auto px-4">
+    <h2 class="text-4xl font-bold mb-8 text-center">Post a New Job</h2>
+
+    <!-- Job Type Toggle Buttons -->
+    <div class="flex justify-center gap-4 mb-8">
+      <button id="fullTimeBtn"
+        class="job-type-btn px-6 py-3 text-lg font-semibold rounded-lg border border-gray-300 hover:bg-indigo-50 transition">Full-time</button>
+      <button id="internshipBtn"
+        class="job-type-btn px-6 py-3 text-lg font-semibold rounded-lg border border-gray-300 hover:bg-indigo-50 transition">Internship</button>
     </div>
 
-    <div class="form-group">
-      <label>Job Title</label>
-      <input type="text" placeholder="e.g. Senior Software Engineer" />
-    </div>
+    <!-- Full-time Form -->
+    <form id="fullTimeForm" class="job-form space-y-6 fade-enter fade-enter-active">
+      <!-- Full-time specific fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Job Title -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Job Title</label>
+          <input type="text" placeholder="e.g. Software Developer"
+            class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Salary -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Salary</label>
+          <input type="text" placeholder="e.g. ₹6 LPA" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Experience -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Experience Required</label>
+          <input type="text" placeholder="e.g. 2-4 years" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Skills -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Skills Required</label>
+          <input type="text" placeholder="e.g. Java, Spring Boot, React"
+            class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Location -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Location</label>
+          <input type="text" placeholder="e.g. Pune, Maharashtra" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Deadline -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Application Deadline</label>
+          <input type="date" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+      </div>
+      <div class="flex justify-end">
+        <button type="submit"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold">📤 Post Full-time Job</button>
+      </div>
+    </form>
 
-    <div class="form-group">
-      <label>Description <button
-          style="font-size: 12px; background: none; color: #2563eb; border: none; cursor: pointer;">✨ AI
-          Suggestions</button></label>
-      <textarea placeholder="Write job description..." rows="4"></textarea>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Stipend/Salary</label>
-        <input type="text" placeholder="e.g. $80,000 - $120,000" />
+    <!-- Internship Form -->
+    <form id="internshipForm" class="job-form hidden space-y-6 fade-enter fade-enter-active">
+      <!-- Internship specific fields -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Internship Title -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Internship Title</label>
+          <input type="text" placeholder="e.g. Frontend Intern"
+            class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Stipend -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Stipend</label>
+          <input type="text" placeholder="e.g. ₹10,000/month" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Duration -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Duration</label>
+          <input type="text" placeholder="e.g. 6 months" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Mode -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Mode</label>
+          <input type="text" placeholder="e.g. Remote / On-site"
+            class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Skills -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Skills Required</label>
+          <input type="text" placeholder="e.g. HTML, CSS, JavaScript"
+            class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
+        <!-- Deadline -->
+        <div>
+          <label class="block mb-1 text-sm font-medium">Application Deadline</label>
+          <input type="date" class="w-full border border-gray-300 p-3 rounded-md" />
+        </div>
       </div>
-      <div class="form-group">
-        <label>Duration</label>
-        <input type="text" placeholder="e.g. 6 months" />
+      <div class="flex justify-end">
+        <button type="submit"
+          class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-lg font-semibold">📤 Post Internship</button>
       </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Location</label>
-        <input type="text" placeholder="e.g. New York, NY" />
-      </div>
-      <div class="form-group">
-        <label>Application Deadline</label>
-        <input type="date" />
-      </div>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label>Required Skills</label>
-        <input type="text" placeholder="e.g. React, Node.js, MongoDB" />
-      </div>
-      <div class="form-group">
-        <label>Course Preference</label>
-        <select>
-          <option>Computer Science</option>
-          <option>Information Technology</option>
-          <option>Electronics</option>
-          <option>Any</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="form-actions">
-      <button class="preview-btn">👁️ Preview</button>
-      <button class="post-btn">📤 Post Job</button>
-    </div>
+    </form>
   </div>
+
+  <!-- Toggle JS with animation -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const fullTimeBtn = document.getElementById("fullTimeBtn");
+      const internshipBtn = document.getElementById("internshipBtn");
+      const fullTimeForm = document.getElementById("fullTimeForm");
+      const internshipForm = document.getElementById("internshipForm");
+
+      // Function to animate a form when it's shown
+      function animateForm(form) {
+        form.classList.remove("hidden"); // Show the form
+        form.classList.add("fade-enter"); // Add starting fade class
+        setTimeout(() => form.classList.add("fade-enter-active"), 10); // Trigger animation
+      }
+
+      // Function to handle which form is active (full-time or internship)
+      function setActiveForm(type) {
+        if (type === "full") {
+          // Highlight full-time button
+          fullTimeBtn.classList.add("bg-indigo-100", "text-indigo-600");
+          internshipBtn.classList.remove("bg-indigo-100", "text-indigo-600");
+
+          // Hide internship form
+          internshipForm.classList.add("hidden");
+
+          // Show and animate full-time form
+          animateForm(fullTimeForm);
+        } else {
+          // Highlight internship button
+          internshipBtn.classList.add("bg-indigo-100", "text-indigo-600");
+          fullTimeBtn.classList.remove("bg-indigo-100", "text-indigo-600");
+
+          // Hide full-time form
+          fullTimeForm.classList.add("hidden");
+
+          // Show and animate internship form
+          animateForm(internshipForm);
+        }
+      }
+
+      // Attach click listeners to buttons
+      fullTimeBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default button behavior
+        setActiveForm("full"); // Activate full-time form
+      });
+
+      internshipBtn.addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default button behavior
+        setActiveForm("intern"); // Activate internship form
+      });
+    });
+  </script>
 </body>
 
 </html>
