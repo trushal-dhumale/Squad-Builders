@@ -1,332 +1,214 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel Home</title>
-</head>
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box; 
-        font-family: 'Roboto', sans-serif;
-    }
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel with Custom Fonts</title>
+  <!-- Include Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Import custom fonts from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Define custom CSS styles -->
+  <style>
     body {
-        background: #f9fafb;
-        color: #111827;
+      font-family: 'Inter', sans-serif;
     }
 
-    .dashboard {
-        display: flex;
-        min-height: 100vh;
+    h1,
+    h2,
+    h3,
+    .heading {
+      font-family: 'Poppins', sans-serif;
     }
+  </style>
+</head>
 
-    /* Sidebar */
-    .sidebar {
-        background-color: #111827;
-        color: white;
-        width: 240px;
-        padding: 2rem 1rem;
-    }
+<body class="bg-gray-100 text-gray-800">
+  <!-- Main container using flexbox for the entire screen -->
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="bg-gray-900 text-white w-64 p-6 overflow-y-auto">
+      <!-- Admin Panel Heading -->
+      <h2 class="text-2xl font-bold mb-6 heading">Admin Panel</h2>
+      <!-- Navigation list -->
+      <ul class="space-y-2">
+        <!-- User Management item with a blue background -->
+        <li class="bg-blue-600 p-2 rounded">User Management</li>
+        <!-- Other navigation items with hover effect -->
+        <li class="hover:bg-blue-600 p-2 rounded">Analytics</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Security</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Settings</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Job Management</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Interview Monitor</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Recruiter Management</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Platform Settings</li>
+        <li class="hover:bg-blue-600 p-2 rounded">Report</li>
+      </ul>
+    </aside>
 
-    .sidebar h2 {
-        margin-bottom: 2rem;
-    }
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-y-auto">
+      <!-- Header Section -->
+      <header class="flex justify-between items-center mb-6">
+        <!-- Dashboard Overview -->
+        <div>
+          <h1 class="text-2xl font-bold heading">Dashboard Overview</h1>
+          <p class="text-gray-500">Welcome back, Admin</p>
+        </div>
+        <!-- Dropdown Menu -->
+        <div class="relative inline-block text-left">
+          <!-- Dropdown Button -->
+          <button id="dropdownButton" class="bg-blue-500 text-white px-4 py-2 rounded-md">Options</button>
+          <!-- Dropdown Menu Content -->
+          <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+            <div class="py-1 text-sm text-gray-700">
+              <!-- Dropdown links -->
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+              <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+            </div>
+          </div>
+        </div>
+      </header>
 
-    .sidebar .nav {
-        list-style: none;
-    }
+      <!-- Metrics Section -->
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Total Users Metric -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold heading">Total Users</h3>
+          <p class="text-2xl font-bold">24,580</p>
+          <span class="text-green-500">+12% this week</span>
+        </div>
+        <!-- Pending Approvals Metric -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold heading">Pending Approvals</h3>
+          <p class="text-2xl font-bold">145</p>
+          <span class="text-yellow-500">23 urgent</span>
+        </div>
+        <!-- Security Alerts Metric -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold heading">Security Alerts</h3>
+          <p class="text-2xl font-bold">12</p>
+          <span class="text-red-500">3 critical</span>
+        </div>
+        <!-- System Health Metric -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <h3 class="font-bold heading">System Health</h3>
+          <p class="text-2xl font-bold">98.9%</p>
+          <span class="text-green-500">Optimal</span>
+        </div>
+      </section>
 
-    .sidebar .nav li {
-        padding: 0.8rem;
-        cursor: pointer;
-        border-radius: 8px;
-    }
-
-    .sidebar .nav li.active,
-    .sidebar .nav li:hover {
-        background-color: #3b82f6;
-    }
-
-    /* Main Content */
-    .main-content {
-        flex: 1;
-        padding: 2rem;
-    }
-
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .header p {
-        color: gray;
-    }
-
-    .user-icon img {
-        width: 40px;
-        border-radius: 50%;
-    }
-
-    .metrics {
-        display: flex;
-        gap: 1rem;
-        margin: 2rem 0;
-    }
-
-    .card {
-        background: white;
-        padding: 1rem;
-        border-radius: 12px;
-        flex: 1;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .card .count {
-        font-size: 1.5rem;
-        font-weight: bold;
-    }
-
-    .status {
-        font-size: 0.9rem;
-    }
-
-    .success {
-        color: green;
-    }
-
-    .warning {
-        color: orange;
-    }
-
-    .danger {
-        color: red;
-    }
-
-    .info-section {
-        display: flex;
-        gap: 2rem;
-    }
-
-    .requests,
-    .security {
-        background: white;
-        padding: 1rem;
-        border-radius: 12px;
-        flex: 1;
-    }
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .user-request {
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Keeps the layout balanced */
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .user-request img {
-        width: 40px;
-        border-radius: 50%;
-    }
-
-    .btns {
-        display: flex;
-        gap: 0.5rem; /* Adds spacing between buttons */
-        margin-left: auto; /* Pushes buttons to the right */
-        
-    }
-
-    .btns button {
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-    }
-
-    .approve {
-        background-color: #10b981;
-        color: white;
-    }
-
-    .reject {
-        background-color: #ef4444;
-        color: white;
-    }
-
-    .security-item {
-        display: flex;
-        justify-content: space-between;
-        padding: 0.5rem 0;
-    }
-
-    .security-item.secure {
-        color: green;
-    }
-
-    .security-item.warning {
-        color: orange;
-    }
-
-    .graph-section {
-        background: white;
-        margin-top: 2rem;
-        padding: 1rem;
-        border-radius: 12px;
-    }
-
-    .graph-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-
-    .filters button {
-        margin-left: 0.5rem;
-        padding: 0.4rem 0.8rem;
-        border-radius: 6px;
-        border: none;
-        cursor: pointer;
-        background-color: #e5e7eb;
-    }
-
-    .filters .active {
-        background-color: #3b82f6;
-        color: white;
-    }
-
-    .graph-placeholder {
-        background-color: #f3f4f6;
-        height: 200px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: gray;
-        border-radius: 8px;
-    }
-</style>
-
-<body>
-    <div class="dashboard">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h2>Admin Panel</h2>
-            <ul class="nav">
-                <li class="active">User Management</li>
-                <li>Analytics</li>
-                <li>Security</li>
-                <li>Settings</li>
-                <li>Job Management</li>
-                <li>Interview Monitor</li>
-                <li>Recruiter Management</li>
-                <li>Platform Settings</li>
-                <li>Report</li>
-            </ul>
-        </aside>
-
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
+      <!-- Requests & Security Section -->
+      <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        <!-- Recent User Requests -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <!-- Section Header -->
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-lg heading">Recent User Requests</h3>
+            <a href="#" class="text-blue-500">View All</a>
+          </div>
+          <!-- User Request Items -->
+          <div class="space-y-4">
+            <!-- Request 1 -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img src="https://i.pravatar.cc/40?img=1" class="rounded-full" alt="User Avatar" />
                 <div>
-                    <h1>Dashboard Overview</h1>
-                    <p>Welcome back, Admin</p>
+                  <p class="font-semibold">John Cooper</p>
+                  <p class="text-sm text-gray-500">Employer Verification</p>
                 </div>
-                <div class="user-icon">
-                    <img src="https://i.pravatar.cc/40" alt="Profile" />
+              </div>
+              <!-- Action Buttons -->
+              <div class="space-x-2">
+                <button class="bg-green-500 text-white px-3 py-1 rounded">Approve</button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded">Reject</button>
+              </div>
+            </div>
+            <!-- Request 2 -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <img src="https://i.pravatar.cc/40?img=2" class="rounded-full" alt="User Avatar" />
+                <div>
+                  <p class="font-semibold">Sarah Wilson</p>
+                  <p class="text-sm text-gray-500">Account Verification</p>
                 </div>
-            </header>
+              </div>
+              <!-- Action Buttons -->
+              <div class="space-x-2">
+                <button class="bg-green-500 text-white px-3 py-1 rounded">Approve</button>
+                <button class="bg-red-500 text-white px-3 py-1 rounded">Reject</button>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <!-- Metrics -->
-            <section class="metrics">
-                <div class="card">
-                    <h3>Total Users</h3>
-                    <p class="count">24,580</p>
-                    <span class="status success">+12% this week</span>
-                </div>
-                <div class="card">
-                    <h3>Pending Approvals</h3>
-                    <p class="count">145</p>
-                    <span class="status warning">23 urgent</span>
-                </div>
-                <div class="card">
-                    <h3>Security Alerts</h3>
-                    <p class="count">12</p>
-                    <span class="status danger">3 critical</span>
-                </div>
-                <div class="card">
-                    <h3>System Health</h3>
-                    <p class="count">98.9%</p>
-                    <span class="status success">Optimal</span>
-                </div>
-            </section>
+        <!-- Security Overview -->
+        <div class="bg-white p-4 rounded-lg shadow">
+          <!-- Section Header -->
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="font-bold text-lg heading">Security Overview</h3>
+            <a href="#" class="text-blue-500">View Details</a>
+          </div>
+          <!-- Security Status Items -->
+          <div class="space-y-3">
+            <!-- Firewall Status -->
+            <div class="flex justify-between text-green-600">
+              <span>🛡 Firewall Status</span>
+              <strong>Secure</strong>
+            </div>
+            <!-- SSL Certificate Status -->
+            <div class="flex justify-between text-yellow-500">
+              <span>🔐 SSL Certificate</span>
+              <strong>Expires in 45 days</strong>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <!-- Requests & Security -->
-            <section class="info-section">
-                <div class="requests">
-                    <div class="section-header">
-                        <h3>Recent User Requests</h3>
-                        <a href="#">View All</a>
-                    </div>
-                    <div class="user-request">
-                        <img src="https://i.pravatar.cc/40?img=1" alt="John" />
-                        <div>
-                            <strong>John Cooper</strong>
-                            <p>Employer Verification</p>
-                        </div>
-                        <div class="btns">
-                            <button class="approve">Approve</button>
-                            <button class="reject">Reject</button>
-                        </div>
-                    </div>
-                    <div class="user-request">
-                        <img src="https://i.pravatar.cc/40?img=2" alt="Sarah" />
-                        <div>
-                            <strong>Sarah Wilson</strong>
-                            <p>Account Verification</p>
-                        </div>
-                        <div class="btns">
-                            <button class="approve">Approve</button>
-                            <button class="reject">Reject</button>
-                        </div>
-                    </div>
-                </div>
+      <!-- Graph Placeholder Section -->
+      <section class="bg-white p-4 rounded-lg shadow">
+        <!-- Section Header -->
+        <div class="flex justify-between mb-4">
+          <h3 class="font-bold text-lg heading">System Performance</h3>
+          <!-- Time Range Buttons -->
+          <div class="space-x-2">
+            <button class="bg-gray-200 px-3 py-1 rounded">Daily</button>
+            <button class="bg-blue-600 text-white px-3 py-1 rounded">Weekly</button>
+            <button class="bg-gray-200 px-3 py-1 rounded">Monthly</button>
+          </div>
+        </div>
+        <!-- Graph Placeholder -->
+        <div class="h-48 flex items-center justify-center bg-gray-100 rounded">
+          <p class="text-gray-400">Performance Graph Placeholder</p>
+        </div>
+      </section>
+    </main>
+  </div>
 
-                <div class="security">
-                    <div class="section-header">
-                        <h3>Security Overview</h3>
-                        <a href="#">View Details</a>
-                    </div>
-                    <div class="security-item secure">
-                        <span>🛡 Firewall Status</span>
-                        <strong>Secure</strong>
-                    </div>
-                    <div class="security-item warning">
-                        <span>🔒 SSL Certificate</span>
-                        <strong>Expires in 45 days</strong>
-                    </div>
-                </div>
-            </section>
+  <!-- Dropdown Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Get references to the button and the menu
+      const button = document.getElementById('dropdownButton');
+      const menu = document.getElementById('dropdownMenu');
 
-            <!-- Graph Placeholder -->
-            <section class="graph-section">
-                <div class="graph-header">
-                    <h3>System Performance</h3>
-                    <div class="filters">
-                        <button>Daily</button>
-                        <button class="active">Weekly</button>
-                        <button>Monthly</button>
-                    </div>
-                </div>
-                <div class="graph-placeholder">Performance Graph Placeholder</div>
-            </section>
-        </main>
-    </div>
+      // Add a click event listener to the button
+      button.addEventListener('click', function () {
+        // Toggle the 'hidden' class on the menu
+        menu.classList.toggle('hidden');
+      });
+
+      // Add a click event listener to the window
+      window.addEventListener('click', function (e) {
+        // If the click is outside the button and the menu, hide the menu
+        if (!button.contains(e.target) && !menu.contains(e.target)) {
+          menu.classList.add('hidden');
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
