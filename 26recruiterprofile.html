@@ -9,7 +9,6 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #fcfbfb;
-
     }
 
     .header h1 {
@@ -33,6 +32,7 @@
       border-radius: 5px;
       background-color: #3d11ec;
       color: white;
+      cursor: pointer;
     }
 
     .information {
@@ -60,6 +60,7 @@
       height: 40px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 15px;
+      text-align: center;
     }
 
     .section {
@@ -72,6 +73,7 @@
       margin-top: 10px;
       display: inline-flex;
       gap: 15px;
+      align-items: center;
     }
 
     .Information {
@@ -113,6 +115,8 @@
     .deactive {
       color: red;
       float: inline-end;
+      cursor: pointer;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -125,50 +129,78 @@
 
   <div class="profile">
     <strong>John Doe</strong>
-    <div>Senior Recruiter at Microsoft</div><br>
-    <div>Bengaluru, India</div><br>
-    <button class="button">Edit Profile</button>
-    <button>View Drives</button>
+    <div>Senior Recruiter at Microsoft</div><br />
+    <div>Bengaluru, India</div><br />
+    <button class="button" id="editProfileBtn">Edit Profile</button>
+    <button id="viewDrivesBtn">View Drives</button>
   </div>
-  <br><br>
+  <br /><br />
 
   <div class="Information">
     <div class="information">
-      <p class="Contact">Contact Information</p><br>
-      <div>Email: john@example.com</div><br>
-      <div>Phone: +91-9876543210</div><br>
+      <p class="Contact">Contact Information</p><br />
+      <div>Email: john@example.com</div><br />
+      <div>Phone: +91-9876543210</div><br />
       <div>Company: Microsoft</div>
-    </div><br>
+    </div><br />
 
     <div class="information">
-      <p class="Company">Company Details</p><br>
-      <div>Industry: IT Services</div><br>
-      <div>Company Size: 10,000+ Employees</div><br>
-      <div>Registered Since: Jan 2022</div><br>
+      <p class="Company">Company Details</p><br />
+      <div>Industry: IT Services</div><br />
+      <div>Company Size: 10,000+ Employees</div><br />
+      <div>Registered Since: Jan 2022</div><br />
       <div>Website: www.microsoft.com</div>
-    </div><br>
+    </div><br />
 
     <div class="information">
       <div class="stats-container">
-        <div class="stats"><strong class="stats1">18</strong><br>DrivesConducted</div>
-        <div class="stats"><strong class="stats2">120</strong><br>Students Hired</div>
-        <div class="stats"><strong class="stats3">94%</strong><br>Positive Feedback</div>
-        <div class="stats"><strong class="stats4">15 March 2025</strong><br>Last Drive</div>
+        <div class="stats">
+          <strong class="stats1">18</strong><br />Drives Conducted
+        </div>
+        <div class="stats">
+          <strong class="stats2">120</strong><br />Students Hired
+        </div>
+        <div class="stats">
+          <strong class="stats3">94%</strong><br />Positive Feedback
+        </div>
+        <div class="stats">
+          <strong class="stats4">15 March 2025</strong><br />Last Drive
+        </div>
       </div>
     </div>
   </div>
 
   <div class="section">
     <h3>Preferred Skills</h3>
-    <div class="infoitem"> <br><br><br>
+    <div class="infoitem">
+      <br /><br /><br />
       <span class="skill">Python</span>
-      <span class="skill">Data Stucture</span>
+      <span class="skill">Data Structure</span>
       <span class="skill">Machine Learning</span>
       <span class="skill">React</span>
     </div>
   </div>
 
-  <div class="deactive">Deactivate Account</div>
+  <div class="deactive" id="deactivateAccount">Deactivate Account</div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      
+      document.getElementById("editProfileBtn").addEventListener("click", function () {
+        alert("Edit Profile clicked. You can open a form or modal here.");
+      });
+
+      document.getElementById("viewDrivesBtn").addEventListener("click", function () {
+        window.location.href = "view-drives.html";
+      });
+      document.getElementById("deactivateAccount").addEventListener("click", function () {
+        const confirmDeactivate = confirm("Are you sure you want to deactivate your account?");
+        if (confirmDeactivate) {
+          alert("Your account has been deactivated.");
+        }
+      });
+    });
+  </script>
 
 </body>
 

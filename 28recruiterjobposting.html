@@ -15,7 +15,6 @@
       background-color: #f4f6f8;
       padding: 30px;
       color: #333;
-
     }
 
     h1 {
@@ -45,6 +44,9 @@
       margin-right: 2%;
       padding: 15px;
       border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      user-select: none;
     }
 
     .creative {
@@ -65,6 +67,12 @@
       margin-bottom: 5px;
     }
 
+    .template .selected {
+      background-color: #007bff;
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+    }
+
     .container {
       background: white;
       padding: 25px;
@@ -82,12 +90,16 @@
     }
 
     input,
-    select {
+    select,
+    textarea {
       width: 100%;
       padding: 10px;
       margin-top: 8px;
       border: 1px solid #ccc;
       border-radius: 6px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
     }
 
     .Title {
@@ -107,6 +119,23 @@
     .salary-range input:first-child {
       margin-right: 4%;
     }
+
+    button#submitBtn {
+      margin-top: 25px;
+      padding: 12px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button#submitBtn:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 
@@ -117,17 +146,17 @@
   <div class="template">
     <h3>Choose Template</h3>
 
-    <div class="tech">
+    <div class="tech" data-template="Tech Position">
       <strong>Tech Position</strong>
       <p>Perfect for IT, development <br> and technical roles</p>
     </div>
 
-    <div class="business">
+    <div class="business" data-template="Business Role">
       <strong>Business Role</strong>
       <p>Suitable for management <br> and business positions</p>
     </div>
 
-    <div class="creative">
+    <div class="creative" data-template="Creative Role">
       <strong>Creative Role</strong>
       <p>Ideal for design and <br> creative positions</p>
     </div>
@@ -137,36 +166,121 @@
     <h3>Job Details</h3>
 
     <label for="title">Job Title</label>
-    <input class="Title" placeholder="e.g Senior Software Engineer" />
+    <input class="Title" id="jobTitle" placeholder="e.g Senior Software Engineer" />
 
     <label for="location">Location</label>
-    <input type="text" placeholder="City, Location" />
+    <input type="text" id="jobLocation" placeholder="City, Location" />
 
     <label for="type">Employment Type</label>
-    <select>
+    <select id="employmentType">
+      <option value="">-- Select Employment Type --</option>
       <option>Full Time</option>
       <option>Part Time</option>
     </select>
 
     <label for="salary">Salary Range (Annual)</label>
     <div class="salary-range">
-      <input type="text" placeholder="Min" />
-      <input type="text" placeholder="Max" />
+      <input type="text" id="salaryMin" placeholder="Min" />
+      <input type="text" id="salaryMax" placeholder="Max" />
     </div>
 
     <label for="level">Experience Level</label>
-    <select>
+    <select id="experienceLevel">
+      <option value="">-- Select Experience Level --</option>
       <option>Entry Level</option>
       <option>Mid Level</option>
       <option>Senior Level</option>
     </select>
 
     <label>Required Skills</label>
-    <input type="text" value="JavaScript" placeholder="Add skills" />
+    <input type="text" id="requiredSkills" value="JavaScript" placeholder="Add skills" />
 
     <label>Job Description</label>
-    <textarea class="role" placeholder="Describe Role, Responsibilities, & Requirements"></textarea>
+    <textarea class="role" id="jobDescription" placeholder="Describe Role, Responsibilities, & Requirements"></textarea>
+
+    <button id="submitBtn">Submit Job Posting</button>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      let selectedTemplate = null;
+
+      
+      const templates = document.querySelectorAll(".template > div.tech, .template > div.business, .template > div.creative");
+      templates.forEach(template => {
+        template.addEventListener("click", function () {
+          
+          templates.forEach(t => t.classList.remove("selected"));
+          
+          this.classList.add("selected");
+          selectedTemplate = this.getAttribute("data-template");
+        });
+      });
+
+      
+      document.getElementById("submitBtn").addEventListener("click", function () {
+      
+        const title = document.getElementById("jobTitle").value.trim();
+        const location = document.getElementById("jobLocation").value.trim();
+        const employmentType = document.getElementById("employmentType").value;
+        const salaryMin = document.getElementById("salaryMin").value.trim();
+        const salaryMax = document.getElementById("salaryMax").value.trim();
+        const experienceLevel = document.getElementById("experienceLevel").value;
+        const skills = document.getElementById("requiredSkills").value.trim();
+        const description = document.getElementById("jobDescription").value.trim();
+
+      
+        if (!selectedTemplate) {
+          alert("Please select a job template.");
+          return;
+        }
+        if (!title) {
+          alert("Please enter the job title.");
+          return;
+        }
+        if (!location) {
+          alert("Please enter the job location.");
+          return;
+        }
+        if (!employmentType) {
+          alert("Please select the employment type.");
+          return;
+        }
+        if (salaryMin && isNaN(salaryMin)) {
+          alert("Please enter a valid number for minimum salary.");
+          return;
+        }
+        if (salaryMax && isNaN(salaryMax)) {
+          alert("Please enter a valid number for maximum salary.");
+          return;
+        }
+        if (!experienceLevel) {
+          alert("Please select experience level.");
+          return;
+        }
+        if (!skills) {
+          alert("Please enter required skills.");
+          return;
+        }
+        if (!description) {
+          alert("Please enter the job description.");
+          return;
+        }
+
+        let summary = `Job Posting Summary:\n
+Template: ${selectedTemplate}
+Title: ${title}
+Location: ${location}
+Employment Type: ${employmentType}
+Salary Range: ${salaryMin || 'N/A'} - ${salaryMax || 'N/A'}
+Experience Level: ${experienceLevel}
+Required Skills: ${skills}
+Description: ${description}`;
+
+        alert(summary);
+      });
+    });
+  </script>
 
 </body>
 

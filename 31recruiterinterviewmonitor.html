@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recruiter Interview Monitor</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .card, .card1, .card2 {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      width: 250px;
+    }
+
+    .card1 {
+      height: 150px;
+      text-align: center;
+    }
+
+    .card2 {
+      height: 250px;
+      transition: height 0.3s ease;
+      overflow: hidden;
+    }
+
+    .card h3, .card1 h3, .card2 h3 {
+      margin-top: 0;
+    }
+
+    .progress {
+      width: 100%;
+      background: #e0e0e0;
+      height: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 5px;
+    }
+
+    .bar.skill { width: 85%; background: #3498db; }
+    .bar.solve { width: 92%; background: #2ecc71; }
+    .bar.comm { width: 78%; background: #f39c12; }
+
+    .schedule-item span {
+      font-size: 12px;
+      color: green;
+      font-weight: bold;
+    }
+
+    .current {
+      background-color: #e6f9f0;
+      border-left: 4px solid green;
+      padding-left: 10px;
+      margin-bottom: 10px;
+    }
+
+    .schedule-item {
+      margin-bottom: 10px;
+    }
+
+    .toggle-btn {
+      display: block;
+      margin-top: 10px;
+      color: #3498db;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .hidden-info {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Interview Monitor</h1>
+
+  <div class="container">
+
+    <div class="card" id="scheduleCard">
+      <h3>Today's Schedule</h3>
+      <div class="schedule-item current">
+        <p>10:00 AM <span>Current</span></p>
+        <strong>John Smith</strong>
+        <p>Frontend Developer</p>
+      </div>
+      <hr>
+      <div class="schedule-item">
+        <p>11:30 AM <span>Upcoming</span></p>
+        <strong>Sarah Johnson</strong>
+        <p>UX Designer</p>
+      </div>
+      <hr>
+      <div class="schedule-item">
+        <p>2:00 PM <span>Upcoming</span></p>
+        <strong>Mike Brown</strong>
+        <p>Backend Developer</p>
+      </div>
+    </div>
+
+    <div class="card2" id="candidateCard">
+      <h3>Candidate Info</h3>
+      <strong>John Smith</strong>
+      <p>Frontend Developer</p>
+      <div class="hidden-info">
+        <p>john.smith@email.com</p>
+        <p>San Francisco, CA</p>
+        <p>5 years experience</p>
+      </div>
+      <span class="toggle-btn" onclick="toggleInfo()">Show More</span>
+    </div>
+
+    <div class="card1">
+      <h3>Interview Duration</h3>
+      <strong style="font-size: 22px;" id="timer">00:00</strong>
+      <p>Minutes Elapsed</p>
+    </div>
+
+    <div class="card">
+      <h3>Performance Score</h3>
+      <p>Technical Skills</p>
+      <div class="progress"><div class="bar skill"></div></div>
+      <p>Problem Solving</p>
+      <div class="progress"><div class="bar solve"></div></div>
+      <p>Communication</p>
+      <div class="progress"><div class="bar comm"></div></div>
+    </div>
+
+  </div>
+
+  <script>
+    
+    let startTime = new Date(); 
+    function updateTimer() {
+      const now = new Date();
+      const diff = Math.floor((now - startTime) / 1000);
+      const minutes = String(Math.floor(diff / 60)).padStart(2, '0');
+      const seconds = String(diff % 60).padStart(2, '0');
+      document.getElementById("timer").textContent = `${minutes}:${seconds}`;
+    }
+    setInterval(updateTimer, 1000);
+
+    
+    function toggleInfo() {
+      const info = document.querySelector(".hidden-info");
+      const toggle = document.querySelector(".toggle-btn");
+      const card = document.getElementById("candidateCard");
+      if (info.style.display === "none" || info.style.display === "") {
+        info.style.display = "block";
+        toggle.textContent = "Show Less";
+        card.style.height = "auto";
+      } else {
+        info.style.display = "none";
+        toggle.textContent = "Show More";
+        card.style.height = "250px";
+      }
+    }
+    const scheduleItems = document.querySelectorAll(".schedule-item");
+    scheduleItems.forEach((item, index) => {
+      if (index === 0) {
+        item.classList.add("current");
+      }
+    });
+  </script>
+
+</body>
+</html>

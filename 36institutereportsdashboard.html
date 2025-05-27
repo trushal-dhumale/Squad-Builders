@@ -259,6 +259,38 @@
     </div>
   </section>
 
-</body>
+<script>
+  
+  document.querySelector('.pdf').addEventListener('click', () => {
+    alert('PDF Export initiated (functionality not implemented yet)');
+  });
 
+  document.querySelector('.excel').addEventListener('click', () => {
+    alert('Excel Export initiated (functionality not implemented yet)');
+  })
+  const selects = document.querySelectorAll('.filters select');
+  selects.forEach(select => {
+    select.addEventListener('change', () => {
+      console.log('Selected:', select.value);
+  
+    });
+  });
+  const monthlyChart = document.querySelectorAll('.chart-box')[0];
+  const yearlyChart = document.querySelectorAll('.chart-box')[1];
+  const courseChart = document.querySelector('.container3');
+
+  monthlyChart.innerText = ' Monthly Chart Placeholder';
+  yearlyChart.innerText = 'Yearly Chart Placeholder';
+  courseChart.innerText = ' Course-wise Chart Placeholder';
+
+
+  const updateDriveStats = () => {
+    document.querySelector('.drives').textContent = 'Total Drives: 35';
+    document.querySelector('.Participants').textContent = 'Participants: 900+';
+    document.querySelector('.offers').textContent = 'Offers: 420';
+  };
+
+  updateDriveStats();
+</script>
+</body>
 </html>

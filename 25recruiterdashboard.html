@@ -223,6 +223,104 @@
       </div>
     </div>
   </div>
+  <script>
+  const candidates = [
+    {
+      name: "Sarah Johnson",
+      title: "Senior UX Designer",
+      experience: 8,
+      match: 94,
+      skill: "UX Design",
+      role: "Designer"
+    },
+    {
+      name: "Michael Chen",
+      title: "Full Stack Developer",
+      experience: 5,
+      match: 93,
+      skill: "JavaScript",
+      role: "Developer"
+    },
+    {
+      name: "Emily Rodriguez",
+      title: "Product Manager",
+      experience: 6,
+      match: 92,
+      skill: "Product Management",
+      role: "Manager"
+    }
+  ];
+
+  const candidateContainer = document.querySelector(".candidates");
+  const skillFilter = document.querySelectorAll("select")[1];
+  const roleFilter = document.querySelectorAll("select")[3];
+  const searchInput = document.querySelector(".job");
+  const skills = [...new Set(candidates.map(c => c.skill))];
+  const roles = [...new Set(candidates.map(c => c.role))];
+
+  skills.forEach(skill => {
+    const option = document.createElement("option");
+    option.textContent = skill;
+    option.value = skill;
+    skillFilter.appendChild(option);
+  });
+
+  roles.forEach(role => {
+    const option = document.createElement("option");
+    option.textContent = role;
+    option.value = role;
+    roleFilter.appendChild(option);
+  });
+  function renderCandidates(data) {
+    candidateContainer.innerHTML = "";
+    data.forEach(candidate => {
+      const div = document.createElement("div");
+      div.className = "candidate";
+      div.innerHTML = `
+        <div class="candidate-info">
+          <strong>${candidate.name}</strong><br>
+          ${candidate.title} • ${candidate.experience} years experience
+        </div>
+        <div class="match">${candidate.match}% Match</div>
+        <button class="Interview">Schedule Interview</button>
+      `;
+      candidateContainer.appendChild(div);
+    });
+    document.querySelectorAll(".Interview").forEach(button => {
+      button.addEventListener("click", () => {
+        alert("Interview scheduled!");
+      });
+    });
+  }
+
+  renderCandidates(candidates);
+  function applyFilters() {
+    let filtered = candidates;
+
+    const selectedSkill = skillFilter.value;
+    const selectedRole = roleFilter.value;
+    const searchText = searchInput.value.toLowerCase();
+
+    if (selectedSkill !== "Select Skill") {
+      filtered = filtered.filter(c => c.skill === selectedSkill);
+    }
+
+    if (selectedRole !== "Any Roles") {
+      filtered = filtered.filter(c => c.role === selectedRole);
+    }
+
+    if (searchText) {
+      filtered = filtered.filter(c => c.title.toLowerCase().includes(searchText));
+    }
+
+    renderCandidates(filtered);
+  }
+
+  skillFilter.addEventListener("change", applyFilters);
+  roleFilter.addEventListener("change", applyFilters);
+  searchInput.addEventListener("input", applyFilters);
+</script>
+
 </body>
 
 </html>

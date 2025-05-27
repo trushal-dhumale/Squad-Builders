@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,7 +62,6 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
       margin-bottom: 15px;
       flex-wrap: wrap;
-      max-width: 100%;
     }
 
     .row-header span,
@@ -82,7 +80,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      flex-wrap: wrap;
     }
 
     .container {
@@ -103,7 +100,8 @@
       display: block;
     }
 
-    .container input .container select {
+    .container input,
+    .container select {
       width: 100%;
       padding: 10px;
       border-radius: 6px;
@@ -125,7 +123,6 @@
     }
 
     @media (max-width: 768px) {
-
       .row-header span,
       .row-data span {
         flex: 1 1 100%;
@@ -138,12 +135,10 @@
       .result {
         float: inline-start;
       }
-
     }
 
     .button {
       float: inline-end;
-
     }
   </style>
 </head>
@@ -153,32 +148,40 @@
   <div class="header">
     <h1>Application Dashboard</h1>
   </div>
+
   <div class="filter-box">
     <div class="filter-group">
       <label>Job Title</label>
-      <select>
-        <option>All Positions</option>
+      <select id="filter-job">
+        <option value="all">All Positions</option>
+        <option value="Frontend Developer">Frontend Developer</option>
+        <option value="Backend Developer">Backend Developer</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label>Students</label>
-      <select>
-        <option>All Students</option>
+      <select id="filter-student">
+        <option value="all">All Students</option>
+        <option value="Sarah Wilson">Sarah Wilson</option>
+        <option value="James Lee">James Lee</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label>Status</label>
-      <select>
-        <option>All Status</option>
+      <select id="filter-status">
+        <option value="all">All Status</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label>Recruiters</label>
-      <select>
-        <option>All Recruiters</option>
+      <select id="filter-recruiter">
+        <option value="all">All Recruiters</option>
+        <option value="ABC Corp">ABC Corp</option>
       </select>
     </div>
   </div>
@@ -192,25 +195,16 @@
     <span>Actions</span>
   </div>
 
-  <div class="row-data">
-    <span>Sarah Wilson</span>
-    <span>Frontend Developer</span>
-    <span>Jan 15, 2025</span>
-    <span><a href="#">Upload</a></span>
-    <span>Pending</span>
-    <span>
-    </span>
-  </div>
+  <div id="application-list"></div>
 
-
-  <p>Showing 1 to 97 results</p>
+  <p>Showing 1 to 2 results</p>
   <div class="button">
     <button>&lt;</button>
     <button>1</button>
     <button>2</button>
-    <button>3</button>
     <button>&gt;</button>
   </div>
+
   <br><br>
 
   <div class="container">
@@ -218,9 +212,7 @@
 
     <label>Resume Preview</label>
 
-
     <label>Cover Letter</label>
-
 
     <label>Interview</label>
     <select>
@@ -230,15 +222,72 @@
     </select>
 
     <label>Recruiter Feedback</label>
-    <input type="text" placeholder="Enter feedback">
+    <input type="text" placeholder="Enter feedback" id="feedback">
 
     <label>Email Student</label>
-    <input type="text" placeholder="Subject">
-    <input type="text" placeholder="Message content">
+    <input type="text" placeholder="Subject" id="email-subject">
+    <input type="text" placeholder="Message content" id="email-body">
 
-    <button>Send Email</button>
+    <button onclick="sendEmail()">Send Email</button>
   </div>
 
-</body>
+  <script>
+    const applications = [
+      {
+        student: "Sarah Wilson",
+        job: "Frontend Developer",
+        date: "Jan 15, 2025",
+        resume: "Upload",
+        status: "Pending",
+        recruiter: "ABC Corp"
+      },
+      {
+        student: "James Lee",
+        job: "Backend Developer",
+        date: "Jan 18, 2025",
+        resume: "Upload",
+        status: "Approved",
+        recruiter: "ABC Corp"
+      }
+    ];
 
+    const appList = document.getElementById("application-list");
+
+    function renderApplications(data) {
+      appList.innerHTML = "";
+      data.forEach(app => {
+        const row = document.createElement("div");
+        row.className = "row-data";
+        row.innerHTML = `
+          <span>${app.student}</span>
+          <span>${app.job}</span>
+          <span>${app.date}</span>
+          <span><a href="#" onclick="alert('Uploading resume for ${app.student}')">Upload</a></span>
+          <span>${app.status}</span>
+          <span><button onclick="alert('View details for ${app.student}')">View</button></span>
+        `;
+        appList.appendChild(row);
+      });
+    }
+
+    function filterApplications() {
+      const job = document.getElementById("filter-job").value;
+      const student = document.getElementById("filter-student").value;
+      const status = document.getElementById("filter-status").value;
+      const recruiter = document.getElementById("filter-recruiter").value;
+
+      const filtered = applications.filter(app =>
+        (job === "all" || app.job === job) &&
+        (student === "all" || app.student === student) &&
+        (status === "all" || app.status === status) &&
+        (recruiter === "all" || app.recruiter === recruiter)
+      );
+
+      renderApplications(filtered);
+    }
+
+    
+  </script>
+
+</body>
 </html>

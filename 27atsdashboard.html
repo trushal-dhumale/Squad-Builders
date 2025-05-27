@@ -195,6 +195,30 @@
         <div id="date">Added by Sarah HR.Jan 18,2025</div>
         Completed coding challenge successfully.Good problem solving approach.Consider.
     </div>
+    <script>
+  const addButton = document.querySelector(".button");
+  const feedbackContainer = document.querySelector(".Feedback");
+
+  addButton.addEventListener("click", function () {
+    const candidateName = prompt("Enter Candidate Name:");
+    if (!candidateName) return;
+
+    const feedbackText = prompt("Enter Feedback:");
+    if (!feedbackText) return;
+
+    const now = new Date();
+    const dateString = `Added by Sarah HR. ${now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`;
+
+    const feedbackBlock = document.createElement("div");
+    feedbackBlock.innerHTML = `
+      <strong>${candidateName}</strong>
+      <div id="date">${dateString}</div>
+      ${feedbackText}
+      <br><br>`;
+    feedbackContainer.insertBefore(feedbackBlock, addButton.nextSibling);
+  });
+</script>
+
 
 </body>
 
