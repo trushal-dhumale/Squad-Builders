@@ -1,282 +1,757 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel Settings</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Panel - Settings</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background: #f9fafb;
-            font-family: 'Poppins', Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 32px auto;
-            padding: 24px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px #0001;
-            border: 1px solid #e5e7eb;
-        }
-
-        h1 {
-            font-size: 22px;
-            font-weight: 600;
-            margin: 0 0 6px 0;
-        }
-
-        .subtitle {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 24px;
-        }
-
-        .settings-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-bottom: 32px;
-        }
-
-        .settings-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px #0001;
-            flex: 1 1 320px;
-            min-width: 320px;
-            max-width: 360px;
-            padding: 20px 20px 16px 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .settings-card .icon {
-            width: 24px;
-            height: 24px;
-            background: #2563eb11;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 4px;
-        }
-
-        .settings-card-title {
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 2px;
-        }
-
-        .settings-card-desc {
-            color: #4b5563;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .settings-card a {
-            color: #2563eb;
-            font-size: 13px;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .settings-card a:hover {
-            text-decoration: underline;
-        }
-
-        .system-status {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 1px 2px #0001;
-            padding: 24px;
-            margin-top: 8px;
-        }
-
-        .system-status-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .system-status-title {
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .system-status-desc {
-            color: #6b7280;
-            font-size: 13px;
-            margin-bottom: 12px;
-        }
-
-        .status-badge {
-            background: #d1fae5;
-            color: #059669;
-            border-radius: 9999px;
-            padding: 4px 16px;
-            font-size: 13px;
-            font-weight: 400;
-        }
-
-        .status-bars {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .status-bar-card {
-            background: #f9fafb;
-            border-radius: 8px;
-            padding: 12px 16px 10px 16px;
-            min-width: 220px;
-            flex: 1 1 220px;
-            margin-bottom: 8px;
-        }
-
-        .status-bar-label-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .status-bar-label {
-            color: #4b5563;
-        }
-
-        .status-bar-value {
-            font-weight: 500;
-            color: #000;
-        }
-
-        .progress-bg {
-            background: #e5e7eb;
-            border-radius: 9999px;
-            height: 8px;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .progress-fg {
-            background: #2563eb;
-            height: 8px;
-            border-radius: 9999px;
-        }
-
-        @media (max-width: 900px) {
-            .settings-grid {
-                flex-direction: column;
-                gap: 16px;
-            }
-
-            .status-bars {
-                flex-direction: column;
-                gap: 8px;
-            }
-        }
+      /* Ensure full height and scroll for overflow */
+      body {
+        min-height: 100vh;
+        overflow-y: auto; /* Enable vertical scrolling when content overflows */
+      }
+      /* Fix navigation bar to the top */
+      nav {
+        position: fixed; /* Fix the navigation bar to the top */
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100; /* Ensure it stays on top of other content */
+      }
+      /* Add margin to main content to avoid overlap with nav */
+      main {
+        margin-top: 60px; /* Add margin to the main content to avoid overlap */
+      }
     </style>
-</head>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 p-4 text-white">
+      <div class="container mx-auto flex items-center justify-between">
+        <!-- Logo/Home link -->
+        <a href="40-Admin Panel Home.html" class="text-xl font-bold">Admin Panel</a>
+        <!-- Compact Search Bar in Navigation -->
+        <div class="flex items-center space-x-4">
+          <!-- Search input for settings -->
+          <input
+            type="text"
+            id="settingsSearch"
+            class="hidden sm:block w-40 md:w-64 px-2 py-1 rounded text-gray-800 text-sm focus:outline-none"
+            placeholder="Search settings..."
+            aria-label="Search settings"
+            style="min-width:100px;"
+          />
+          <!-- Home button -->
+          <a
+            href="40-Admin Panel Home.html"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >Home</a
+          >
+        </div>
+      </div>
+    </nav>
 
-<body>
-    <div class="container">
-        <h1>Settings</h1>
-        <div class="subtitle">Manage your recruitment system preferences</div>
-        <div class="settings-grid">
-            <div class="settings-card">
-                <div class="icon">🏢</div>
-                <div class="settings-card-title">Company Settings</div>
-                <div class="settings-card-desc">Manage company information and branding</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-            <div class="settings-card">
-                <div class="icon">👥</div>
-                <div class="settings-card-title">User Management</div>
-                <div class="settings-card-desc">Manage team members and permissions</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-            <div class="settings-card">
-                <div class="icon">✉️</div>
-                <div class="settings-card-title">Email Templates</div>
-                <div class="settings-card-desc">Customize recruitment email templates</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-            <div class="settings-card">
-                <div class="icon">🔄</div>
-                <div class="settings-card-title">Workflow Settings</div>
-                <div class="settings-card-desc">Customize recruitment stages and workflow</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-            <div class="settings-card">
-                <div class="icon">🔗</div>
-                <div class="settings-card-title">Integrations</div>
-                <div class="settings-card-desc">Connect with external tools and services</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-            <div class="settings-card">
-                <div class="icon">🔔</div>
-                <div class="settings-card-title">Notifications</div>
-                <div class="settings-card-desc">Configure notification preferences</div>
-                <a href="#">Configure &rarr;</a>
-            </div>
-        </div>
-        <div class="system-status">
-            <div class="system-status-header">
-                <div>
-                    <div class="system-status-title">System Status</div>
-                    <div class="system-status-desc">Current system performance and statistics</div>
-                </div>
-                <div class="status-badge">All Systems Operational</div>
-            </div>
-            <div class="status-bars">
-                <div class="status-bar-card">
-                    <div class="status-bar-label-row">
-                        <span class="status-bar-label">Storage</span>
-                        <span class="status-bar-value">75%</span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-fg" style="width: 75%"></div>
-                    </div>
-                </div>
-                <div class="status-bar-card">
-                    <div class="status-bar-label-row">
-                        <span class="status-bar-label">API Usage</span>
-                        <span class="status-bar-value">45%</span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-fg" style="width: 45%"></div>
-                    </div>
-                </div>
-                <div class="status-bar-card">
-                    <div class="status-bar-label-row">
-                        <span class="status-bar-label">Email Quota</span>
-                        <span class="status-bar-value">60%</span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-fg" style="width: 60%"></div>
-                    </div>
-                </div>
-                <div class="status-bar-card">
-                    <div class="status-bar-label-row">
-                        <span class="status-bar-label">Database</span>
-                        <span class="status-bar-value">30%</span>
-                    </div>
-                    <div class="progress-bg">
-                        <div class="progress-fg" style="width: 30%"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <main class="max-w-7xl mx-auto p-8">
+      <!-- Page Title -->
+      <h1 class="text-3xl font-bold mb-6 text-gray-800">
+        Admin Panel Settings
+      </h1>
+      <p class="text-gray-600 mb-10">
+        Manage your recruitment system preferences
+      </p>
+      <!-- Add New Setting Section -->
+      <section class="mb-8">
+        <h2 class="text-xl font-semibold mb-4 text-gray-700">
+          Add New Setting
+        </h2>
+        <form id="newSettingForm" class="space-y-4">
+          <div>
+            <label
+              for="newSettingTitle"
+              class="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Title:
+            </label>
+            <input
+              type="text"
+              id="newSettingTitle"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Setting Title"
+            />
+          </div>
+          <div>
+            <label
+              for="newSettingContent"
+              class="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Content:
+            </label>
+            <textarea
+              id="newSettingContent"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Setting Content"
+            ></textarea>
+          </div>
+          <div>
+            <label
+              for="newSettingIcon"
+              class="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Icon:
+            </label>
+            <input
+              type="text"
+              id="newSettingIcon"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Icon (e.g., ⚙️)"
+            />
+          </div>
+          <button
+            type="button"
+            id="addSettingBtn"
+            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Add Setting
+          </button>
+        </form>
+      </section>
+      <!-- Settings Cards Section -->
+      <section
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8"
+        aria-label="Settings Options"
+        id="settingsContainer"
+      >
+        <!-- Each button below is a settings card. -->
+        <!-- Company Settings Card -->
+        <button
+          onclick="openModal('company')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-400"
+          aria-describedby="desc-company"
+        >
+          <div class="text-purple-600 mb-4 text-5xl" aria-hidden="true">🏢</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-purple-500 pb-1 w-full"
+          >
+            Company Settings
+          </h3>
+          <p id="desc-company" class="text-gray-600">
+            Manage company info & branding
+          </p>
+        </button>
+        <!-- User Management Card -->
+        <button
+          onclick="openModal('users')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-400"
+          aria-describedby="desc-users"
+        >
+          <div class="text-blue-500 mb-4 text-5xl" aria-hidden="true">👥</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-blue-500 pb-1 w-full"
+          >
+            User Management
+          </h3>
+          <p id="desc-users" class="text-gray-600">
+            Manage team members & permissions
+          </p>
+        </button>
+        <!-- Billing Settings Card -->
+        <button
+          onclick="openModal('billing')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-green-400"
+          aria-describedby="desc-billing"
+        >
+          <div class="text-green-600 mb-4 text-5xl" aria-hidden="true">💳</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-green-500 pb-1 w-full"
+          >
+            Billing Settings
+          </h3>
+          <p id="desc-billing" class="text-gray-600">
+            Manage subscription and payments
+          </p>
+        </button>
+        <!-- Security Settings Card -->
+        <button
+          onclick="openModal('security')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-400"
+          aria-describedby="desc-security"
+        >
+          <div class="text-red-600 mb-4 text-5xl" aria-hidden="true">🔒</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-red-500 pb-1 w-full"
+          >
+            Security Settings
+          </h3>
+          <p id="desc-security" class="text-gray-600">
+            Manage passwords & access control
+          </p>
+        </button>
+        <!-- Notification Settings Card -->
+        <button
+          onclick="openModal('notifications')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-yellow-400"
+          aria-describedby="desc-notifications"
+        >
+          <div class="text-yellow-500 mb-4 text-5xl" aria-hidden="true">🔔</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-yellow-500 pb-1 w-full"
+          >
+            Notification Settings
+          </h3>
+          <p id="desc-notifications" class="text-gray-600">
+            Manage alerts & emails
+          </p>
+        </button>
+        <!-- Integration Settings Card -->
+        <button
+          onclick="openModal('integration')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-400"
+          aria-describedby="desc-integration"
+        >
+          <div class="text-indigo-600 mb-4 text-5xl" aria-hidden="true">🔗</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-indigo-500 pb-1 w-full"
+          >
+            Integration Settings
+          </h3>
+          <p id="desc-integration" class="text-gray-600">
+            Manage connected apps & APIs
+          </p>
+        </button>
+        <!-- Appearance Settings Card -->
+        <button
+          onclick="openModal('appearance')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-pink-400"
+          aria-describedby="desc-appearance"
+        >
+          <div class="text-pink-600 mb-4 text-5xl" aria-hidden="true">🎨</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-pink-500 pb-1 w-full"
+          >
+            Appearance Settings
+          </h3>
+          <p id="desc-appearance" class="text-gray-600">
+            Customize theme & layout
+          </p>
+        </button>
+        <!-- Help & Support Card -->
+        <button
+          onclick="openModal('help')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-gray-400"
+          aria-describedby="desc-help"
+        >
+          <div class="text-gray-600 mb-4 text-5xl" aria-hidden="true">❓</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-gray-500 pb-1 w-full"
+          >
+            Help & Support
+          </h3>
+          <p id="desc-help" class="text-gray-600">Get assistance & FAQs</p>
+        </button>
+        <!-- Email Templates Card -->
+        <button
+          onclick="openModal('emailTemplates')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-orange-400"
+          aria-describedby="desc-emailTemplates"
+        >
+          <div class="text-orange-600 mb-4 text-5xl" aria-hidden="true">✉️</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-orange-500 pb-1 w-full"
+          >
+            Email Templates
+          </h3>
+          <p id="desc-emailTemplates" class="text-gray-600">
+            Customize email templates
+          </p>
+        </button>
+        <!-- SMS Settings Card -->
+        <button
+          onclick="openModal('smsSettings')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-teal-400"
+          aria-describedby="desc-smsSettings"
+        >
+          <div class="text-teal-600 mb-4 text-5xl" aria-hidden="true">💬</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-teal-500 pb-1 w-full"
+          >
+            SMS Settings
+          </h3>
+          <p id="desc-smsSettings" class="text-gray-600">
+            Configure SMS notifications
+          </p>
+        </button>
+        <!-- Data Backup Card -->
+        <button
+          onclick="openModal('dataBackup')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-lime-400"
+          aria-describedby="desc-dataBackup"
+        >
+          <div class="text-lime-600 mb-4 text-5xl" aria-hidden="true">💾</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-lime-500 pb-1 w-full"
+          >
+            Data Backup
+          </h3>
+          <p id="desc-dataBackup" class="text-gray-600">
+            Schedule data backups
+          </p>
+        </button>
+        <!-- Audit Logs Card -->
+        <button
+          onclick="openModal('auditLogs')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-emerald-400"
+          aria-describedby="desc-auditLogs"
+        >
+          <div class="text-emerald-600 mb-4 text-5xl" aria-hidden="true">
+            📜
+          </div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-emerald-500 pb-1 w-full"
+          >
+            Audit Logs
+          </h3>
+          <p id="desc-auditLogs" class="text-gray-600">
+            View system audit logs
+          </p>
+        </button>
+        <!-- API Keys Card -->
+        <button
+          onclick="openModal('apiKeys')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-cyan-400"
+          aria-describedby="desc-apiKeys"
+        >
+          <div class="text-cyan-600 mb-4 text-5xl" aria-hidden="true">🔑</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-cyan-500 pb-1 w-full"
+          >
+            API Keys
+          </h3>
+          <p id="desc-apiKeys" class="text-gray-600">Manage API keys</p>
+        </button>
+        <!-- Webhooks Card -->
+        <button
+          onclick="openModal('webhooks')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-sky-400"
+          aria-describedby="desc-webhooks"
+        >
+          <div class="text-sky-600 mb-4 text-5xl" aria-hidden="true">📡</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-sky-500 pb-1 w-full"
+          >
+            Webhooks
+          </h3>
+          <p id="desc-webhooks" class="text-gray-600">Configure webhooks</p>
+        </button>
+        <!-- Custom Fields Card -->
+        <button
+          onclick="openModal('customFields')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-violet-400"
+          aria-describedby="desc-customFields"
+        >
+          <div class="text-violet-600 mb-4 text-5xl" aria-hidden="true">
+            fields
+          </div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-violet-500 pb-1 w-full"
+          >
+            Custom Fields
+          </h3>
+          <p id="desc-customFields" class="text-gray-600">
+            Manage custom fields
+          </p>
+        </button>
+        <!-- Reports Card -->
+        <button
+          onclick="openModal('reports')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-fuchsia-400"
+          aria-describedby="desc-reports"
+        >
+          <div class="text-fuchsia-600 mb-4 text-5xl" aria-hidden="true">
+            📊
+          </div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-fuchsia-500 pb-1 w-full"
+          >
+            Reports
+          </h3>
+          <p id="desc-reports" class="text-gray-600">Generate reports</p>
+        </button>
+        <!-- Workflow Automation Card -->
+        <button
+          onclick="openModal('workflowAutomation')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-rose-400"
+          aria-describedby="desc-workflowAutomation"
+        >
+          <div class="text-rose-600 mb-4 text-5xl" aria-hidden="true">⚙️</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-rose-500 pb-1 w-full"
+          >
+            Workflow Automation
+          </h3>
+          <p id="desc-workflowAutomation" class="text-gray-600">
+            Automate workflows
+          </p>
+        </button>
+        <!-- Integrations Marketplace Card -->
+        <button
+          onclick="openModal('integrationsMarketplace')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-indigo-400"
+          aria-describedby="desc-integrationsMarketplace"
+        >
+          <div class="text-indigo-600 mb-4 text-5xl" aria-hidden="true">
+            marketplace
+          </div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-indigo-500 pb-1 w-full"
+          >
+            Integrations Marketplace
+          </h3>
+          <p id="desc-integrationsMarketplace" class="text-gray-600">
+            Explore integrations
+          </p>
+        </button>
+        <!-- Student Management Card -->
+        <button
+          onclick="openModal('studentManagement')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-orange-400"
+          aria-describedby="desc-studentManagement"
+        >
+          <div class="text-orange-600 mb-4 text-5xl" aria-hidden="true">🧑‍🎓</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-orange-500 pb-1 w-full"
+          >
+            Student Management
+          </h3>
+          <p id="desc-studentManagement" class="text-gray-600">
+            Manage students and their profiles
+          </p>
+        </button>
+        <!-- Institute Management Card -->
+        <button
+          onclick="openModal('instituteManagement')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-amber-400"
+          aria-describedby="desc-instituteManagement"
+        >
+          <div class="text-amber-600 mb-4 text-5xl" aria-hidden="true">🏫</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-amber-500 pb-1 w-full"
+          >
+            Institute Management
+          </h3>
+          <p id="desc-instituteManagement" class="text-gray-600">
+            Manage listed institutes
+          </p>
+        </button>
+        <!-- Recruiter Management Card -->
+        <button
+          onclick="openModal('recruiterManagement')"
+          class="bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-purple-400"
+          aria-describedby="desc-recruiterManagement"
+        >
+          <div class="text-purple-600 mb-4 text-5xl" aria-hidden="true">💼</div>
+          <h3
+            class="text-lg font-semibold mb-2 border-b-2 border-purple-500 pb-1 w-full"
+          >
+            Recruiter Management
+          </h3>
+          <p id="desc-recruiterManagement" class="text-gray-600">
+            Manage recruiters and their access
+          </p>
+        </button>
+      </section>
+    </main>
+    <!-- Modal Background -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+      tabindex="-1"
+    >
+      <div
+        class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-8 relative"
+        role="document"
+      >
+        <!-- Close Modal Button -->
+        <button
+          id="closeModalBtn"
+          aria-label="Close modal"
+          class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-2xl font-bold focus:outline-none"
+        >
+          &times;
+        </button>
+        <!-- Modal Title -->
+        <h2 id="modalTitle" class="text-2xl font-bold mb-4"></h2>
+        <!-- Modal Content -->
+        <div
+          id="modalContent"
+          class="text-gray-700 space-y-4 max-h-[60vh] overflow-y-auto"
+          tabindex="0"
+        ></div>
+        <!-- Save Button -->
+        <button
+          id="saveBtn"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-6 focus:outline-none focus:ring-2 focus:ring-blue-400"
+        >
+          Save Changes
+        </button>
+      </div>
     </div>
-</body>
-
+    <script>
+      // Data for settings (title and content for each setting)
+      const settingsData = {
+        company: {
+          title: 'Company Settings',
+          content: "Manage your company's information and branding details.",
+        },
+        users: {
+          title: 'User Management',
+          content:
+            'Manage your team members and their permissions within the system.',
+        },
+        billing: {
+          title: 'Billing Settings',
+          content:
+            'Manage subscription plans, payment methods, and billing history.',
+        },
+        security: {
+          title: 'Security Settings',
+          content:
+            'Manage passwords, two-factor authentication, and access control.',
+        },
+        notifications: {
+          title: 'Notification Settings',
+          content: 'Control email notifications and system alerts preferences.',
+        },
+        integration: {
+          title: 'Integration Settings',
+          content: 'Manage connected apps, APIs, and third-party integrations.',
+        },
+        appearance: {
+          title: 'Appearance Settings',
+          content:
+            'Customize the theme, colors, and layout of your admin panel.',
+        },
+        help: {
+          title: 'Help & Support',
+          content: 'Access FAQs, contact support, and get assistance.',
+        },
+        emailTemplates: {
+          title: 'Email Templates',
+          content:
+            'Customize the email templates used for various notifications and communications.',
+        },
+        smsSettings: {
+          title: 'SMS Settings',
+          content: 'Configure SMS notifications for alerts and updates.',
+        },
+        dataBackup: {
+          title: 'Data Backup',
+          content:
+            'Schedule automated data backups to ensure data security and recovery.',
+        },
+        auditLogs: {
+          title: 'Audit Logs',
+          content:
+            'View and analyze system audit logs for security and compliance purposes.',
+        },
+        apiKeys: {
+          title: 'API Keys',
+          content:
+            "Generate and manage API keys for secure access to the system's APIs.",
+        },
+        webhooks: {
+          title: 'Webhooks',
+          content:
+            'Configure webhooks to trigger actions in other applications when events occur in this system.',
+        },
+        customFields: {
+          title: 'Custom Fields',
+          content:
+            "Create and manage custom fields to extend the system's data model.",
+        },
+        reports: {
+          title: 'Reports',
+          content: 'Generate custom reports to analyze data and gain insights.',
+        },
+        workflowAutomation: {
+          title: 'Workflow Automation',
+          content:
+            'Automate repetitive tasks and workflows to improve efficiency.',
+        },
+        integrationsMarketplace: {
+          title: 'Integrations Marketplace',
+          content:
+            'Explore and install integrations with other applications and services.',
+        },
+        studentManagement: {
+          title: 'Student Management',
+          content: 'Manage students and their profiles',
+        },
+        instituteManagement: {
+          title: 'Institute Management',
+          content: 'Manage and verify listed institutes.',
+        },
+        recruiterManagement: {
+          title: 'Recruiter Management',
+          content: 'Manage recruiter accounts and permissions.',
+        },
+        companyManagement: {
+          title: 'Company Management',
+          content: 'Manage company profiles and job postings.',
+        },
+        jobSettings: {
+          title: 'Job Settings',
+          content: 'Configure default job settings and categories.',
+        },
+        applicationSettings: {
+          title: 'Application Settings',
+          content: 'Manage application forms and settings',
+        },
+        interviewSettings: {
+          title: 'Interview Settings',
+          content: 'Configure interview scheduling and feedback',
+        },
+        offerSettings: {
+          title: 'Offer Settings',
+          content: 'Manage job offer templates and settings',
+        },
+        onboardingSettings: {
+          title: 'Onboarding Settings',
+          content: 'Configure new employee onboarding process',
+        },
+        assessmentSettings: {
+          title: 'Assessment Settings',
+          content: 'Manage assessments and skill tests',
+        },
+        referralSettings: {
+          title: 'Referral Settings',
+          content: 'Configure employee referral programs',
+        },
+        complianceSettings: {
+          title: 'Compliance Settings',
+          content: 'Manage compliance and legal requirements',
+        },
+      }
+      // Get modal elements
+      const modal = document.getElementById('modal')
+      const modalTitle = document.getElementById('modalTitle')
+      const modalContent = document.getElementById('modalContent')
+      const closeModalBtn = document.getElementById('closeModalBtn')
+      const saveBtn = document.getElementById('saveBtn')
+      // Get the settings container and the add setting button
+      const settingsContainer = document.getElementById('settingsContainer')
+      const addSettingBtn = document.getElementById('addSettingBtn')
+      // Get the new setting form inputs
+      const newSettingTitleInput = document.getElementById('newSettingTitle')
+      const newSettingContentInput = document.getElementById('newSettingContent')
+      const newSettingIconInput = document.getElementById('newSettingIcon')
+      // Variable to store the current setting key
+      let currentSettingKey = null
+      // Function to open the modal for a setting
+      function openModal(settingKey) {
+        currentSettingKey = settingKey
+        const data = settingsData[settingKey]
+        modalTitle.textContent = data.title
+        modalContent.textContent = data.content
+        modal.classList.remove('hidden')
+        // focus modal for accessibility
+        modalContent.focus()
+      }
+      // Function to close the modal
+      function closeModal() {
+        modal.classList.add('hidden')
+        currentSettingKey = null
+      }
+      // Function to add a new setting card
+      function addSettingCard(title, content, icon) {
+        const settingKey = title.toLowerCase().replace(/ /g, '') // Generate a unique key
+        // Create the button element
+        const button = document.createElement('button')
+        button.onclick = function () {
+          openModal(settingKey)
+        }
+        button.className =
+          'bg-white rounded-xl shadow-xl p-6 flex flex-col items-center text-center cursor-pointer hover:shadow-2xl hover:scale-105 transform transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-gray-400'
+        button.setAttribute('aria-describedby', 'desc-' + settingKey)
+        // Create the icon div
+        const iconDiv = document.createElement('div')
+        iconDiv.className = 'text-gray-600 mb-4 text-5xl'
+        iconDiv.setAttribute('aria-hidden', 'true')
+        iconDiv.textContent = icon
+        // Create the title h3
+        const titleH3 = document.createElement('h3')
+        titleH3.className =
+          'text-lg font-semibold mb-2 border-b-2 border-gray-500 pb-1 w-full'
+        titleH3.textContent = title
+        // Create the description p
+        const descriptionP = document.createElement('p')
+        descriptionP.id = 'desc-' + settingKey
+        descriptionP.className = 'text-gray-600'
+        descriptionP.textContent = content
+        // Append the elements to the button
+        button.appendChild(iconDiv)
+        button.appendChild(titleH3)
+        button.appendChild(descriptionP)
+        // Append the button to the settings container
+        settingsContainer.appendChild(button)
+        // Add the new setting to the settingsData object
+        settingsData[settingKey] = {
+          title: title,
+          content: content,
+        }
+      }
+      // Event listener for the add setting button
+      addSettingBtn.addEventListener('click', () => {
+        const title = newSettingTitleInput.value.trim()
+        const content = newSettingContentInput.value.trim()
+        const icon = newSettingIconInput.value.trim()
+        if (title && content && icon) {
+          addSettingCard(title, content, icon)
+          // Clear the input fields
+          newSettingTitleInput.value = ''
+          newSettingContentInput.value = ''
+          newSettingIconInput.value = ''
+        } else {
+          alert('Please fill in all fields to add a new setting.')
+        }
+      })
+      // Event listener to close the modal when the close button is clicked
+      closeModalBtn.addEventListener('click', closeModal)
+      // Event listener to save changes
+      saveBtn.addEventListener('click', () => {
+        alert(
+          'Settings saved successfully for ' +
+            (settingsData[currentSettingKey]?.title || '')
+        )
+        closeModal()
+      })
+      // Event listener to close the modal when clicking outside the modal
+      window.addEventListener('click', (event) => {
+        if (event.target === modal) closeModal()
+      })
+      // Event listener to close the modal when pressing the Escape key
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+          closeModal()
+        }
+      })
+      // Search bar filtering logic for settings cards
+      const settingsSearch = document.getElementById('settingsSearch')
+      settingsSearch.addEventListener('input', function () {
+        const query = this.value.toLowerCase()
+        Array.from(settingsContainer.children).forEach((btn) => {
+          const title = btn.querySelector('h3')?.textContent?.toLowerCase() || ''
+          if (title.includes(query)) {
+            btn.style.display = ''
+          } else {
+            btn.style.display = 'none'
+          }
+        })
+      })
+    </script>
+  </body>
 </html>
