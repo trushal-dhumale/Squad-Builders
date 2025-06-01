@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          
+          body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fb;
+            color: #333;
+          }
+          
+          .container {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
+            padding: 20px;
+            gap: 20px;
+          }
+          
+          .header {
+            grid-column: 1 / span 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+          }
+          
+          .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+          
+          .header-logo {
+            width: 30px;
+            height: 30px;
+          }
+          
+          .header h1 {
+            font-size: 18px;
+          }
+          
+          .timer-end {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+          
+          .timer span {
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 8px;
+            font-size: 14px;
+          }
+          
+          .end-button {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+          }
+          
+          main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          
+          .question-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+          }
+          
+          .ai-ask {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+          }
+          
+          .ai-profile {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          
+          .response-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+          
+          .start-speaking {
+            background-color: #7a3cff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            align-self: start;
+          }
+          
+          textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            font-size: 14px;
+          }
+          
+          .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+          }
+          
+          .question-nav {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+          }
+          
+          .question-nav a {
+            text-decoration: none;
+            color: #7a3cff;
+          }
+          
+          .mark-review {
+            margin-top: 10px;
+            width: 100%;
+            background-color: #f0f0f0;
+            border: none;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+          }
+          
+          .ai-tips {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            font-size: 14px;
+          }
+          
+          .ai-tips h4 {
+            margin-bottom: 10px;
+          }
+          
+        
+    </style>
+</head>
+<body>
+    
+
+    <div class="container">
+        <header class="header">
+          <div class="header-left">
+            <img src="C:\Users\Hp\OneDrive\Desktop\recrutment software\screen shots\ai mock.png" alt="Logo" class="header-logo">
+            <h1>AI Mock Interview – Technical Round</h1>
+          </div>
+          <div class="timer-end">
+            <div class="timer">
+              <span>⏱️ 30:00</span>
+            </div>
+            <button class="end-button">🔴 End Interview</button>
+          </div>
+        </header>
+    
+        <main>
+          <div class="question-box">
+            <div class="ai-ask">
+              <img src="C:\Users\Hp\OneDrive\Desktop\recrutment software\screen shots\mike thompsan.png" alt="AI Interviewer" class="ai-profile">
+              <p><strong>AI Interviewer asks:</strong><br>"Tell me about a challenging technical problem you solved recently."</p>
+            </div>
+          </div>
+    
+          <div class="response-box">
+            <button class="start-speaking">🎙️ Start Speaking</button>
+            <textarea placeholder="Or type your response here..."></textarea>
+          </div>
+        </main>
+    
+        <aside class="sidebar">
+          <div class="question-nav">
+            <p><strong>Question 1/10</strong> <a href="#">Next Question ➔</a></p>
+            <button class="mark-review">🔖 Mark for Review</button>
+          </div>
+    
+          <div class="ai-tips">
+            <h4>💡 AI Tips</h4>
+            <p>Try to give a STAR format answer<br>(Situation, Task, Action, Result)</p>
+          </div>
+        </aside>
+      </div>
+
+      <script>
+  //  TIMER 
+  let timerElement = document.querySelector('.timer span');
+  let timeLeft = 30 * 60; // 30 minutes in seconds
+
+  function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+    timerElement.textContent = `⏱️ ${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    if (timeLeft > 0) {
+      timeLeft--;
+    } else {
+      clearInterval(timerInterval);
+      alert("Time's up!");
+      disableInputs();
+    }
+  }
+
+  const timerInterval = setInterval(updateTimer, 1000);
+
+  //  SPEECH RECOGNITION 
+  const startBtn = document.querySelector('.start-speaking');
+  const textarea = document.querySelector('textarea');
+
+  let recognition;
+  let isListening = false;
+
+  if ('webkitSpeechRecognition' in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+
+    startBtn.addEventListener('click', () => {
+      if (!isListening) {
+        recognition.start();
+        isListening = true;
+        startBtn.textContent = '🎙️ Listening...';
+      } else {
+        recognition.stop();
+        isListening = false;
+        startBtn.textContent = '🎙️ Start Speaking';
+      }
+    });
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      textarea.value += transcript + " ";
+    };
+
+    recognition.onend = () => {
+      isListening = false;
+      startBtn.textContent = '🎙️ Start Speaking';
+    };
+
+    recognition.onerror = () => {
+      isListening = false;
+      startBtn.textContent = '🎙️ Start Speaking';
+      alert("Speech recognition error.");
+    };
+
+  } else {
+    startBtn.disabled = true;
+    startBtn.textContent = "Speech not supported";
+  }
+
+  //  END INTERVIEW 
+  document.querySelector('.end-button').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    disableInputs();
+    alert("Interview ended.");
+  });
+
+  function disableInputs() {
+    textarea.disabled = true;
+    startBtn.disabled = true;
+    if (recognition) recognition.stop();
+  }
+
+  // NEXT QUESTION 
+  document.querySelector('.question-nav a').addEventListener('click', (e) => {
+    e.preventDefault();
+    alert("Next question logic not yet implemented.");
+  });
+</script>
+
+</body>
+</html>
