@@ -1,294 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Recruiter Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Resetting default margins and paddings */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      .card-effect {
+        transition: box-shadow 0.3s, transform 0.3s;
+        box-shadow: 0 2px 8px 0 rgba(59, 130, 246, 0.07);
+      }
+      .card-effect:hover {
+        box-shadow: 0 8px 32px 0 rgba(59, 130, 246, 0.15),
+          0 1.5px 4px 0 rgba(0, 0, 0, 0.06);
+        transform: translateY(-4px) scale(1.04);
+        border-color: #2563eb;
+      }
+      .modal-bg {
+        background: rgba(0, 0, 0, 0.35);
+      }
+      .modal-animate {
+        animation: modalIn 0.2s;
+      }
+      @keyframes modalIn {
+        from {
+          opacity: 0;
+          transform: scale(0.96);
         }
-
-        /* Full-screen layout adjustments */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        to {
+          opacity: 1;
+          transform: scale(1);
         }
-
-        /* Main container styling */
-        .container {
-            width: 100%;
-            max-width: 1400px; /* Adjusted for full-screen layout */
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Header section styling */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            font-size: 28px; /* Slightly larger for full-screen */
-        }
-
-        .header button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .header button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Filters section styling */
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filters input, .filters select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            flex: 1;
-        }
-
-        /* Table styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        table th, table td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        table th {
-            background-color: #f1f1f1;
-        }
-
-        /* Status badge styling */
-        .status {
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-
-        .status.pending {
-            background-color: #ffc107;
-            color: #fff;
-        }
-
-        /* Action buttons styling */
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .actions button {
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .actions .view {
-            background-color: #007bff;
-            color: #fff;
-        }
-
-        .actions .block {
-            background-color: #dc3545;
-            color: #fff;
-        }
-
-        /* Profile card styling */
-        .profile-card {
-            display: flex;
-            gap: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            margin-bottom: 20px;
-        }
-
-        .profile-card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-        }
-
-        .profile-card .info {
-            flex: 1;
-        }
-
-        .profile-card .info h3 {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .profile-card .info p {
-            margin: 5px 0;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .profile-card .info .verified {
-            display: inline-block;
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: #fff;
-            border-radius: 5px;
-            font-size: 12px;
-        }
-
-        .profile-card .actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+      }
     </style>
-
-       
-
-       
-</head>
-<body>
-    <!-- Main container -->
-    <div class="container">
-        <!-- Header section -->
-        <div class="header">
-            <h1>Recruiter Management</h1>
-            <button>Add New Job</button>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-bold text-gray-800">Recruiter Management</h1>
+        <div class="flex gap-3">
+          <button
+            onclick="goHome()"
+            class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition font-semibold"
+          >
+            Home
+          </button>
+          <button
+            onclick="openAddJobModal()"
+            class="bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Add New Job
+          </button>
         </div>
+      </div>
 
-        <!-- Filters section -->
-        <div class="filters">
-            <input type="text" placeholder="Search by Job Title, Recruiter Name, or Company">
-            <select>
-                <option>Status: All</option>
-                <option>Pending</option>
-                <option>Approved</option>
-                <option>Rejected</option>
+      <!-- Filters -->
+      <div class="mb-6">
+        <div class="overflow-x-auto">
+          <div class="flex flex-row gap-4 min-w-[700px]">
+            <input
+              type="text"
+              placeholder="Search..."
+              class="p-2 border rounded w-48"
+              id="searchInput"
+            />
+            <select class="p-2 border rounded w-40" id="statusSelect">
+              <option value="">Status: All</option>
+              <option>Pending</option>
+              <option>Approved</option>
+              <option>Rejected</option>
             </select>
-            <select>
-                <option>Select Company</option>
-                <option>Infosys</option>
-                <option>TCS</option>
-                <option>Wipro</option>
+            <select class="p-2 border rounded w-40" id="companySelect">
+              <option value="">Select Company</option>
+              <option>Infosys</option>
+              <option>TCS</option>
+              <option>Wipro</option>
+              <option>Amazon</option>
+              <option>Flipkart</option>
             </select>
-            <input type="date">
-            <input type="date">
+            <input
+              type="date"
+              class="p-2 border rounded w-40"
+              id="dateFilter"
+            />
+          </div>
         </div>
+      </div>
 
-        <!-- Job table -->
-        <table>
-            <thead>
-                <tr>
-                    <th>Job Title</th>
-                    <th>Company</th>
-                    <th>Recruiter</th>
-                    <th>Posted Date</th>
-                    <th>Deadline</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Senior Frontend Developer</td>
-                    <td>Infosys</td>
-                    <td>John Smith</td>
-                    <td>Jan 15, 2025</td>
-                    <td>Feb 15, 2025</td>
-                    <td><span class="status pending">Pending</span></td>
-                    <td class="actions">
-                        <button class="view">View</button>
-                        <button class="block">Block</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+      <!-- Recruiter Cards Section -->
+      <div
+        id="recruiterCards"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      ></div>
 
-        <!-- Profile cards -->
-        <div class="profile-card">
-            <img src="https://i.pinimg.com/736x/33/d2/a7/33d2a732aa1d3195349ad518526c5f42.jpg" alt="Profile Picture">
-            <div class="info">
-                <h3>Michael Johnson <span class="verified">Verified</span></h3>
-                <p>michael@infosys.com</p>
-                <p>Infosys</p>
-                <p>12 Jobs Posted</p>
-            </div>
-            <div class="actions">
-                <button class="view">View Profile</button>
-                <button class="block">Block</button>
-            </div>
+      <!-- Recruiter Management Features & Settings Interactive Grid -->
+      <div class="mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <!-- Features -->
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="View All Recruiters"
+            data-desc="See all registered recruiters with profile details."
+            data-buttons='["View List","Export CSV"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >👥</span
+            >
+            <span class="font-semibold mb-1">View All Recruiters</span>
+            <span class="text-xs text-gray-500 text-center"
+              >See all registered recruiters with profile details</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Search Recruiters"
+            data-desc="Search by name, email, or company."
+            data-buttons='["Search","Advanced Search"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >🔍</span
+            >
+            <span class="font-semibold mb-1">Search Recruiters</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Search by name, email, or company</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Filter Recruiters"
+            data-desc="Filter by company and status."
+            data-buttons='["Filter by Company","Filter by Status"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >🗂️</span
+            >
+            <span class="font-semibold mb-1">Filter Recruiters</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Filter by company and status</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Recruiter Bio Modal"
+            data-desc="View recruiter bio and contact details."
+            data-buttons='["View Bio","Contact"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >📝</span
+            >
+            <span class="font-semibold mb-1">Recruiter Bio Modal</span>
+            <span class="text-xs text-gray-500 text-center"
+              >View recruiter bio and contact details</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Send Message"
+            data-desc="Direct message to recruiters."
+            data-buttons='["Send Message"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >✉️</span
+            >
+            <span class="font-semibold mb-1">Send Message</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Direct message to recruiters</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Block/Remove Recruiter"
+            data-desc="Block or remove recruiters from platform."
+            data-buttons='["Block","Remove"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >🚫</span
+            >
+            <span class="font-semibold mb-1">Block/Remove Recruiter</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Block or remove recruiters from platform</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Add New Job"
+            data-desc="Add job postings and assign recruiters."
+            data-buttons='["Add Job"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >➕</span
+            >
+            <span class="font-semibold mb-1">Add New Job</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Add job postings and assign recruiters</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Jobs by Recruiter"
+            data-desc="See jobs posted by each recruiter."
+            data-buttons='["View Jobs"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >📋</span
+            >
+            <span class="font-semibold mb-1">Jobs by Recruiter</span>
+            <span class="text-xs text-gray-500 text-center"
+              >See jobs posted by each recruiter</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Responsive Design"
+            data-desc="Works on desktop and mobile."
+            data-buttons='["Preview"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group-hover:scale-110 transition"
+              >📱</span
+            >
+            <span class="font-semibold mb-1">Responsive Design</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Works on desktop and mobile</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Admin Actions"
+            data-desc="Easy-to-use admin interface."
+            data-buttons='["Settings","Logs"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >⚙️</span
+            >
+            <span class="font-semibold mb-1">Admin Actions</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Easy-to-use admin interface</span
+            >
+          </button>
+          <!-- Settings -->
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Approval Workflow"
+            data-desc="Pending/Approved/Rejected"
+            data-buttons='["Pending","Approved","Rejected"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >✅</span
+            >
+            <span class="font-semibold mb-1">Approval Workflow</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Pending/Approved/Rejected</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Role & Permissions"
+            data-desc="Admin, Recruiter, Viewer"
+            data-buttons='["Manage Roles"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🔑</span
+            >
+            <span class="font-semibold mb-1">Role & Permissions</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Admin, Recruiter, Viewer</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Recruiter Status"
+            data-desc="Active, Blocked, Suspended"
+            data-buttons='["Active","Blocked","Suspended"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🟢</span
+            >
+            <span class="font-semibold mb-1">Recruiter Status</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Active, Blocked, Suspended</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Company Assignment"
+            data-desc="Assign companies & set limits"
+            data-buttons='["Assign Company","Set Limit"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🏢</span
+            >
+            <span class="font-semibold mb-1">Company Assignment</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Assign companies & set limits</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Notifications"
+            data-desc="Email, SMS, In-app"
+            data-buttons='["Email","SMS","In-app"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🔔</span
+            >
+            <span class="font-semibold mb-1">Notifications</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Email, SMS, In-app</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Performance Analytics"
+            data-desc="Recruiter performance stats"
+            data-buttons='["View Analytics"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >📈</span
+            >
+            <span class="font-semibold mb-1">Performance Analytics</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Recruiter performance stats</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Job Posting Limits"
+            data-desc="Set job limits per recruiter"
+            data-buttons='["Set Limit"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🔢</span
+            >
+            <span class="font-semibold mb-1">Job Posting Limits</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Set job limits per recruiter</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Data Export"
+            data-desc="Export as CSV/Excel"
+            data-buttons='["Export CSV","Export Excel"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >⬇️</span
+            >
+            <span class="font-semibold mb-1">Data Export</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Export as CSV/Excel</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Audit Logs"
+            data-desc="Track all activity"
+            data-buttons='["View Logs"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >📝</span
+            >
+            <span class="font-semibold mb-1">Audit Logs</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Track all activity</span
+            >
+          </button>
+          <button
+            class="feature-card bg-white rounded-xl shadow p-5 flex flex-col items-center hover:bg-blue-50 transition group"
+            data-title="Profile Edit & Verification"
+            data-desc="Edit & verify recruiter profiles"
+            data-buttons='["Edit Profile","Verify"]'
+          >
+            <span
+              class="text-3xl mb-2 text-blue-600 group_hover:scale-110 transition"
+              >🛡️</span
+            >
+            <span class="font-semibold mb-1">Profile Edit & Verification</span>
+            <span class="text-xs text-gray-500 text-center"
+              >Edit & verify recruiter profiles</span
+            >
+          </button>
         </div>
+      </div>
 
-        <div class="profile-card">
-            <img src="https://i.pinimg.com/736x/66/08/99/660899099be9b8c6b643bda474e1207c.jpg" alt="Profile Picture">
-            <div class="info">
-                <h3>Sarah Williams <span class="verified">Verified</span></h3>
-                <p>sarah@tcs.com</p>
-                <p>TCS</p>
-                <p>8 Jobs Posted</p>
-            </div>
-            <div class="actions">
-                <button class="view">View Profile</button>
-                <button class="block">Block</button>
-            </div>
+      <!-- Feature Modal -->
+      <div
+        id="featureModal"
+        class="fixed inset-0 flex items-center justify-center z-50 hidden modal-bg"
+      >
+        <div
+          class="bg-white rounded-xl shadow-lg max-w-md w-full p-6 modal-animate relative"
+        >
+          <button
+            onclick="closeFeatureModal()"
+            class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <div id="featureModalContent"></div>
         </div>
+      </div>
 
-        <div class="profile-card">
-            <img src="https://i.pinimg.com/736x/c9/b3/ac/c9b3ac26a6b6d3b7f23ebbb8f25a249a.jpg" alt="Profile Picture">
-            <div class="info">
-                <h3>David Brown <span class="verified">verified</span></h3>
-                <p>david@wipro.com</p>
-                <p>Wipro</p>
-                <p>15 Jobs Posted</p>
-            </div>
-            <div class="actions">
-                <button class="view">View Profile</button>
-                <button class="block">Block</button>
-            </div>
+      <!-- Add Job Modal -->
+      <div
+        id="addJobModal"
+        class="fixed inset-0 flex items-center justify-center z-50 hidden modal-bg"
+      >
+        <div
+          class="bg-white rounded-xl shadow-lg max-w-md w-full p-6 modal-animate relative"
+        >
+          <button
+            onclick="closeAddJobModal()"
+            class="absolute top-2 right-3 text-gray-400 hover:text-gray-700 text-2xl font-bold"
+          >
+            &times;
+          </button>
+          <h2 class="text-xl font-bold mb-4">Add New Job</h2>
+          <form id="addJobForm" class="flex flex-col gap-3">
+            <input
+              type="text"
+              name="title"
+              placeholder="Job Title"
+              class="border rounded p-2"
+              required
+            />
+            <input
+              type="text"
+              name="company"
+              placeholder="Company"
+              class="border rounded p-2"
+              required
+            />
+            <input
+              type="text"
+              name="recruiter"
+              placeholder="Recruiter Name"
+              class="border rounded p-2"
+              required
+            />
+            <input
+              type="date"
+              name="posted"
+              class="border rounded p-2"
+              required
+            />
+            <input
+              type="date"
+              name="deadline"
+              class="border rounded p-2"
+              required
+            />
+            <select name="status" class="border rounded p-2" required>
+              <option value="Pending">Pending</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+            <button
+              type="submit"
+              class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Add Job
+            </button>
+          </form>
         </div>
-
-        <div class="profile-card">
-            <img src="https://i.pinimg.com/736x/17/42/b7/1742b7b991e18e49a44d0c1c8264c8ca.jpg" alt="Profile Picture">
-            <div class="info">
-                <h3>Emily Davis <span class="verified">verified</span></h3>
-                <p>emily@hcl.com</p>
-                <p>HCL</p>
-                <p>10 Jobs Posted</p>
-            </div>
-            <div class="actions">
-                <button class="view">View Profile</button>
-                <button class="block">Block</button>
-            </div>
-        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
+<script>
+  // Feature card click logic
+  document.querySelectorAll('.feature-card').forEach(card => {
+    card.addEventListener('click', function () {
+      const title = this.getAttribute('data-title')
+      const desc = this.getAttribute('data-desc')
+      const buttons = JSON.parse(this.getAttribute('data-buttons'))
+      openFeatureModal(title, desc, buttons)
+    })
+  })
+
+  function openFeatureModal(title, desc, buttons) {
+    const modal = document.getElementById('featureModal')
+    const content = document.getElementById('featureModalContent')
+    let btns = ''
+    if (Array.isArray(buttons)) {
+      btns =
+        `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">` +
+        buttons
+          .map(
+            b =>
+              `<button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 feature-modal-btn">${b}</button>`
+          )
+          .join('') +
+        `</div>`
+    }
+    content.innerHTML = `
+        <h2 class="text-xl font-bold mb-2 text-blue-700">${title}</h2>
+        <p class="mb-2 text-gray-700">${desc}</p>
+        ${btns}
+      `
+    modal.classList.remove('hidden')
+
+    // Add warning alert on modal button click
+    setTimeout(() => {
+      document.querySelectorAll('.feature-modal-btn').forEach(btn => {
+        btn.onclick = () =>
+          alert('Backend not connected. This is a demo action.')
+      })
+    }, 0)
+  }
+  function closeFeatureModal() {
+    document.getElementById('featureModal').classList.add('hidden')
+  }
+  document
+    .getElementById('featureModal')
+    .addEventListener('mousedown', function (e) {
+      if (e.target === this) closeFeatureModal()
+    })
+
+  // Add Job Modal logic
+  function openAddJobModal() {
+    document.getElementById('addJobModal').classList.remove('hidden')
+  }
+  function closeAddJobModal() {
+    document.getElementById('addJobModal').classList.add('hidden')
+  }
+  document.getElementById('addJobForm').onsubmit = function (e) {
+    e.preventDefault()
+    alert('Job added! (Demo only)')
+    closeAddJobModal()
+  }
+  document
+    .getElementById('addJobModal')
+    .addEventListener('mousedown', function (e) {
+      if (e.target === this) closeAddJobModal()
+    })
+
+  function goHome() {
+    location.href = '40-Admin Panel Home.html'
+  }
+</script>
