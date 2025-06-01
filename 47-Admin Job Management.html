@@ -1,247 +1,779 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- Add for better notifications -->
     <style>
-        /* General body styling */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-            height: 100vh; /* Full screen height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* Add these animation styles */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        /* Container styling */
-        .container {
-            width: 93%; /* Full width */
-            height: 93%; /* Full height */
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            overflow-y: auto; /* Scroll if content overflows */
+        @keyframes slideIn {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* Header styling */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .modal-animation {
+            animation: fadeIn 0.3s ease-out;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
+        .modal-content-animation {
+            animation: slideIn 0.3s ease-out;
         }
 
-        .header button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
         }
 
-        .header button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Filters section styling */
-        .filters {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .filters input,
-        .filters select {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        /* Table styling */
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .table th,
-        .table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .table th {
-            background-color: #f1f1f1;
-        }
-
-        /* Status badge styling */
-        .status {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 12px;
-        }
-
-        .status.active {
-            background-color: #28a745;
-        }
-
-        /* Actions button styling */
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .actions button {
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-        }
-
-        .actions button.view {
-            background-color: #007bff;
-        }
-
-        .actions button.edit {
-            background-color: #ffc107;
-        }
-
-        .actions button.reject {
-            background-color: #dc3545;
-        }
-
-        /* Employer image styling */
-        .employer-img {
-            border-radius: 50%;
-            vertical-align: middle;
-            width: 40px;
-            height: 40px;
-        }
-
-        /* Job type text styling */
-        .job-type {
-            color: #6c757d;
-            font-size: 14px;
+        .slide-in {
+            animation: slideIn 0.5s ease-out;
         }
     </style>
 </head>
-
-<body>
-    <div class="container">
-        <!-- Header section -->
-        <div class="header">
-            <h1>Job Management</h1>
-            <button>+ Add New Job</button>
+<body class="bg-gray-50">
+    <div class="container mx-auto p-6 min-h-screen">
+        <!-- Header with Navigation -->
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold text-gray-800">Job Management</h1>
+            <div class="flex items-center gap-3">
+                <button onclick="goHome()" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded transition">
+                    Home
+                </button>
+                <button onclick="openAddJobModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                    + Add New Job
+                </button>
+            </div>
         </div>
 
-        <!-- Filters section -->
-        <div class="filters">
-            <input type="text" placeholder="Search jobs..."> <!-- Search input -->
-            <select>
-                <option>All Companies</option> <!-- Company filter -->
-            </select>
-            <select>
-                <option>All Roles</option> <!-- Role filter -->
-            </select>
-            <select>
-                <option>All Status</option> <!-- Status filter -->
-            </select>
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[140px] flex flex-col justify-between">
+                <h3 class="text-gray-500 text-sm font-medium">Total Jobs</h3>
+                <p class="text-3xl font-bold text-blue-600">247</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[140px] flex flex-col justify-between">
+                <h3 class="text-gray-500 text-sm font-medium">Active Jobs</h3>
+                <p class="text-3xl font-bold text-green-600">180</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[140px] flex flex-col justify-between">
+                <h3 class="text-gray-500 text-sm font-medium">Applications Today</h3>
+                <p class="text-3xl font-bold text-yellow-600">25</p>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[140px] flex flex-col justify-between">
+                <h3 class="text-gray-500 text-sm font-medium">Pending Reviews</h3>
+                <p class="text-3xl font-bold text-red-600">12</p>
+            </div>
         </div>
 
-        <!-- Job table -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Title</th> <!-- Job title column -->
-                    <th>Employer</th> <!-- Employer column -->
-                    <th>Status</th> <!-- Job status column -->
-                    <th>Deadline</th> <!-- Application deadline column -->
-                    <th>Applications</th> <!-- Number of applications column -->
-                    <th>Actions</th> <!-- Actions column -->
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Job row 1 -->
-                <tr>
-                    <td>
-                        Senior Frontend Developer
-                        <br>
-                        <span class="job-type">Remote</span> <!-- Job type -->
-                    </td>
-                    <td>
-                        <img src="https://i.pinimg.com/736x/46/bb/14/46bb1408bcf9bc89488d6235276a5ae8.jpg"
-                            alt="Employer" class="employer-img"> Google
-                    </td>
-                    <td><span class="status active">Active</span></td> <!-- Job status -->
-                    <td>Dec 31, 2025</td> <!-- Deadline -->
-                    <td>45</td> <!-- Applications count -->
-                    <td class="actions">
-                        <button class="view">View</button> <!-- View button -->
-                        <button class="edit">Edit</button> <!-- Edit button -->
-                        <button class="reject">Reject</button> <!-- Reject button -->
-                    </td>
-                </tr>
+        <!-- Quick Action Buttons with click handlers -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <button onclick="downloadReport()" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[120px] flex flex-col items-center justify-center group">
+                <span class="text-3xl mb-3 text-blue-600 group-hover:scale-110 transition-transform duration-300">📊</span>
+                <span class="text-sm font-medium">Download Report</span>
+            </button>
+            <button onclick="openBulkEmail()" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[120px] flex flex-col items-center justify-center group">
+                <span class="text-3xl mb-3 text-green-600 group-hover:scale-110 transition-transform duration-300">📩</span>
+                <span class="text-sm font-medium">Bulk Email</span>
+            </button>
+            <button onclick="openDraftJobs()" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[120px] flex flex-col items-center justify-center group">
+                <span class="text-3xl mb-3 text-yellow-600 group-hover:scale-110 transition-transform duration-300">📝</span>
+                <span class="text-sm font-medium">Draft Jobs</span>
+            </button>
+            <button onclick="openSettings()" class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 h-[120px] flex flex-col items-center justify-center group">
+                <span class="text-3xl mb-3 text-purple-600 group-hover:scale-110 transition-transform duration-300">⚙️</span>
+                <span class="text-sm font-medium">Settings</span>
+            </button>
+        </div>
 
-                <!-- Job row 2 -->
-                <tr>
-                    <td>
-                        Backend Developer
-                        <br>
-                        <span class="job-type">Hybrid</span>
-                    </td>
-                    <td>
-                        <img src="https://i.pinimg.com/736x/b6/7d/8e/b67d8ef874242d8694b7c428c23ee6ba.jpg"
-                            alt="Employer" class="employer-img"> Microsoft
-                    </td>
-                    <td><span class="status active">Active</span></td>
-                    <td>Jan 15, 2026</td>
-                    <td>30</td>
-                    <td class="actions">
-                        <button class="view">View</button>
-                        <button class="edit">Edit</button>
-                        <button class="reject">Reject</button>
-                    </td>
-                </tr>
+        <!-- Analytics Section with Canvas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                <h3 class="font-semibold mb-4 text-gray-800">Applications Timeline</h3>
+                <div class="h-[320px] w-full relative">
+                    <canvas id="applicationsChart"></canvas>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+                <h3 class="font-semibold mb-4 text-gray-800">Job Categories Distribution</h3>
+                <div class="h-[320px] w-full relative">
+                    <canvas id="categoriesChart"></canvas>
+                </div>
+            </div>
+        </div>
 
-                <!-- Job row 3 -->
-                <tr>
-                    <td>
-                        UI/UX Designer
-                        <br>
-                        <span class="job-type">On Place</span>
-                    </td>
-                    <td>
-                        <img src="https://i.pinimg.com/736x/51/49/00/514900e62f1e846b04cd4b1f874df171.jpg"
-                            alt="Employer" class="employer-img"> Apple
-                    </td>
-                    <td><span class="status active">Active</span></td>
-                    <td>Feb 28, 2026</td>
-                    <td>25</td>
-                    <td class="actions">
-                        <button class="view">View</button>
-                        <button class="edit">Edit</button>
-                        <button class="reject">Reject</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Enhanced Filters -->
+        <div class="bg-white p-4 rounded-lg shadow mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                <input type="text" placeholder="Search jobs..." class="p-2 border rounded" id="searchInput">
+                <select class="p-2 border rounded" id="companyFilter">
+                    <option value="">All Companies</option>
+                    <!-- Options will be populated by JS -->
+                </select>
+                <select class="p-2 border rounded" id="roleFilter">
+                    <option value="">Job Type</option>
+                    <option>Full Time</option>
+                    <option>Part Time</option>
+                    <option>Contract</option>
+                    <option>Internship</option>
+                </select>
+                <select class="p-2 border rounded" id="experienceFilter">
+                    <option value="">Experience Level</option>
+                    <option>Entry Level</option>
+                    <option>Mid Level</option>
+                    <option>Senior Level</option>
+                </select>
+                <select class="p-2 border rounded" id="statusFilter">
+                    <option value="">Status</option>
+                    <option>Draft</option>
+                    <option>Published</option>
+                    <option>Closed</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Additional Filter Options -->
+        <div class="bg-white p-4 rounded-lg shadow mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Salary Range</label>
+                    <div class="flex gap-2">
+                        <input type="number" placeholder="Min" class="w-full p-2 border rounded">
+                        <input type="number" placeholder="Max" class="w-full p-2 border rounded">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Posted Date</label>
+                    <input type="date" class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Sort By</label>
+                    <select class="w-full p-2 border rounded">
+                        <option>Most Recent</option>
+                        <option>Most Applications</option>
+                        <option>Deadline</option>
+                        <option>Salary Range</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Table with Enhanced Features -->
+        <div class="overflow-x-auto bg-white rounded-lg shadow mb-6">
+            <table class="w-full table-auto">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employer</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applications</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200" id="jobTableBody">
+                    <!-- Jobs will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Recent Activities at Bottom -->
+        <div class="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300">
+            <div class="p-6 border-b">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-semibold text-gray-800">Recent Activities</h3>
+                    <span class="text-sm text-blue-600 cursor-pointer hover:text-blue-800">View All</span>
+                </div>
+            </div>
+            <div class="max-h-[400px] overflow-y-auto divide-y">
+                <div class="p-4 flex items-center gap-4">
+                    <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">✓</div>
+                    <div>
+                        <p class="text-sm font-medium">New application received for Frontend Developer</p>
+                        <p class="text-xs text-gray-500">2 minutes ago</p>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center gap-4">
+                    <div class="h-8 w-8 rounded-full bg-green-100 flex items-center justify-center text-green-600">+</div>
+                    <div>
+                        <p class="text-sm font-medium">New job posted: UI/UX Designer</p>
+                        <p class="text-xs text-gray-500">1 hour ago</p>
+                    </div>
+                </div>
+                <div class="p-4 flex items-center gap-4">
+                    <div class="h-8 w-8 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-600">⚠</div>
+                    <div>
+                        <p class="text-sm font-medium">Job deadline approaching: Python Developer</p>
+                        <p class="text-xs text-gray-500">3 hours ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
 
+    <!-- Add Job Modal -->
+    <div id="addJobModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center modal-animation">
+        <div class="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Add New Job</h2>
+                <button onclick="closeAddJobModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <form id="addJobForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Job Title</label>
+                    <input type="text" name="title" required class="w-full p-2 border rounded">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                    <select name="company" required class="w-full p-2 border rounded">
+                        <!-- Options -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Job Type</label>
+                    <select name="type" required class="w-full p-2 border rounded">
+                        <option>Full Time</option>
+                        <option>Part Time</option>
+                        <option>Contract</option>
+                        <option>Internship</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Experience Level</label>
+                    <select name="experience" required class="w-full p-2 border rounded">
+                        <option>Entry Level</option>
+                        <option>Mid Level</option>
+                        <option>Senior Level</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                    <input type="text" name="location" required class="w-full p-2 border rounded">
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Job Description</label>
+                    <textarea name="description" required class="w-full p-2 border rounded h-32"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Salary Range</label>
+                    <div class="flex gap-2">
+                        <input type="number" name="salaryMin" placeholder="Min" class="w-full p-2 border rounded">
+                        <input type="number" name="salaryMax" placeholder="Max" class="w-full p-2 border rounded">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Application Deadline</label>
+                    <input type="date" name="deadline" required class="w-full p-2 border rounded">
+                </div>
+                <div class="col-span-2 flex justify-end gap-2">
+                    <button type="button" onclick="closeAddJobModal()" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded">Add Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- View Job Details Modal -->
+    <div id="viewJobModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center modal-animation">
+        <div class="bg-white rounded-lg p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto modal-content-animation">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Job Details</h2>
+                <button onclick="closeViewJobModal()" class="text-gray-400 hover:text-gray-600">&times;</button>
+            </div>
+            <div id="jobDetailsContent">
+                <!-- Content will be injected by JS -->
+            </div>
+            <div class="flex gap-2 mt-4 justify-end">
+                <button class="px-4 py-2 bg-gray-200 rounded">Print</button>
+                <button class="px-4 py-2 bg-blue-600 text-white rounded">Share</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Notification System
+        function showNotification(type, message) {
+            Swal.fire({
+                icon: type,
+                text: message,
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                showClass: {
+                    popup: 'animate__animated animate__fadeInRight animate__faster'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutRight animate__faster'
+                }
+            });
+        }
+
+        // Enhanced Jobs Data
+        const jobs = [
+            {
+                id: 1,
+                title: "Senior Frontend Developer",
+                type: "Full Time",
+                employer: "Google",
+                employerImg: "https://i.pinimg.com/736x/46/bb/14/46bb1408bcf9bc89488d6235276a5ae8.jpg",
+                location: "New York, NY",
+                experience: "Senior Level",
+                status: "Active",
+                salary: "$120,000 - $150,000",
+                deadline: "Dec 31, 2025",
+                applications: 45,
+                description: "We are looking for an experienced Frontend Developer...",
+                requirements: [
+                    "5+ years of experience with React",
+                    "Strong understanding of web fundamentals",
+                    "Experience with modern frontend tools"
+                ]
+            },
+            {
+                id: 2,
+                title: "Backend Developer",
+                type: "Full Time",
+                employer: "Microsoft",
+                employerImg: "https://i.pinimg.com/736x/b6/7d/8e/b67d8ef874242d8694b7c428c23ee6ba.jpg",
+                location: "Seattle, WA",
+                experience: "Mid Level",
+                status: "Active",
+                salary: "$100,000 - $130,000",
+                deadline: "Jan 15, 2024",
+                applications: 32,
+                description: "Join our cloud team...",
+                requirements: ["3+ years Node.js", "AWS experience", "Database expertise"]
+            },
+            {
+                id: 3,
+                title: "UI/UX Designer",
+                type: "Full Time",
+                employer: "Apple",
+                employerImg: "https://i.pinimg.com/736x/51/49/00/514900e62f1e846b04cd4b1f874df171.jpg",
+                location: "Cupertino, CA",
+                experience: "Senior Level",
+                status: "Active",
+                salary: "$130,000 - $160,000",
+                deadline: "Feb 28, 2024",
+                applications: 28,
+                description: "Design next-generation user interfaces...",
+                requirements: ["5+ years UI/UX", "Portfolio required", "iOS experience"]
+            },
+            {
+                id: 4,
+                title: "DevOps Engineer",
+                type: "Full Time",
+                employer: "Amazon",
+                employerImg: "https://i.pinimg.com/736x/01/ca/da/01cada77a0a7d326d85b7969fe26a728.jpg",
+                location: "Remote",
+                experience: "Senior Level",
+                status: "Active",
+                salary: "$140,000 - $180,000",
+                deadline: "Mar 15, 2024",
+                applications: 18,
+                description: "Manage cloud infrastructure and CI/CD pipelines...",
+                requirements: ["AWS Certified", "Kubernetes", "Terraform"]
+            },
+            {
+                id: 5,
+                title: "React Native Developer",
+                type: "Contract",
+                employer: "Meta",
+                employerImg: "https://i.pinimg.com/736x/7a/c3/8e/7ac38e283d389f65f3b0c6766644ddf2.jpg",
+                location: "Remote",
+                experience: "Mid Level",
+                status: "Active",
+                salary: "$90,000 - $120,000",
+                deadline: "Jan 30, 2024",
+                applications: 24,
+                description: "Build cross-platform mobile applications...",
+                requirements: ["React Native", "Mobile Development", "API Integration"]
+            },
+            {
+                id: 6,
+                title: "Data Scientist",
+                type: "Full Time",
+                employer: "Netflix",
+                employerImg: "https://i.pinimg.com/736x/98/d4/c9/98d4c9f101a3f2102b0dc61d3f30c032.jpg",
+                location: "Los Gatos, CA",
+                experience: "Senior Level",
+                status: "Active",
+                salary: "$150,000 - $200,000",
+                deadline: "Apr 1, 2024",
+                applications: 35,
+                description: "Work on recommendation algorithms...",
+                requirements: ["PhD preferred", "ML expertise", "Python/R"]
+            },
+            {
+                id: 7,
+                title: "Product Manager",
+                type: "Full Time",
+                employer: "Airbnb",
+                employerImg: "https://i.pinimg.com/736x/8c/b5/c9/8cb5c9f5c76fa0c5f4b4c2c3a6b0c0c9.jpg",
+                location: "San Francisco, CA",
+                experience: "Senior Level",
+                status: "Active",
+                salary: "$140,000 - $180,000",
+                deadline: "Feb 15, 2024",
+                applications: 42,
+                description: "Lead product strategy and execution...",
+                requirements: ["5+ years PM", "Tech background", "MBA preferred"]
+            },
+            {
+                id: 8,
+                title: "Security Engineer",
+                type: "Full Time",
+                employer: "PayPal",
+                employerImg: "https://i.pinimg.com/736x/1d/7b/41/1d7b41f4e166c36b4f589b1c6ee99022.jpg",
+                location: "San Jose, CA",
+                experience: "Mid Level",
+                status: "Active",
+                salary: "$130,000 - $160,000",
+                deadline: "Mar 30, 2024",
+                applications: 15,
+                description: "Protect financial systems and user data...",
+                requirements: ["Security certifications", "Penetration testing", "Compliance"]
+            },
+            {
+                id: 9,
+                title: "Flutter Developer",
+                type: "Part Time",
+                employer: "Spotify",
+                employerImg: "https://i.pinimg.com/736x/4d/4b/4a/4d4b4a7c5b70063ef7aa84c7e4c3a772.jpg",
+                location: "Remote",
+                experience: "Entry Level",
+                status: "Active",
+                salary: "$70,000 - $90,000",
+                deadline: "Feb 1, 2024",
+                applications: 27,
+                description: "Develop cross-platform mobile applications...",
+                requirements: ["Flutter", "Dart", "Mobile development"]
+            }
+        ];
+
+        // Enhanced Chart Initialization
+        function initializeCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            padding: 20,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                layout: {
+                    padding: {
+                        top: 20,
+                        right: 20,
+                        bottom: 20,
+                        left: 20
+                    }
+                }
+            };
+            
+            try {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const applicationData = [65, 59, 80, 81, 56, 55, 70, 75, 62, 68, 71, 58];
+
+                // Applications Timeline
+                if (document.getElementById('applicationsChart')) {
+                    const appCtx = document.getElementById('applicationsChart').getContext('2d');
+                    new Chart(appCtx, {
+                        type: 'line',
+                        data: {
+                            labels: months,
+                            datasets: [{
+                                label: 'Applications',
+                                data: applicationData,
+                                borderColor: 'rgb(59, 130, 246)',
+                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            ...chartOptions,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    suggestedMax: Math.max(...applicationData) * 1.1
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Categories Chart
+                if (document.getElementById('categoriesChart')) {
+                    const catCtx = document.getElementById('categoriesChart').getContext('2d');
+                    new Chart(catCtx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Frontend', 'Backend', 'Full Stack', 'DevOps', 'UI/UX'],
+                            datasets: [{
+                                data: [12, 19, 8, 5, 7],
+                                backgroundColor: [
+                                    '#3B82F6',
+                                    '#10B981',
+                                    '#F59E0B',
+                                    '#EF4444',
+                                    '#8B5CF6'
+                                ]
+                            }]
+                        },
+                        options: chartOptions
+                    });
+                }
+            } catch (error) {
+                console.error('Chart initialization failed:', error);
+                showNotification('error', 'Failed to load charts');
+            }
+        }
+
+        // Enhanced Activity Feed
+        function addNewActivity(activity) {
+            const activitiesDiv = document.querySelector('.divide-y');
+            if (!activitiesDiv) return;
+
+            const newActivity = document.createElement('div');
+            newActivity.className = 'p-4 flex items-center gap-4 slide-in';
+            newActivity.innerHTML = `
+                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                    ${activity.icon}
+                </div>
+                <div>
+                    <p class="text-sm font-medium">${activity.message}</p>
+                    <p class="text-xs text-gray-500">${timestamp}</p>
+                </div>
+            `;
+
+            activitiesDiv.insertBefore(newActivity, activitiesDiv.firstChild);
+            if (activitiesDiv.children.length > 5) {
+                activitiesDiv.lastElementChild.remove();
+            }
+        }
+
+        // Modal Controls
+        function openAddJobModal() {
+            const modal = document.getElementById('addJobModal');
+            modal.classList.remove('hidden');
+            // Reset form and trigger animation
+            document.getElementById('addJobForm').reset();
+            modal.querySelector('.modal-content-animation').classList.remove('modal-content-animation');
+            void modal.querySelector('.bg-white').offsetWidth;
+            modal.querySelector('.bg-white').classList.add('modal-content-animation');
+        }
+
+        function closeAddJobModal() {
+            document.getElementById('addJobModal').classList.add('hidden');
+        }
+
+        // Home navigation
+        function goHome() {
+            window.location.href = '40-Admin Panel Home.html';
+        }
+
+        // Quick Action Functions
+        function downloadReport() {
+            Swal.fire({
+                title: 'Downloading Report',
+                text: 'Preparing your report...',
+                timer: 2000,
+                timerProgressBar: true,
+                icon: 'info'
+            }).then(() => {
+                const date = new Date().toISOString().split('T')[0];
+                showNotification('success', `Report jobs-${date}.xlsx downloaded successfully`);
+            });
+        }
+
+        function openBulkEmail() {
+            Swal.fire({
+                title: 'Send Bulk Email',
+                html: `
+                    <div class="space-y-4">
+                        <select class="w-full p-2 border rounded">
+                            <option>All Active Jobs</option>
+                            <option>Selected Jobs</option>
+                            <option>All Applicants</option>
+                        </select>
+                        <textarea placeholder="Email content..." class="w-full p-2 border rounded h-32"></textarea>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Send',
+                showLoaderOnConfirm: true,
+                preConfirm: () => {
+                    return new Promise(resolve => setTimeout(resolve, 1500));
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showNotification('success', 'Bulk email sent successfully');
+                }
+            });
+        }
+
+        function openDraftJobs() {
+            const draftJobs = jobs.filter(job => job.status === 'Draft');
+            Swal.fire({
+                title: 'Draft Jobs',
+                html: `
+                    <div class="max-h-[400px] overflow-y-auto">
+                        ${draftJobs.map(job => `
+                            <div class="p-3 border-b flex justify-between items-center">
+                                <div>
+                                    <div class="font-medium">${job.title}</div>
+                                    <div class="text-sm text-gray-500">${job.employer}</div>
+                                </div>
+                                <button onclick="editJob(${job.id})" class="text-blue-600 hover:text-blue-800">Edit</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `,
+                showConfirmButton: false
+            });
+        }
+
+        function openSettings() {
+            Swal.fire({
+                title: 'Job Board Settings',
+                html: `
+                    <div class="space-y-4 text-left">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Default Job Status</label>
+                            <select class="w-full p-2 border rounded">
+                                <option>Active</option>
+                                <option>Draft</option>
+                                <option>Review</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Email Notifications</label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                New Applications
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" checked class="mr-2">
+                                Job Expiring Soon
+                            </label>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Save Changes'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    showNotification('success', 'Settings saved successfully');
+                }
+            });
+        }
+
+        // View and Edit Functions
+        function viewJob(id) {
+            const job = jobs.find(j => j.id === id);
+            if (!job) return;
+
+            document.getElementById('viewJobModal').classList.remove('hidden');
+            document.getElementById('jobDetailsContent').innerHTML = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <div class="mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">${job.title}</h3>
+                            <p class="text-gray-600">${job.employer}</p>
+                        </div>
+                        <div class="space-y-3">
+                            <p><span class="font-medium">Location:</span> ${job.location}</p>
+                            <p><span class="font-medium">Type:</span> ${job.type}</p>
+                            <p><span class="font-medium">Experience:</span> ${job.experience}</p>
+                            <p><span class="font-medium">Salary:</span> ${job.salary}</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-blue-50 rounded-lg p-4">
+                            <h4 class="font-medium mb-2">Applications</h4>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-sm text-gray-600">Total</p>
+                                    <p class="text-2xl font-bold text-blue-600">${job.applications}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600">Status</p>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                        job.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                                    }">
+                                        ${job.status}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Job Description</h4>
+                    <p class="text-gray-600">${job.description}</p>
+                </div>
+                <div class="mt-6">
+                    <h4 class="font-medium mb-2">Requirements</h4>
+                    <ul class="list-disc list-inside text-gray-600">
+                        ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        }
+
+        function editJob(id) {
+            const job = jobs.find(j => j.id === id);
+            if (!job) return;
+
+            // Pre-fill the form with job data
+            openAddJobModal();
+            const form = document.getElementById('addJobForm');
+            form.title.value = job.title;
+            form.company.value = job.employer;
+            form.type.value = job.type;
+            form.experience.value = job.experience;
+            form.location.value = job.location;
+            form.description.value = job.description;
+            // ... set other form fields
+        }
+
+        // Filter Functions
+        function updateFilters() {
+            const companies = [...new Set(jobs.map(job => job.employer))];
+            const companyFilter = document.getElementById('companyFilter');
+            companyFilter.innerHTML = `
+                <option value="">All Companies</option>
+                ${companies.map(company => `<option value="${company}">${company}</option>`).join('')}
+            `;
+        }
+
+        // Initialize all features
+        document.addEventListener('DOMContentLoaded', () => {
+            updateFilters();
+            initializeCharts();
+            renderJobs(jobs);
+            
+            // Activity feed update every 30 seconds
+            setInterval(() => {
+                addNewActivity({
+                    icon: '✓',
+                    message: `New application received for ${jobs[0].title}`
+                });
+            }, 30000);
+        });
+    </script>
+</body>
 </html>
