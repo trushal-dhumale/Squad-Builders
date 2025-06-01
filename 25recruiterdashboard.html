@@ -29,15 +29,25 @@
 
     .sidebar p {
       margin: 20px 0;
+      padding: 10px;
+      cursor: pointer;
     }
 
     .dash {
       color: #007bff;
-      background-color: rgb(178, 230, 247)
+    }
+
+    .sidebar a.active {
+      background-color: rgb(204, 253, 253);
+      color: black;
+      border-radius: 5px;
+      width: 120px;
+      height: 40px;
     }
 
     .main {
       padding: 30px;
+      flex-grow: 1;
     }
 
     .header {
@@ -68,6 +78,7 @@
       display: flex;
       gap: 12px;
       margin-bottom: 25px;
+      flex-wrap: wrap;
     }
 
     .filters select {
@@ -75,6 +86,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       background: #fff;
+      min-width: 140px;
     }
 
     .candidate {
@@ -107,17 +119,6 @@
       margin-left: 20px;
     }
 
-    .interview {
-      float: inline-end;
-      gap: 12px;
-    }
-
-    .job {
-      width: 800px;
-      height: 30px;
-      padding: 10px;
-    }
-
     button {
       background-color: #007bff;
       border: none;
@@ -125,6 +126,7 @@
       padding: 8px 14px;
       border-radius: 6px;
       font-size: 14px;
+      cursor: pointer;
     }
 
     button:hover {
@@ -139,6 +141,9 @@
       border-radius: 10px;
       margin-bottom: 15px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
     }
 
     .JOB {
@@ -146,16 +151,26 @@
       gap: 12px;
       margin-bottom: 25px;
     }
+
+    .job {
+      width: 800px;
+      height: 30px;
+      padding: 10px;
+    }
+
+    .dash {
+      text-decoration: none;
+    }
   </style>
 </head>
 
 <body>
-  <div class="sidebar">
-    <p class="dash">Dashboard</p>
-    <p>Jobs</p>
-    <p>ATS</p>
-    <p>Interviews</p>
-    <p>Interview Monitor</p>
+  <div class="sidebar" class="d">
+    <a class="dash">Dashboard</a><br><br>
+    <a class="dash" href="28recruiterjobposting.html">Jobs</a><br><br>
+    <a class="dash" href="27atsdashboard.html">ATS</a><br><br>
+    <a class="dash" href="30recruitersheduleinterview.html">Interviews</a><br><br>
+    <a class="dash" href="31recruiterinterviewmonitor.html">InterviewMonitor</a><br><br>
   </div>
 
   <div class="main">
@@ -172,50 +187,60 @@
 
     <div class="search">
       <div class="JOB">
-        <input class="job" placeholder="search job">
-        <button class="interview">Fitter</button>
+        <input class="job" id="jobSearch" placeholder="Search job or candidate name" />
+        <button class="interview">Filter</button>
       </div>
       <div class="filters">
-        <select>
-          <option>Any Skill</option>
+        <select id="skillFilter">
+          <option value="All">All Skills</option>
+          <option value="UX">UX</option>
+          <option value="Full Stack">Full Stack</option>
+          <option value="Product">Product</option>
         </select>
-        <select>
+
+        <select id="skillSelect">
           <option>Select Skill</option>
         </select>
-        <select>
+
+        <select id="locationSelect">
           <option>Any Location</option>
         </select>
-        <select>
-          <option>Any Roles</option>
+
+        <select id="roleFilter">
+          <option value="All">All Roles</option>
+          <option value="Designer">Designer</option>
+          <option value="Developer">Developer</option>
+          <option value="Manager">Manager</option>
         </select>
-        <select>
+
+        <select id="timeSelect">
           <option>Any Time</option>
         </select>
       </div>
     </div>
 
     <div class="candidates">
-      <div class="candidate">
+      <div class="candidate" data-skill="UX" data-role="Designer" data-name="Sarah Johnson">
         <div class="candidate-info">
-          <strong>Sarah Johnson</strong><br>
+          <strong>Sarah Johnson</strong><br />
           Senior UX Designer • 8 years experience
         </div>
         <div class="match">94% Match</div>
         <button class="Interview">Schedule Interview</button>
       </div>
 
-      <div class="candidate">
+      <div class="candidate" data-skill="Full Stack" data-role="Developer" data-name="Michael Chen">
         <div class="candidate-info">
-          <strong>Michael Chen</strong><br>
+          <strong>Michael Chen</strong><br />
           Full Stack Developer • 5 years experience
         </div>
         <div class="match">93% Match</div>
         <button class="Interview">Schedule Interview</button>
       </div>
 
-      <div class="candidate">
+      <div class="candidate" data-skill="Product" data-role="Manager" data-name="Emily Rodriguez">
         <div class="candidate-info">
-          <strong>Emily Rodriguez</strong><br>
+          <strong>Emily Rodriguez</strong><br />
           Product Manager • 6 years experience
         </div>
         <div class="match">92% Match</div>
@@ -223,104 +248,99 @@
       </div>
     </div>
   </div>
+
   <script>
-  const candidates = [
-    {
-      name: "Sarah Johnson",
-      title: "Senior UX Designer",
-      experience: 8,
-      match: 94,
-      skill: "UX Design",
-      role: "Designer"
-    },
-    {
-      name: "Michael Chen",
-      title: "Full Stack Developer",
-      experience: 5,
-      match: 93,
-      skill: "JavaScript",
-      role: "Developer"
-    },
-    {
-      name: "Emily Rodriguez",
-      title: "Product Manager",
-      experience: 6,
-      match: 92,
-      skill: "Product Management",
-      role: "Manager"
-    }
-  ];
 
-  const candidateContainer = document.querySelector(".candidates");
-  const skillFilter = document.querySelectorAll("select")[1];
-  const roleFilter = document.querySelectorAll("select")[3];
-  const searchInput = document.querySelector(".job");
-  const skills = [...new Set(candidates.map(c => c.skill))];
-  const roles = [...new Set(candidates.map(c => c.role))];
-
-  skills.forEach(skill => {
-    const option = document.createElement("option");
-    option.textContent = skill;
-    option.value = skill;
-    skillFilter.appendChild(option);
-  });
-
-  roles.forEach(role => {
-    const option = document.createElement("option");
-    option.textContent = role;
-    option.value = role;
-    roleFilter.appendChild(option);
-  });
-  function renderCandidates(data) {
-    candidateContainer.innerHTML = "";
-    data.forEach(candidate => {
-      const div = document.createElement("div");
-      div.className = "candidate";
-      div.innerHTML = `
-        <div class="candidate-info">
-          <strong>${candidate.name}</strong><br>
-          ${candidate.title} • ${candidate.experience} years experience
-        </div>
-        <div class="match">${candidate.match}% Match</div>
-        <button class="Interview">Schedule Interview</button>
-      `;
-      candidateContainer.appendChild(div);
-    });
-    document.querySelectorAll(".Interview").forEach(button => {
-      button.addEventListener("click", () => {
-        alert("Interview scheduled!");
+    const sidebarItems = document.querySelectorAll('.sidebar p');
+    sidebarItems.forEach(item => {
+      item.addEventListener('click', () => {
+        sidebarItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
       });
     });
-  }
 
-  renderCandidates(candidates);
-  function applyFilters() {
-    let filtered = candidates;
 
-    const selectedSkill = skillFilter.value;
-    const selectedRole = roleFilter.value;
-    const searchText = searchInput.value.toLowerCase();
+    const skillFilter = document.getElementById("skillFilter");
+    const roleFilter = document.getElementById("roleFilter");
+    const jobSearch = document.getElementById("jobSearch");
+    const candidates = document.querySelectorAll(".candidate");
 
-    if (selectedSkill !== "Select Skill") {
-      filtered = filtered.filter(c => c.skill === selectedSkill);
+
+    const skillSelect = document.getElementById("skillSelect");
+    const locationSelect = document.getElementById("locationSelect");
+    const timeSelect = document.getElementById("timeSelect");
+
+
+    const skills = ["JavaScript", "Python", "React", "Node.js", "HTML", "CSS"];
+    const locations = ["New York", "San Francisco", "London", "Mumbai", "Bangalore", "Remote"];
+    const times = ["Full-Time", "Part-Time", "Internship", "Freelance"];
+
+
+    function populateSelect(selectElement, optionsArray) {
+      optionsArray.forEach(option => {
+        const opt = document.createElement("option");
+        opt.value = option;
+        opt.textContent = option;
+        selectElement.appendChild(opt);
+      });
     }
 
-    if (selectedRole !== "Any Roles") {
-      filtered = filtered.filter(c => c.role === selectedRole);
+    populateSelect(skillSelect, skills);
+    populateSelect(locationSelect, locations);
+    populateSelect(timeSelect, times);
+
+
+    function filterCandidates() {
+      const selectedSkill = skillFilter.value;
+      const selectedRole = roleFilter.value;
+      const searchText = jobSearch.value.toLowerCase();
+
+      candidates.forEach(candidate => {
+        const candidateSkill = candidate.getAttribute("data-skill");
+        const candidateRole = candidate.getAttribute("data-role");
+        const candidateName = candidate.getAttribute("data-name").toLowerCase();
+
+        const skillMatch = selectedSkill === "All" || candidateSkill === selectedSkill;
+        const roleMatch = selectedRole === "All" || candidateRole === selectedRole;
+        const searchMatch =
+          candidateName.includes(searchText) ||
+          candidateSkill.toLowerCase().includes(searchText) ||
+          candidateRole.toLowerCase().includes(searchText);
+
+        if (skillMatch && roleMatch && searchMatch) {
+          candidate.style.display = "flex";
+        } else {
+          candidate.style.display = "none";
+        }
+      });
     }
 
-    if (searchText) {
-      filtered = filtered.filter(c => c.title.toLowerCase().includes(searchText));
-    }
+    skillFilter.addEventListener("change", filterCandidates);
+    roleFilter.addEventListener("change", filterCandidates);
+    jobSearch.addEventListener("input", filterCandidates);
 
-    renderCandidates(filtered);
-  }
+    document.addEventListener("DOMContentLoaded", () => {
 
-  skillFilter.addEventListener("change", applyFilters);
-  roleFilter.addEventListener("change", applyFilters);
-  searchInput.addEventListener("input", applyFilters);
-</script>
+      const buttons = document.querySelectorAll(".Interview");
 
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          const candidateDiv = button.closest(".candidate");
+
+          const name = candidateDiv.dataset.name;
+          const role = candidateDiv.dataset.role;
+          const skill = candidateDiv.dataset.skill;
+
+          alert(`Scheduling interview with ${name} (${role} - ${skill})`);
+
+          document.write(`<p>Interview scheduled for: ${name} (${role} - ${skill})</p>`);
+
+        });
+      });
+    });
+
+
+  </script>
 </body>
 
 </html>

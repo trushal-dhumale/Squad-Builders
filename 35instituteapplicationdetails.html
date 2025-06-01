@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Application Dashboard</title>
+  <title>Application Details</title>
   <style>
     * {
       box-sizing: border-box;
@@ -12,86 +13,44 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f2f5;
-      padding: 20px;
       margin: 0;
       color: #333;
     }
 
-    .header h1 {
-      margin-bottom: 20px;
-      font-size: 28px;
-      color: #2c3e50;
+    .image-wrapper {
+      position: relative;
+      width: 100%;
+      max-height: 700px;
+      overflow: hidden;
     }
 
-    .filter-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 30px;
+    .img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: 0.5s ease;
     }
 
-    .filter-group {
-      flex: 1 1 180px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .filter-group label {
-      font-weight: 600;
-      margin-bottom: 5px;
-    }
-
-    .filter-group select {
-      padding: 8px 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      background: #fff;
-    }
-
-    .row-header,
-    .row-data {
-      display: flex;
-      gap: 40px;
-      background: #fff;
-      padding: 15px 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-      margin-bottom: 15px;
-      flex-wrap: wrap;
-    }
-
-    .row-header span,
-    .row-data span {
-      flex: 1 1 150px;
-      font-weight: 500;
-    }
-
-    .row-header {
-      background-color: #e9ecef;
-      font-weight: 600;
-    }
-
-    .pagination {
-      margin: 20px 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .image-wrapper:hover .img {
+      opacity: 0.3;
     }
 
     .container {
-      background: #fff;
-      padding: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      max-width: 800px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      width: 90%;
+      max-width: 600px;
     }
 
     .container h2 {
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .container label {
@@ -116,178 +75,72 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      width: 100%;
     }
 
     .container button:hover {
       background-color: #218838;
-    }
-
-    @media (max-width: 768px) {
-      .row-header span,
-      .row-data span {
-        flex: 1 1 100%;
-      }
-
-      .filter-box {
-        flex-direction: column;
-      }
-
-      .result {
-        float: inline-start;
-      }
-    }
-
-    .button {
-      float: inline-end;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="header">
-    <h1>Application Dashboard</h1>
-  </div>
+  <div class="image-wrapper">
+    <img src="/Screenshot 2025-05-31 180518.png" class="img" alt="application" />
+    <div class="container">
+      <h2>Application Details</h2>
 
-  <div class="filter-box">
-    <div class="filter-group">
-      <label>Job Title</label>
-      <select id="filter-job">
-        <option value="all">All Positions</option>
-        <option value="Frontend Developer">Frontend Developer</option>
-        <option value="Backend Developer">Backend Developer</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Students</label>
-      <select id="filter-student">
-        <option value="all">All Students</option>
-        <option value="Sarah Wilson">Sarah Wilson</option>
-        <option value="James Lee">James Lee</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Status</label>
-      <select id="filter-status">
-        <option value="all">All Status</option>
-        <option value="Pending">Pending</option>
-        <option value="Approved">Approved</option>
-      </select>
-    </div>
-
-    <div class="filter-group">
-      <label>Recruiters</label>
-      <select id="filter-recruiter">
-        <option value="all">All Recruiters</option>
-        <option value="ABC Corp">ABC Corp</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="row-header">
-    <span>Student Info</span>
-    <span>Job Details</span>
-    <span>Application Date</span>
-    <span>Resume</span>
-    <span>Status</span>
-    <span>Actions</span>
-  </div>
-
-  <div id="application-list"></div>
-
-  <p>Showing 1 to 2 results</p>
-  <div class="button">
-    <button>&lt;</button>
-    <button>1</button>
-    <button>2</button>
-    <button>&gt;</button>
-  </div>
-
-  <br><br>
-
-  <div class="container">
-    <h2>Application Details</h2>
-
-    <label>Resume Preview</label>
-
-    <label>Cover Letter</label>
-
-    <label>Interview</label>
-    <select>
-      <option>Scheduled</option>
-      <option>Completed</option>
-      <option>Pending</option>
-    </select>
-
-    <label>Recruiter Feedback</label>
-    <input type="text" placeholder="Enter feedback" id="feedback">
-
-    <label>Email Student</label>
-    <input type="text" placeholder="Subject" id="email-subject">
-    <input type="text" placeholder="Message content" id="email-body">
-
-    <button onclick="sendEmail()">Send Email</button>
-  </div>
-
-  <script>
-    const applications = [
-      {
-        student: "Sarah Wilson",
-        job: "Frontend Developer",
-        date: "Jan 15, 2025",
-        resume: "Upload",
-        status: "Pending",
-        recruiter: "ABC Corp"
-      },
-      {
-        student: "James Lee",
-        job: "Backend Developer",
-        date: "Jan 18, 2025",
-        resume: "Upload",
-        status: "Approved",
-        recruiter: "ABC Corp"
-      }
-    ];
-
-    const appList = document.getElementById("application-list");
-
-    function renderApplications(data) {
-      appList.innerHTML = "";
-      data.forEach(app => {
-        const row = document.createElement("div");
-        row.className = "row-data";
-        row.innerHTML = `
-          <span>${app.student}</span>
-          <span>${app.job}</span>
-          <span>${app.date}</span>
-          <span><a href="#" onclick="alert('Uploading resume for ${app.student}')">Upload</a></span>
-          <span>${app.status}</span>
-          <span><button onclick="alert('View details for ${app.student}')">View</button></span>
-        `;
-        appList.appendChild(row);
-      });
-    }
-
-    function filterApplications() {
-      const job = document.getElementById("filter-job").value;
-      const student = document.getElementById("filter-student").value;
-      const status = document.getElementById("filter-status").value;
-      const recruiter = document.getElementById("filter-recruiter").value;
-
-      const filtered = applications.filter(app =>
-        (job === "all" || app.job === job) &&
-        (student === "all" || app.student === student) &&
-        (status === "all" || app.status === status) &&
-        (recruiter === "all" || app.recruiter === recruiter)
-      );
-
-      renderApplications(filtered);
-    }
-
+      <label>Resume Preview</label>
     
-  </script>
+
+      <label>Cover Letter</label>
+    
+
+      <label>Interview</label>
+      <select>
+        <option>Scheduled</option>
+        <option>Completed</option>
+        <option>Pending</option>
+      </select>
+
+      <label>Recruiter Feedback</label>
+      <input type="text" placeholder="Enter feedback" />
+
+      <label>Email Student</label>
+      <input type="text" placeholder="Subject" />
+      <input type="text" placeholder="Message content" />
+
+      <button>Send Email</button>
+    </div>
+  </div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.querySelector(".container button");
+
+    button.addEventListener("click", () => {
+      const interviewStatus = document.querySelector("select").value;
+      const feedback = document.querySelector('input[placeholder="Enter feedback"]').value.trim();
+      const subject = document.querySelector('input[placeholder="Subject"]').value.trim();
+      const message = document.querySelector('input[placeholder="Message content"]').value.trim();
+
+      if (!feedback || !subject || !message) {
+        alert("⚠️ Please fill in all fields before sending.");
+        return;
+      }
+      alert("✅ Email sent successfully!\n\n" +
+            "Interview Status: " + interviewStatus + "\n" +
+            "Feedback: " + feedback + "\n" +
+            "Subject: " + subject + "\n" +
+            "Message: " + message);
+
+      document.querySelector('input[placeholder="Enter feedback"]').value = "";
+      document.querySelector('input[placeholder="Subject"]').value = "";
+      document.querySelector('input[placeholder="Message content"]').value = "";
+    });
+  });
+</script>
 
 </body>
+
 </html>
