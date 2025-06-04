@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMARTRECRUIT</title>
+</head>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+       text-decoration: none;
+}
+
+.header {
+    background-color: #fff;
+    padding: 20px;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.help-contact {
+    display: flex;
+    gap: 20px;
+}
+
+.help-contact a {
+    text-decoration: none;
+    color: #555;
+    font-size: 14px;
+}
+  
+  .container {
+    max-width: 1200px;
+    margin:10 auto;
+    padding:0 20px;
+  
+    width: 100%;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 2rem;
+    color: #222;
+  }
+  
+  .account-types {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  
+  .card {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    width: 200px;
+  }
+  
+  .icon {
+    height: 40px;
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .blue {
+    background-color: #2f57ef;
+    color: #fff;
+  }
+  
+  .purple {
+    background-color: #9340ff;
+    color: #fff;
+  }
+  
+  .green {
+    background-color: #1dc071;
+    color: #fff;
+  }
+  
+  .signin-box {
+    background: #fff;
+    padding: 2rem;
+    width: 300px;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  }
+  
+  .signin-box input {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+  
+  .signin-box label {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1rem;
+    text-align: left;
+    display: block;
+    
+  }
+  .or {
+    margin: 1rem 0;
+  }
+  
+  .social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .social {
+    background-color: #eaeaea;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .signup {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+  .signup a {
+    text-decoration: none;
+    color: #2f57ef;
+  }
+</style>
+<body>
+     
+    <div class="header">
+        <div class="logo">SmartRecruit</div>
+        <div class="help-contact">
+            <a href="#">Help</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Choose Your Account Type</h1>
+        <div class="account-types">
+          <div class="card">
+            <div class="icon job-seeker"><i class="fas fa-graduation-cap"></i></div>
+            <h3>Job Seeker</h3>
+            <p>Find your dream job</p>
+            <button onclick="selectType('jobseeker')" class="blue"><a href="8jobseekeraccpages.html">Continue as Job Seeker</a></button>
+          </div>
+          <div class="card">
+            <div class="icon recruiter"><i class="fa-solid fa-users"></i></div>
+            <h3>Recruiter</h3>
+            <p>Find top talent</p>
+            <button onclick="selectType('recruiter')" class="purple"><a href="9recriteraccpages.html">Continue as Recruiter</a></button>
+          </div>
+          <div class="card">
+            <div class="icon institute"><i class="fas fa-building"></i></div>
+            <h3>Institute</h3>
+            <p>Manage your organization</p>
+            <button onclick="selectType('institute')" class="green"><a href="10instituteaccpages.html">Continue as Institute</a></button>
+          </div>
+        </div>
+
+        <div class="signin-box">
+            <h2>Sign In</h2>
+            <label for="email">Email</label><br>
+            <input type="email" placeholder="Enter your email" id="email" /><br>
+            <label for="password">Password</label><br>
+            <input type="password" placeholder="Enter your password" id="password" /><br>
+            <button class="blue">Sign In</button>
+            <p class="or">or continue with</p>
+            <div class="social-buttons">
+              <button class="social"><a href="#"><i class="fa-solid fa-globe"></i></a></button>
+              <button class="social"><a href="#"><i class="fab fa-linkedin-in"></i></a></button>
+              <button class="social"><a href="#"><i class="fab fa-facebook-f"></i></a></button>
+            </div>
+            <p class="signup">Don't have an account? <a href="7createaccountpages.html">Sign up</a></p>
+          </div>
+        </div>
+
+</body>
+        <script>
+          function selectType() {
+            alert("selected account type:" +type);
+
+          }
+
+          function signin() {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+              
+
+              if (email === "" || password === "") {
+                alert("please fill in both fields");
+                return;
+              }
+               alert("Logged in as:" +email);
+          }
+        
+
+
+      
+    // Account Type Selection
+    //function selectType(type) {
+    //    alert("Selected account type: " + type);
+    //    window.location.href = type + "-dashboard.html"; // Redirect to respective dashboard
+  ///  }
+
+    // Sign-In Validation
+    function signin() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!email || !password) {
+            alert("Please fill in both fields.");
+            return;
+        }
+
+        alert("Logged in as: " + email);
+        window.location.href = "user-dashboard.html"; // Redirect after successful login
+    }
+
+    // Attach event listener to sign-in button
+    document.querySelector(".blue").addEventListener("click", signin);
+
+    // Social Sign-In Buttons
+    document.querySelectorAll(".social-buttons button").forEach(button => {
+        button.addEventListener("click", () => {
+            alert("Redirecting to social login...");
+            window.location.href = "social-login.html"; // Update with actual social login URL
+        });
+    });
+</script>
+</html>     

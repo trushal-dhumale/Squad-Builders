@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Posted Jobs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fdfc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+
+
+.posted-jobs-container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+            margin: 20px; /* Optional margin around the container */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .grid-list-toggle {
+            display: flex;
+            gap: 10px;
+            margin-right: 20px;
+        }
+
+        .grid-button, .list-button {
+            border: none;
+            background: none;
+            color: #555;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .grid-button.active, .list-button.active {
+            background-color: #e0e0e0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search-input {
+            border: none;
+            padding: 8px;
+            flex-grow: 1;
+            outline: none;
+            font-size: 0.9em;
+        }
+
+        .search-icon {
+            color: #777;
+            margin-left: 5px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+
+
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filters, .view-post {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    select, .search-bar input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+    }
+    .job-listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .job-card {
+      background-color: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .active { background-color: #d1fae5; color: #065f46; }
+    .draft { background-color: #fef9c3; color: #92400e; }
+    .closed { background-color: #fee2e2; color: #991b1b; }
+    .job-location {
+      font-size: 14px;
+      margin: 10px 0;
+      color: #555;
+    }
+    .view-details {
+      margin-top: 10px;
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+    }
+    .applicants {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+    .pagination {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    .pagination button {
+      padding: 6px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .pagination .active-page {
+      background-color: #3b82f6;
+      color: #fff;
+      border-color: #3b82f6;
+    }
+  </style>
+</head>
+<body>
+   <div class="posted-jobs-container">
+        <div class="header">
+            <div class="header-left">Posted Jobs</div>
+            <div class="header-right">
+                <div class="grid-list-toggle">
+                    <button class="grid-button active"><i class="fa-solid fa-boxes-stacked"></i> Grid</button>
+                    <button class="list-button"><i class="fa-solid fa-list-ul"></i> List</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search jobs...">
+                    <span class="search-icon">&#128269;</span>
+                </div>
+            </div>
+        </div>
+
+  <div class="top-bar">
+    <div class="filters">
+      <select><option>All Status</option></select>
+      <select><option>All Locations</option></select>
+      <select><option>Sort By</option></select>
+    </div>
+   
+      <button style="background:#3b82f6; color:white; padding: 8px 12px; border-radius: 6px; border:none;"><i class="fa-solid fa-plus"></i> Post New Job</button>
+    </div>
+  </div>
+
+  <div class="job-listings">
+    <div class="job-card">
+      <div class="job-header">
+        <h3>Senior UX Designer</h3>
+        <span class="badge active">Active</span>
+      </div>
+      <div class="job-location">Remote<br/>Posted on Jan 15, 2025</div>
+      <div class="applicants">24 Applicants</div>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <div class="job-card">
+      <div class="job-header">
+        <h3>Frontend Developer</h3>
+        <span class="badge draft">Draft</span>
+      </div>
+      <div class="job-location">New York, USA<br/>Posted on Jan 12, 2025</div>
+      <div class="applicants">18 Applicants</div>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+
+    <div class="job-card">
+      <div class="job-header">
+        <h3>Product Manager</h3>
+        <span class="badge closed">Closed</span>
+      </div>
+      <div class="job-location">London, UK<br/>Posted on Jan 10, 2025</div>
+      <div class="applicants">32 Applicants</div>
+      <a href="#" class="view-details">View Details</a>
+    </div>
+  </div>
+
+
+<div class="pagination">
+    <button><i class="fa-solid fa-arrow-left"></i> Previous</button>
+    <button class="active-page">1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>Next <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+
+</body>
+<script>
+    // Grid/List View Toggle
+    document.querySelector(".grid-button").addEventListener("click", () => {
+        document.querySelector(".grid-button").classList.add("active");
+        document.querySelector(".list-button").classList.remove("active");
+        document.querySelector(".job-listings").classList.remove("list-view");
+        alert("Switched to Grid View");
+    });
+
+    document.querySelector(".list-button").addEventListener("click", () => {
+        document.querySelector(".list-button").classList.add("active");
+        document.querySelector(".grid-button").classList.remove("active");
+        document.querySelector(".job-listings").classList.add("list-view");
+        alert("Switched to List View");
+    });
+
+    // Search Job Functionality
+    document.querySelector(".search-input").addEventListener("keyup", (event) => {
+        const query = event.target.value.toLowerCase();
+        document.querySelectorAll(".job-card").forEach(job => {
+            const jobTitle = job.querySelector(".job-header h3").textContent.toLowerCase();
+            job.style.display = jobTitle.includes(query) ? "block" : "none";
+        });
+    });
+
+    // Filter Selection
+    document.querySelectorAll(".filters select").forEach(select => {
+        select.addEventListener("change", () => {
+            alert(`Filter applied: ${select.value}`);
+            // Add logic for filtering job listings dynamically
+        });
+    });
+
+    // Pagination Click Effect
+    document.querySelectorAll(".pagination button").forEach(button => {
+        button.addEventListener("click", () => {
+            if (!button.classList.contains("active-page")) {
+                document.querySelector(".pagination .active-page").classList.remove("active-page");
+                button.classList.add("active-page");
+                alert(`Navigated to page ${button.textContent}`);
+            }
+        });
+    });
+
+    // Post New Job Button Redirect
+    document.querySelector(".top-bar button").addEventListener("click", () => {
+        alert("Redirecting to job posting page...");
+        window.location.href = "post-job.html"; // Update with actual job posting URL
+    });
+
+    // View Job Details Click Effect
+    document.querySelectorAll(".view-details").forEach(link => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            alert(`Viewing details for: ${link.parentElement.querySelector(".job-header h3").textContent}`);
+            window.location.href = "job-details.html"; // Update with actual job details URL
+        });
+    });
+
+</script>
+</html>
+
+
+
+<!--
+
+
+
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4; /* Optional background color for the whole page */
+        }
+
+        .posted-jobs-container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional shadow */
+            margin: 20px; /* Optional margin around the container */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-left {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .grid-list-toggle {
+            display: flex;
+            gap: 10px;
+            margin-right: 20px;
+        }
+
+        .grid-button, .list-button {
+            border: none;
+            background: none;
+            color: #555;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .grid-button.active, .list-button.active {
+            background-color: #e0e0e0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .search-input {
+            border: none;
+            padding: 8px;
+            flex-grow: 1;
+            outline: none;
+            font-size: 0.9em;
+        }
+
+        .search-icon {
+            color: #777;
+            margin-left: 5px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-select {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+            appearance: none; /* Remove default arrow */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="currentColor" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: calc(100% - 10px);
+            background-position-y: center;
+            background-size: 12px;
+        }
+
+        .post-new-job-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .post-new-job-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* You would add styles for the actual job listings here */
+        .job-list {
+            /* Styles for list view */
+        }
+
+        .job-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Example grid layout */
+            gap: 20px;
+        }
+
+        .job-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="posted-jobs-container">
+        <div class="header">
+            <div class="header-left">Posted Jobs</div>
+            <div class="header-right">
+                <div class="grid-list-toggle">
+                    <button class="grid-button active">Grid</button>
+                    <button class="list-button">List</button>
+                </div>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Search jobs...">
+                    <span class="search-icon">&#128269;</span>
+                </div>
+            </div>
+        </div>
+
+
+<div class="filter-bar">
+            <select class="filter-select">
+                <option>All Status</option>
+                <option>Open</option>
+                <option>Closed</option>
+                <option>Pending</option>
+            </select>
+            <select class="filter-select">
+                <option>All Locations</option>
+                <option>New York</option>
+                <option>London</option>
+                <option>Tokyo</option>
+            </select>
+            <select class="filter-select">
+                <option>Sort By</option>
+                <option>Date (Newest)</option>
+                <option>Date (Oldest)</option>
+                <option>Title (A-Z)</option>
+                <option>Title (Z-A)</option>
+            </select>
+            <button class="post-new-job-button">+ Post New Job</button>
+        </div>
+
+        <div class="job-grid">
+            <div class="job-card">
+                <h3>Software Engineer</h3>
+                <p>Location: New York</p>
+                <p>Status: Open</p>
+                </div>
+            <div class="job-card">
+                <h3>Marketing Manager</h3>
+                <p>Location: London</p>
+                <p>Status: Closed</p>
+                </div>
+            <div class="job-card">
+                <h3>Data Analyst</h3>
+                <p>Location: Tokyo</p>
+                <p>Status: Open</p>
+                </div>
+            </div>
+
+        <div class="job-list" style="display: none;">
+            <ul>
+                <li>
+                    <h3>Software Engineer</h3>
+                    <p>Location: New York | Status: Open</p>
+                    </li>
+                <li>
+                    <h3>Marketing Manager</h3>
+                    <p>Location: London | Status: Closed</p>
+                    </li>
+                <li>
+                    <h3>Data Analyst</h3>
+                    <p>Location: Tokyo | Status: Open</p>
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+    
+</body>
+</html>
