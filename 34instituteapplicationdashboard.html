@@ -4,8 +4,151 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Application Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>Applications Dashboard</title>
   <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f9fafa;
+      color: #333;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      margin-bottom: 25px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      font-size: 20px;
+      height: 70px;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 10px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      padding: 10px 20px;
+      background: #fff;
+      border-radius: 10px;
+      margin: 0 20px 20px 20px;
+    }
+
+    .filters select {
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .export-btn {
+      background: #6366f1;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    table {
+      width: calc(100% - 40px);
+      margin: 0 20px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f4f4f4;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .student-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .student-info img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .resume-uploaded {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      display: inline-block;
+    }
+
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      display: inline-block;
+    }
+
+    .actions i {
+      margin-right: 10px;
+      cursor: pointer;
+      color: #401dca;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      padding: 15px 20px;
+      gap: 8px;
+    }
+
+    .pagination button {
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+
+    .pagination button:hover {
+      background: #eee;
+    }
+
+    .result-count {
+      font-size: 14px;
+      padding: 0 20px;
+      margin-top: 8px;
+      color: #555;
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -13,133 +156,193 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f2f5;
+      padding: 20px;
       margin: 0;
       color: #333;
     }
 
-    .image-wrapper {
-      position: relative;
-      width: 100%;
-      max-height: 700px;
-      overflow: hidden;
-    }
-
-    .img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: 0.5s ease;
-    }
-
-    .image-wrapper:hover .img {
-      opacity: 0.3;
-    }
-
-    .container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      width: 90%;
-      max-width: 600px;
-    }
-
-    .container h2 {
+    .header h1 {
       margin-bottom: 20px;
-      text-align: center;
+      font-size: 28px;
+      color: #2c3e50;
     }
 
-    .container label {
+    .filter-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .filter-group {
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-group label {
       font-weight: 600;
-      margin: 10px 0 5px;
-      display: block;
+      margin-bottom: 5px;
     }
 
-    .container input,
-    .container select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
+    .filter-group select {
+      padding: 8px 10px;
+      border-radius: 5px;
       border: 1px solid #ccc;
-      margin-bottom: 15px;
+      background: #fff;
     }
 
-    .container button {
-      padding: 10px 20px;
-      background-color: #28a745;
-      color: white;
+    .export-btn {
+      background: #6366f1;
+      color: #fff;
       border: none;
-      border-radius: 6px;
+      padding: 8px 16px;
+      border-radius: 8px;
       cursor: pointer;
-      width: 100%;
-    }
-
-    .container button:hover {
-      background-color: #218838;
+      float: right;
     }
   </style>
 </head>
 
 <body>
-
-  <div class="image-wrapper">
-    <img src="/Screenshot 2025-05-31 180518.png" class="img" alt="application" />
-    <div class="container">
-      <h2>Application Details</h2>
-
-      <label>Resume Preview</label>
-    
-
-      <label>Cover Letter</label>
-    
-
-      <label>Interview</label>
-      <select>
-        <option>Scheduled</option>
-        <option>Completed</option>
-        <option>Pending</option>
-      </select>
-
-      <label>Recruiter Feedback</label>
-      <input type="text" placeholder="Enter feedback" />
-
-      <label>Email Student</label>
-      <input type="text" placeholder="Subject" />
-      <input type="text" placeholder="Message content" />
-
-      <button>Send Email</button>
+  <header class="header">
+    <h3>Reports Dashboard</h3>
+    <div>
+    <button class="export-btn">📤 Export
+    </button>
+    <i class="fa-solid fa-house" style="color: #0927ed; margin-right:20px;"></i>
     </div>
+  </header>
+
+
+  <div class="filter-box">
+    <div class="filter-group">
+      <label>Job Title</label>
+      <select>
+        <option>All Positions</option>
+        <option>Frontend Developer</option>
+        <option>Backend Developer</option>
+        <option>UI/UX Designer</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Students</label>
+      <select>
+        <option>All Students</option>
+        <option>Sarah Wilson</option>
+        <option>John Smith</option>
+        <option>Emily Clark</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Status</label>
+      <select>
+        <option>All Status</option>
+        <option>Pending</option>
+        <option>Shortlisted</option>
+        <option>Rejected</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Recruiters</label>
+      <select>
+        <option>All Recruiters</option>
+        <option>Google Inc.</option>
+        <option>Microsoft</option>
+        <option>Amazon</option>
+      </select>
+    </div>
+
   </div>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const button = document.querySelector(".container button");
+  <table>
+    <thead>
+      <tr>
+        <th>Student Info</th>
+        <th>Job Details</th>
+        <th>Application Date</th>
+        <th>Resume</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="student-info">
+            <img src="https://i.pravatar.cc/40?img=5" alt="Sarah Wilson" />
+            <div>
+              <strong>Sarah Wilson</strong><br />
+              <small>#2025001</small>
+            </div>
+          </div>
+        </td>
+        <td>
+          Frontend Developer<br />
+          <small>Google Inc.</small>
+        </td>
+        <td>Jan 15, 2025</td>
+        <td><span class="resume-uploaded">Uploaded</span></td>
+        <td><span class="status-pending">Pending</span></td>
+        <td class="actions">
+          <i class="fas fa-trash-alt"></i>
+          <i class="fas fa-edit"></i>
+          <i class="fas fa-comment"></i>
+        </td>
+      </tr>
+    </tbody>
+  </table><br><br>
 
-    button.addEventListener("click", () => {
-      const interviewStatus = document.querySelector("select").value;
-      const feedback = document.querySelector('input[placeholder="Enter feedback"]').value.trim();
-      const subject = document.querySelector('input[placeholder="Subject"]').value.trim();
-      const message = document.querySelector('input[placeholder="Message content"]').value.trim();
+  <div class="result-count">Showing 1 to 10 of 97 results</div>
 
-      if (!feedback || !subject || !message) {
-        alert("⚠️ Please fill in all fields before sending.");
-        return;
-      }
-      alert("✅ Email sent successfully!\n\n" +
-            "Interview Status: " + interviewStatus + "\n" +
-            "Feedback: " + feedback + "\n" +
-            "Subject: " + subject + "\n" +
-            "Message: " + message);
+  <div class="pagination">
+    <button>&lt;</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&gt;</button>
+  </div>
+  <script>
+    const filters = {
+      job: document.querySelectorAll('select')[0],
+      student: document.querySelectorAll('select')[1],
+      status: document.querySelectorAll('select')[2],
+      recruiter: document.querySelectorAll('select')[3]
+    };
 
-      document.querySelector('input[placeholder="Enter feedback"]').value = "";
-      document.querySelector('input[placeholder="Subject"]').value = "";
-      document.querySelector('input[placeholder="Message content"]').value = "";
-    });
-  });
-</script>
+    const rows = document.querySelectorAll("table tbody tr");
+
+    function applyFilters() {
+      rows.forEach(row => {
+        const jobText = row.children[1].textContent.toLowerCase();
+        const studentText = row.children[0].textContent.toLowerCase();
+        const statusText = row.children[4].textContent.toLowerCase();
+        const recruiterText = row.children[1].querySelector("small").textContent.toLowerCase();
+
+        const matchJob = filters.job.value === "All Positions" || jobText.includes(filters.job.value.toLowerCase());
+        const matchStudent = filters.student.value === "All Students" || studentText.includes(filters.student.value.toLowerCase());
+        const matchStatus = filters.status.value === "All Status" || statusText.includes(filters.status.value.toLowerCase());
+        const matchRecruiter = filters.recruiter.value === "All Recruiters" || recruiterText.includes(filters.recruiter.value.toLowerCase());
+
+        if (matchJob && matchStudent && matchStatus && matchRecruiter) {
+          row.style.display = "";
+        } else {
+          row.style.display = "none";
+        }
+      });
+    }
+
+    // Attach filter event listeners
+    for (let key in filters) {
+      filters[key].addEventListener("change", applyFilters);
+    }
+  </script>
 
 </body>
 

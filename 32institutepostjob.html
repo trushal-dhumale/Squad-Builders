@@ -4,7 +4,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Institute Posted Job</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title> Institute Posted Job</title>
   <style>
     * {
       box-sizing: border-box;
@@ -17,17 +20,41 @@
       padding: 20px;
     }
 
-    h1 {
-      color: #2c3e50;
+    .container {
+      padding: 30px;
     }
 
-    .header {
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
       margin-bottom: 20px;
     }
 
     .filters {
-      display: inline-block;
-      margin-right: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    select,
+    input[type="search"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .btn-post {
+      background-color: #3c5bfa;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .header {
+      margin-bottom: 20px;
     }
 
     select {
@@ -58,7 +85,6 @@
       background: white;
       padding: 20px;
       width: 320px;
-      height: auto;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
       position: relative;
     }
@@ -86,7 +112,7 @@
       color: orange;
     }
 
-    .close {
+    .closed {
       background-color: #f8d7da;
       color: red;
     }
@@ -127,131 +153,201 @@
       margin-bottom: 6px;
       color: #555;
     }
+   .applicants {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .avatars img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-left: -8px;
+      border: 2px solid #fff;
+    }
+
+    .view-link {
+      text-decoration: none;
+      color: #3c5bfa;
+      font-size: 14px;
+    }
+    .home{
+      text-decoration: none;
+    }
   </style>
 </head>
 
 <body>
 
   <div class="header">
-    <h1>Posted Jobs</h1>
-  </div>
-
-  <div class="filters">
-    <select id="statusFilter">
-      <option value="All">All Status</option>
-      <option value="Active">Active</option>
-      <option value="Draft">Draft</option>
-      <option value="Closed">Closed</option>
-    </select>
-    <select id="locationFilter">
-      <option value="All">All Location</option>
-      <option value="Remote">Remote</option>
-      <option value="New York, USA">New York, USA</option>
-      <option value="London, UK">London, UK</option>
-    </select>
-    <select id="sortBy">
-      <option value="recent">Sort by Recent</option>
-      <option value="title">Sort by Title</option>
-    </select>
-  </div>
-
-  <button class="but" onclick="alert('Redirect to Post Job form')">+ Post Job</button>
-
-  <div class="job-listings" id="jobList"></div>
-
-  <div class="pagination">
-    <div id="jobCount">Showing 1–3 of X jobs</div>
-    <div id="paginationButtons">
-      <button onclick="prevPage()">Previous</button>
-      <button class="one">1</button>
-      <button onclick="nextPage()">Next</button>
+    <div class="top-bar">
+      <h2 class="filters">Posted Job</h2>
+      <div class="action-bar">
+        <div class="header-icons">
+      <a href="25recruiterdashboard.html" title="Home" class="home">
+      <i class="fa-solid fa-house" style="color: #0927ed; margin-right: 10px;"></i>
+    </a>
+        <button>🔲 Grid</button>
+        <button>📋 List</button>
+        <input type="search" placeholder="Search jobs..." />
+      </div>
     </div>
   </div>
 
-  <script>
-    const jobs = [
-      { title: "Senior UX Designer", status: "Active", location: "Remote", date: "Jan 15, 2025" },
-      { title: "Frontend Developer", status: "Draft", location: "New York, USA", date: "Jan 12, 2025" },
-      { title: "Product Manager", status: "Closed", location: "London, UK", date: "Jan 10, 2025" },
-      { title: "DevOps Engineer", status: "Active", location: "Remote", date: "Jan 18, 2025" },
-      { title: "Backend Developer", status: "Draft", location: "New York, USA", date: "Jan 17, 2025" },
-      { title: "QA Analyst", status: "Closed", location: "London, UK", date: "Jan 14, 2025" }
-    ];
+  <div class="filters">
+    <select>
+      <option>All Status</option>
+      <option>Active</option>
+      <option>Draft</option>
+      <option>Closed</option>
+    </select>
+    <select>
+      <option>All Location</option>
+      <option>Remote</option>
+      <option>New York, USA</option>
+      <option>London, UK</option>
+    </select>
+    <select>
+      <option>Sort by Recent</option>
+      <option>Sort by Title</option>
+    </select>
+  </div>
 
-    let currentPage = 1;
-    const jobsPerPage = 3;
+  <button class="but">+ Post Job</button>
 
-    function displayJobs() {
-      const statusFilter = document.getElementById('statusFilter').value;
-      const locationFilter = document.getElementById('locationFilter').value;
-      const sortOption = document.getElementById('sortBy').value;
-
-      let filteredJobs = jobs.filter(job => {
-        return (statusFilter === 'All' || job.status === statusFilter) &&
-               (locationFilter === 'All' || job.location === locationFilter);
-      });
-
-      if (sortOption === 'title') {
-        filteredJobs.sort((a, b) => a.title.localeCompare(b.title));
-      } else {
-        filteredJobs.sort((a, b) => new Date(b.date) - new Date(a.date));
-      }
-
-      const startIndex = (currentPage - 1) * jobsPerPage;
-      const paginatedJobs = filteredJobs.slice(startIndex, startIndex + jobsPerPage);
-
-      const jobList = document.getElementById('jobList');
-      jobList.innerHTML = "";
-
-      paginatedJobs.forEach(job => {
-        const card = document.createElement('div');
-        card.className = 'job-card';
-        card.innerHTML = `
-          <strong>${job.title}</strong>
-          <div class="status ${job.status.toLowerCase()}">${job.status}</div>
-          <div class="job-meta">
-            <div>${job.location}</div>
-            <div>Posted on ${job.date}</div>
-            <div>Applicants</div>
+  <div class="job-listings">
+    <div class="job-card">
+      <strong>Senior UX Designer</strong>
+      <div class="status active">Active</div>
+      <div class="job-meta">
+        <div>📍Remote</div>
+        <div>📅Posted on Jan 15, 2025</div>
+        <div>👥24Applicants</div>
+      </div>
+      <div class="applicants">
+          <a class="view-link" href="#">👁️ View Details</a>
+          <div class="avatars">
+            <img src="https://i.pravatar.cc/30?img=1" />
+            <img src="https://i.pravatar.cc/30?img=2" />
+            <img src="https://i.pravatar.cc/30?img=3" />
+            <img src="https://i.pravatar.cc/30?img=4" />
+            <span>+21</span>
           </div>
-          <a href="#" class="view">View Details</a>
-        `;
-        jobList.appendChild(card);
+        </div>
+    </div>
+
+    <div class="job-card">
+      <strong>Frontend Developer</strong>
+      <div class="status draft">Draft</div>
+      <div class="job-meta">
+        <div>📍New York, USA</div>
+        <div>📅Posted on Jan 12, 2025</div>
+        <div>👥18Applicants</div>
+      </div>
+        <div class="applicants">
+          <a class="view-link" href="#">👁️ View Details</a>
+          <div class="avatars">
+            <img src="https://i.pravatar.cc/30?img=5" />
+            <img src="https://i.pravatar.cc/30?img=6" />
+            <span>+16</span>
+          </div>
+        </div>      
+    </div>
+
+    <div class="job-card">
+      <strong>Product Manager</strong>
+      <div class="status closed">Closed</div>
+      <div class="job-meta">
+        <div>📍London, UK</div>
+        <div>📅Posted on Jan 10, 2025</div>
+        <div>👥32Applicants</div>
+      </div>
+<div class="applicants">
+          <a class="view-link" href="#">👁️ View Details</a>
+          <div class="avatars">
+            <img src="https://i.pravatar.cc/30?img=7" />
+            <img src="https://i.pravatar.cc/30?img=8" />
+            <img src="https://i.pravatar.cc/30?img=9" />
+            <span>+29</span>
+          </div>
+        </div>    </div>
+  </div>
+
+  <div class="pagination">
+    <div>Showing 1–3 of 6 jobs</div>
+    <div>
+      <button>Previous</button>
+      <button class="one">1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>Next</button>
+    </div>
+  </div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const statusFilter = document.querySelectorAll('select')[0];
+    const locationFilter = document.querySelectorAll('select')[1];
+    const sortFilter = document.querySelectorAll('select')[2];
+    const searchInput = document.querySelector('input[type="search"]');
+    const jobCards = document.querySelectorAll('.job-card');
+    const gridBtn = document.querySelector('button:nth-of-type(1)');
+    const listBtn = document.querySelector('button:nth-of-type(2)');
+    const jobListings = document.querySelector('.job-listings');
+
+    function filterJobs() {
+      const status = statusFilter.value.toLowerCase();
+      const location = locationFilter.value.toLowerCase();
+      const search = searchInput.value.toLowerCase();
+
+      jobCards.forEach(card => {
+        const cardStatus = card.querySelector('.status').textContent.toLowerCase();
+        const cardLocation = card.querySelector('.job-meta div').textContent.toLowerCase();
+        const cardTitle = card.querySelector('strong').textContent.toLowerCase();
+
+        const statusMatch = status === 'all status' || cardStatus === status;
+        const locationMatch = location === 'all location' || cardLocation.includes(location);
+        const searchMatch = cardTitle.includes(search);
+
+        card.style.display = (statusMatch && locationMatch && searchMatch) ? 'block' : 'none';
+      });
+    }
+
+    function sortJobs() {
+      const sortBy = sortFilter.value;
+      const sortedCards = Array.from(jobCards).sort((a, b) => {
+        const titleA = a.querySelector('strong').textContent.toLowerCase();
+        const titleB = b.querySelector('strong').textContent.toLowerCase();
+        if (sortBy === 'Sort by Title') {
+          return titleA.localeCompare(titleB);
+        }
+        return 0;
       });
 
-      document.getElementById("jobCount").innerText = `Showing ${startIndex + 1}–${Math.min(startIndex + jobsPerPage, filteredJobs.length)} of ${filteredJobs.length} jobs`;
+      sortedCards.forEach(card => jobListings.appendChild(card));
     }
 
-    function nextPage() {
-      const maxPage = Math.ceil(jobs.length / jobsPerPage);
-      if (currentPage < maxPage) {
-        currentPage++;
-        displayJobs();
+    function toggleLayout(layout) {
+      if (layout === 'list') {
+        jobListings.style.flexDirection = 'column';
+        jobCards.forEach(card => card.style.width = '100%');
+      } else {
+        jobListings.style.flexDirection = 'row';
+        jobCards.forEach(card => card.style.width = '320px');
       }
     }
 
-    function prevPage() {
-      if (currentPage > 1) {
-        currentPage--;
-        displayJobs();
-      }
-    }
+    statusFilter.addEventListener('change', filterJobs);
+    locationFilter.addEventListener('change', filterJobs);
+    searchInput.addEventListener('input', filterJobs);
+    sortFilter.addEventListener('change', sortJobs);
 
-    document.getElementById('statusFilter').addEventListener('change', () => {
-      currentPage = 1;
-      displayJobs();
-    });
-    document.getElementById('locationFilter').addEventListener('change', () => {
-      currentPage = 1;
-      displayJobs();
-    });
-    document.getElementById('sortBy').addEventListener('change', () => {
-      currentPage = 1;
-      displayJobs();
-    });
+    gridBtn.addEventListener('click', () => toggleLayout('grid'));
+    listBtn.addEventListener('click', () => toggleLayout('list'));
+  });
+</script>
 
-    displayJobs();
-  </script>
 </body>
 
 </html>

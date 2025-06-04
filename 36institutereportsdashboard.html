@@ -4,13 +4,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Reports Dashboard</title>
   <style>
     body {
       background-color: #f5f6fa;
       font-family: Arial, sans-serif;
       padding: 20px;
-      margin: 0;
+    }
+
+    .dashboard-wrapper {
+      width: 900px;
+      margin: 0 auto;
     }
 
     h1,
@@ -19,7 +26,18 @@
     }
 
     .header {
-      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      margin-bottom: 25px;
+      background-color: #fff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      font-size: 20px;
+      height: 70px;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 10px;
     }
 
     .Export {
@@ -29,24 +47,24 @@
       margin-bottom: 20px;
     }
 
-    .pdf {
+    .export-buttons button {
+      margin-left: 8px;
       padding: 8px 16px;
-      background-color: #b1d2f7;
-      color: blue;
-      border: none;
       border-radius: 6px;
+      border: none;
       cursor: pointer;
-      font-weight: bold;
     }
-   .excel{
-      padding: 8px 16px;
-      background-color:rgb(189, 243, 189);
-      color: green;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-   }
+
+    .export-buttons .pdf {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .export-buttons .excel {
+      background-color: #28a745;
+      color: #fff;
+    }
+
     .filters {
       margin-bottom: 30px;
     }
@@ -99,14 +117,14 @@
     }
 
     .chart-box {
-      background-color: #ebe9e9;
+      background: #eaeaea;
       height: 200px;
       border-radius: 10px;
       margin-top: 10px;
     }
 
     .container3 {
-      background-color:#ebe9e9;
+      background: #eaeaea;
       width: 100%;
       height: 200px;
       margin-bottom: 30px;
@@ -148,6 +166,7 @@
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       min-height: 150px;
+
     }
 
     .stats1 {
@@ -157,10 +176,28 @@
       flex-wrap: wrap;
     }
 
+    .green {
+      color: green;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .skills span {
+      display: inline-block;
+      background: #eef;
+      color: #007bff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin: 3px;
+      font-size: 13px;
+    }
+
     .drives,
     .Participants,
     .offers {
-      background-color: #f1eeee;
+      background: #eaeaea;
       border-radius: 15px;
       padding: 20px;
       width: 200px;
@@ -168,129 +205,175 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
       font-size: 14px;
+      display: block;
+
+    }
+
+    strong {
+      display: block;
+    }
+
+    .monthly {
+      width: 300px;
     }
   </style>
 </head>
 
 <body>
+  <div class="dashboard-wrapper">
+    <div class="box2">
+      <header class="header">
+        <h3>Reports Dashboard</h3>
+        <div class="export-buttons">
+          <button class="pdf">Export PDF</button>
+          <button class="excel">Export Excel</button>
+          <i class="fa-solid fa-house" style="color: #0927ed; margin-right: 10px;"></i>
+        </div>
+      </header>
 
-  <header class="header">
-    <h1>Reports Dashboard</h1>
-  </header>
+      <form class="filters">
+        <select>
+          <option>Year</option>
+        </select>
+        <select>
+          <option>All Departments</option>
+        </select>
+        <select>
+          <option>All Companies</option>
+        </select>
+        <select>
+          <option>All Job Types</option>
+        </select>
+      </form>
 
-  <div class="Export">
-    <button class="pdf">Export PDF</button>
-    <button class="excel">Export Excel</button>
+      <section class="stats">
+        <div class="stat-box">
+          <label>Average Package</label><br>
+          <strong>$85,000</strong>
+          <div class="green">↑ 12% vs last year</div>
+        </div>
+        <div class="stat-box">
+          <label>Highest Package</label><br>
+          <strong>$150,000</strong>
+          <div class="green">↑ 12% vs last year</div>
+        </div>
+        <div class="stat-box">
+          <label>Avg Applications</label><br>
+          <strong>8.5</strong>
+          <div class="red">↓ 12% vs last year</div>
+
+        </div>
+        <div class="stat-box">
+          <label>Total Placement</label><br>
+          <strong>456</strong>
+          <div class="red">↓ 12% vs last year</div>
+
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="chart-container">
+          <strong>Monthly Placement Performance</strong>
+          <div class="chart-box"></div>
+        </div>
+        <div class="chart-container">
+          <strong>Year-over-Year Comparison</strong>
+          <div class="chart-box"></div>
+        </div>
+      </section>
+
+      <section>
+        <strong>Course-wise Placement %</strong>
+        <div class="container3"></div>
+      </section>
+
+      <section class="box">
+        <article class="company">
+          <h3>Top 10 Companies by Hiring</h3>
+          <p>Google <span>45 hires</span></p>
+          <p>Microsoft <span>38 hires</span></p>
+          <p>Amazon <span>32 hires</span></p>
+        </article>
+
+        <article class="Feedback">
+          <h3>Recruiter Feedback</h3>
+          <p><span>Positive</span><span>Negative</span></p>
+          <p><strong class="green">89%</strong><strong class="red">11%</strong></p>
+          <div class="skills">
+            <span>Python</span>
+            <span>Machine Learning</span>
+            <span>React</span>
+            <span>Cloud Computing</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="statics">
+        <h3>Drive Participation Statistics</h3>
+        <div class="stats1">
+          <div class="drives">Total Drives <strong>124</strong></div>
+          <div class="Participants">Participants<strong>2,450</strong></strong></div>
+          <div class="offers">Offers <strong>456</strong></div>
+        </div>
+      </section>
+    </div>
   </div>
-
-  <form class="filters">
-    <select>
-      <option>Year 2025</option>
-    </select>
-    <select>
-      <option>All Departments</option>
-    </select>
-    <select>
-      <option>All Companies</option>
-    </select>
-    <select>
-      <option>All Job Types</option>
-    </select>
-  </form>
-
-  <section class="stats">
-    <div class="stat-box">
-      <label>Average Package</label><br>
-      <strong>$85,000</strong>
-    </div>
-    <div class="stat-box">
-      <label>Highest Package</label><br>
-      <strong>$150,000</strong>
-    </div>
-    <div class="stat-box">
-      <label>Avg Applications</label><br>
-      <strong>8.5</strong>
-    </div>
-    <div class="stat-box">
-      <label>Total Placement</label><br>
-      <strong>456</strong>
-    </div>
-  </section>
-
-  <section class="container">
-    <div class="chart-container">
-      <strong>Monthly Placement Performance</strong>
-      <div class="chart-box"></div>
-    </div>
-    <div class="chart-container">
-      <strong>Year-over-Year Comparison</strong>
-      <div class="chart-box"></div>
-    </div>
-  </section>
-
-  <section>
-    <strong>Course-wise Placement %</strong>
-    <div class="container3"></div>
-  </section>
-
-  <section class="box">
-    <article class="company">
-      <h3>Top 10 Companies by Hiring</h3>
-      <p>Google <span>45 hires</span></p>
-      <p>Microsoft <span>38 hires</span></p>
-      <p>Amazon <span>32 hires</span></p>
-    </article>
-
-    <article class="Feedback">
-      <h3>Recruiter Feedback</h3>
-      <p><span>Positive</span><span>Negative</span></p>
-      <p><strong>89%</strong><strong>11%</strong></p>
-    </article>
-  </section>
-
-  <section class="statics">
-    <h3>Drive Participation Statistics</h3>
-    <div class="stats1">
-      <div class="drives">Total Drives </div>
-      <div class="Participants">Participants</div>
-      <div class="offers">Offers</div>
-    </div>
-  </section>
-
-<script>
-  
-  document.querySelector('.pdf').addEventListener('click', () => {
-    alert('PDF Export initiated (functionality not implemented yet)');
-  });
-
-  document.querySelector('.excel').addEventListener('click', () => {
-    alert('Excel Export initiated (functionality not implemented yet)');
-  })
-  const selects = document.querySelectorAll('.filters select');
-  selects.forEach(select => {
-    select.addEventListener('change', () => {
-      console.log('Selected:', select.value);
-  
+  <script>
+    // Handle export buttons
+    document.querySelector('.pdf').addEventListener('click', function () {
+      alert('Exporting to PDF...');
     });
-  });
-  const monthlyChart = document.querySelectorAll('.chart-box')[0];
-  const yearlyChart = document.querySelectorAll('.chart-box')[1];
-  const courseChart = document.querySelector('.container3');
 
-  monthlyChart.innerText = ' Monthly Chart Placeholder';
-  yearlyChart.innerText = 'Yearly Chart Placeholder';
-  courseChart.innerText = ' Course-wise Chart Placeholder';
+    document.querySelector('.excel').addEventListener('click', function () {
+      alert('Exporting to Excel...');
+    });
 
+    // Dummy dropdown values
+    const dropdownValues = [
+      ['Year', '2022', '2023', '2024', '2025'],
+      ['All Departments', 'CSE', 'ECE', 'MECH', 'CIVIL'],
+      ['All Companies', 'Google', 'Microsoft', 'Amazon', 'TCS', 'All Companies'],
+      ['All Job Types', 'Full-time', 'Internship', 'Contract']
+    ];
 
-  const updateDriveStats = () => {
-    document.querySelector('.drives').textContent = 'Total Drives: 35';
-    document.querySelector('.Participants').textContent = 'Participants: 900+';
-    document.querySelector('.offers').textContent = 'Offers: 420';
-  };
+    // Get all <select> elements inside the .filters form
+    const dropdowns = document.querySelectorAll('.filters select');
 
-  updateDriveStats();
-</script>
+    dropdowns.forEach((dropdown, index) => {
+      // Clear existing options
+      dropdown.innerHTML = '';
+
+      // Add new options from array
+      dropdownValues[index].forEach((value) => {
+        const option = document.createElement('option');
+        option.value = value;
+        option.textContent = value;
+        dropdown.appendChild(option);
+      });
+    });
+
+    // Optional: Show selected filter values below the dropdowns
+    const filterDisplay = document.createElement('div');
+    filterDisplay.style.marginTop = '10px';
+    filterDisplay.style.fontSize = '14px';
+    filterDisplay.style.color = '#333';
+    document.querySelector('.filters').appendChild(filterDisplay);
+
+    function updateSelectedFilters() {
+      const selected = Array.from(dropdowns).map(d => d.value);
+      filterDisplay.innerHTML = `<strong>Selected Filters:</strong> ${selected.join(' / ')}`;
+    }
+
+    // Initial update
+    updateSelectedFilters();
+
+    // Update when any dropdown changes
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('change', updateSelectedFilters);
+    });
+  </script>
+
 </body>
+
 </html>

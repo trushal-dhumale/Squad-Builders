@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Job Posting</title>
   <style>
     * {
@@ -15,11 +18,38 @@
       background-color: #f4f6f8;
       padding: 30px;
       color: #333;
+      margin: 0;
     }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .top-bar a {
+      text-decoration: none;
+      color: #888;
+    }
+
+    .home-button {
+      background-color: #4e5152;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .template {
@@ -27,8 +57,7 @@
       padding: 20px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 800px;
-      margin: 0 auto 30px;
+      margin-bottom: 30px;
     }
 
     .template h3 {
@@ -48,7 +77,13 @@
       transition: background-color 0.3s, box-shadow 0.3s;
       user-select: none;
     }
-
+    .tech strong,
+    .business strong,
+    .creative strong {
+      display: block;
+      color: #007bff;
+      margin-bottom: 5px;
+    }
     .creative {
       margin-right: 0;
     }
@@ -57,14 +92,6 @@
       content: "";
       display: table;
       clear: both;
-    }
-
-    .tech strong,
-    .business strong,
-    .creative strong {
-      display: block;
-      color: #007bff;
-      margin-bottom: 5px;
     }
 
     .template .selected {
@@ -78,9 +105,6 @@
       padding: 25px;
       border-radius: 10px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      width: 600px;
-      height: auto;
-      margin: 0 auto;
     }
 
     label {
@@ -97,18 +121,7 @@
       margin-top: 8px;
       border: 1px solid #ccc;
       border-radius: 6px;
-      font-family: inherit;
       font-size: 1rem;
-      resize: vertical;
-    }
-
-    .Title {
-      width: 100%;
-    }
-
-    .role {
-      width: 100%;
-      height: 100px;
     }
 
     .salary-range input {
@@ -134,102 +147,242 @@
     }
 
     button#submitBtn:hover {
-      background-color: #0056b3;
+      background-color: #1d80e9;
     }
-    .home-button {
-  background-color: #4e5152;
-  color: white;
-  padding: 8px ;
-  border-radius: 6px;
-  font-size: 14px;
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: 20px;
-}
+
+    .right-panel {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .preview-header {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .preview-job .meta {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .preview-tags,
+    .ai-suggestions {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .preview-tags span,
+    .ai-suggestions span {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .preview-tags span {
+      background-color: #e0f2ff;
+      color: #007acc;
+    }
+
+    .ai-suggestions span {
+      background: #e7fbe7;
+      color: #28a745;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .tech,
+      .business,
+      .creative {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
+
+      .salary-range input {
+        width: 100%;
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      .right-panel {
+        margin-top: 20px;
+      }
+    }
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      float: right;
+    }
+
   </style>
 </head>
 
 <body>
- <a href="25recruiterdashboard.html" class="home-button">Home</a>
+
+  <div class="top-bar">
   <h1>Job Posting</h1>
-
-  <div class="template">
-    <h3>Choose Template</h3>
-
-    <div class="tech" data-template="Tech Position">
-      <strong>Tech Position</strong>
-      <p>Perfect for IT, development <br> and technical roles</p>
-    </div>
-
-    <div class="business" data-template="Business Role">
-      <strong>Business Role</strong>
-      <p>Suitable for management <br> and business positions</p>
-    </div>
-
-    <div class="creative" data-template="Creative Role">
-      <strong>Creative Role</strong>
-      <p>Ideal for design and <br> creative positions</p>
-    </div>
+  <div class="header-icons">
+    <a href="25recruiterdashboard.html" title="Home">
+      <i class="fa-solid fa-house" style="color: #0927ed; margin-right: 10px;"></i>
+    </a>
+    <a href="#" title="Save Draft" style="text-decoration: none; color: #888;">
+      💾 Save Draft
+    </a>
   </div>
+</div>
 
-  <div class="container">
-    <h3>Job Details</h3>
 
-    <label for="title">Job Title</label>
-    <input class="Title" id="jobTitle" placeholder="e.g Senior Software Engineer" />
+  <div class="layout">
+    <!-- Left side: Form and template -->
+    <div>
+      <div class="template">
+        <h3>Choose Template</h3>
+        <div class="tech" data-template="Tech Position">
+          <strong>Tech Position</strong>
+          <p>Perfect for IT, development <br> and technical roles</p>
+        </div>
+        <div class="business" data-template="Business Role">
+          <strong>Business Role</strong>
+          <p>Suitable for management <br> and business positions</p>
+        </div>
+        <div class="creative" data-template="Creative Role">
+          <strong>Creative Role</strong>
+          <p>Ideal for design and <br> creative positions</p>
+        </div>
+      </div>
 
-    <label for="location">Location</label>
-    <input type="text" id="jobLocation" placeholder="City, Location" />
+      <div class="container">
+        <h3>Job Details</h3>
 
-    <label for="type">Employment Type</label>
-    <select id="employmentType">
-      <option value="">-- Select Employment Type --</option>
-      <option>Full Time</option>
-      <option>Part Time</option>
-    </select>
+        <label for="title">Job Title</label>
+        <input id="jobTitle" placeholder="e.g Senior Software Engineer" />
 
-    <label for="salary">Salary Range (Annual)</label>
-    <div class="salary-range">
-      <input type="text" id="salaryMin" placeholder="Min" />
-      <input type="text" id="salaryMax" placeholder="Max" />
+        <label for="location">Location</label>
+        <input type="text" id="jobLocation" placeholder="City, Location" />
+
+        <label for="type">Employment Type</label>
+        <select id="employmentType">
+          <option value="">-- Select Employment Type --</option>
+          <option>Full Time</option>
+          <option>Part Time</option>
+        </select>
+
+        <label for="salary">Salary Range (Annual)</label>
+        <div class="salary-range">
+          <input type="text" id="salaryMin" placeholder="Min" />
+          <input type="text" id="salaryMax" placeholder="Max" />
+        </div>
+
+        <label for="level">Experience Level</label>
+        <select id="experienceLevel">
+          <option value="">-- Select Experience Level --</option>
+          <option>Entry Level</option>
+          <option>Mid Level</option>
+          <option>Senior Level</option>
+        </select>
+
+        <label>Required Skills</label>
+        <input type="text" id="requiredSkills" value="JavaScript" placeholder="Add skills" />
+
+        <label>Job Description</label>
+        <textarea id="jobDescription" placeholder="Describe Role, Responsibilities, & Requirements"></textarea>
+
+        <button id="submitBtn">Submit Job Posting</button>
+      </div>
     </div>
 
-    <label for="level">Experience Level</label>
-    <select id="experienceLevel">
-      <option value="">-- Select Experience Level --</option>
-      <option>Entry Level</option>
-      <option>Mid Level</option>
-      <option>Senior Level</option>
-    </select>
+    <!-- Right side: Preview and AI -->
+    <div class="right-panel">
+      <div class="card preview-card">
+        <div class="preview-header">Preview</div>
+        <div class="preview-job">
+          <strong>Senior Software Engineer</strong>
+          <div class="meta">📍 New York, USA • Full-time</div>
+          <p>We are looking for a Senior Software Engineer to join our team...</p>
+          <div class="preview-tags">
+            <span>JavaScript</span>
+            <span>React</span>
+          </div>
+        </div>
+      </div>
 
-    <label>Required Skills</label>
-    <input type="text" id="requiredSkills" value="JavaScript" placeholder="Add skills" />
-
-    <label>Job Description</label>
-    <textarea class="role" id="jobDescription" placeholder="Describe Role, Responsibilities, & Requirements"></textarea>
-
-    <button id="submitBtn">Submit Job Posting</button>
+      <div class="card ai-card">
+        <div class="preview-header">💡 AI Suggestions</div>
+        <div class="ai-suggestions">
+          <span>TypeScript</span>
+          <span>Node.js</span>
+          <span>AWS</span>
+        </div>
+        <button class="btn">Publish Job</button>
+      </div>
+    </div>
   </div>
 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       let selectedTemplate = null;
 
-      
       const templates = document.querySelectorAll(".template > div.tech, .template > div.business, .template > div.creative");
       templates.forEach(template => {
         template.addEventListener("click", function () {
-          
           templates.forEach(t => t.classList.remove("selected"));
-          
           this.classList.add("selected");
           selectedTemplate = this.getAttribute("data-template");
         });
       });
 
-      
+      const updatePreview = () => {
+        const title = document.getElementById("jobTitle").value.trim();
+        const location = document.getElementById("jobLocation").value.trim();
+        const employmentType = document.getElementById("employmentType").value;
+        const description = document.getElementById("jobDescription").value.trim();
+        const skills = document.getElementById("requiredSkills").value.trim().split(",");
+
+        document.querySelector(".preview-job strong").textContent = title || "Job Title";
+        document.querySelector(".preview-job .meta").textContent = `📍 ${location || "Location"} • ${employmentType || "Type"}`;
+        document.querySelector(".preview-job p").textContent = description || "Job description preview...";
+
+        const tagsContainer = document.querySelector(".preview-tags");
+        tagsContainer.innerHTML = "";
+        skills.forEach(skill => {
+          const span = document.createElement("span");
+          span.textContent = skill.trim();
+          tagsContainer.appendChild(span);
+        });
+      };
+
+      ["jobTitle", "jobLocation", "employmentType", "jobDescription", "requiredSkills"].forEach(id => {
+        document.getElementById(id).addEventListener("input", updatePreview);
+      });
+
       document.getElementById("submitBtn").addEventListener("click", function () {
-      
         const title = document.getElementById("jobTitle").value.trim();
         const location = document.getElementById("jobLocation").value.trim();
         const employmentType = document.getElementById("employmentType").value;
@@ -239,59 +392,21 @@
         const skills = document.getElementById("requiredSkills").value.trim();
         const description = document.getElementById("jobDescription").value.trim();
 
-      
-        if (!selectedTemplate) {
-          alert("Please select a job template.");
-          return;
-        }
-        if (!title) {
-          alert("Please enter the job title.");
-          return;
-        }
-        if (!location) {
-          alert("Please enter the job location.");
-          return;
-        }
-        if (!employmentType) {
-          alert("Please select the employment type.");
-          return;
-        }
-        if (salaryMin && isNaN(salaryMin)) {
-          alert("Please enter a valid number for minimum salary.");
-          return;
-        }
-        if (salaryMax && isNaN(salaryMax)) {
-          alert("Please enter a valid number for maximum salary.");
-          return;
-        }
-        if (!experienceLevel) {
-          alert("Please select experience level.");
-          return;
-        }
-        if (!skills) {
-          alert("Please enter required skills.");
-          return;
-        }
-        if (!description) {
-          alert("Please enter the job description.");
-          return;
-        }
+        if (!selectedTemplate) return alert("Please select a job template.");
+        if (!title) return alert("Please enter the job title.");
+        if (!location) return alert("Please enter the job location.");
+        if (!employmentType) return alert("Please select the employment type.");
+        if (salaryMin && isNaN(salaryMin)) return alert("Please enter a valid number for minimum salary.");
+        if (salaryMax && isNaN(salaryMax)) return alert("Please enter a valid number for maximum salary.");
+        if (!experienceLevel) return alert("Please select experience level.");
+        if (!skills) return alert("Please enter required skills.");
+        if (!description) return alert("Please enter the job description.");
 
-        let summary = `Job Posting Summary:\n
-Template: ${selectedTemplate}
-Title: ${title}
-Location: ${location}
-Employment Type: ${employmentType}
-Salary Range: ${salaryMin || 'N/A'} - ${salaryMax || 'N/A'}
-Experience Level: ${experienceLevel}
-Required Skills: ${skills}
-Description: ${description}`;
-
+        let summary = `Job Posting Summary:\n\nTemplate: ${selectedTemplate}\nTitle: ${title}\nLocation: ${location}\nEmployment Type: ${employmentType}\nSalary Range: ${salaryMin || 'N/A'} - ${salaryMax || 'N/A'}\nExperience Level: ${experienceLevel}\nRequired Skills: ${skills}\nDescription: ${description}`;
         alert(summary);
       });
     });
   </script>
-
 </body>
 
 </html>

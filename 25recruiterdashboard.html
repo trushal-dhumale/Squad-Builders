@@ -4,6 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <title>Recruiter Dashboard</title>
   <style>
     * {
@@ -23,26 +26,23 @@
       width: 220px;
       background: #fff;
       color: #333;
-      padding: 40px 20px;
+      padding: 40px 30px;
       border-right: 1px solid #e0e0e0;
     }
 
-    .sidebar p {
+    .sidebar a {
+      display: block;
       margin: 20px 0;
       padding: 10px;
-      cursor: pointer;
+      text-decoration: none;
+      color: #333;
+      border-radius: 5px;
     }
 
-    .dash {
-      color: #007bff;
-    }
-
+    .sidebar a:hover,
     .sidebar a.active {
       background-color: rgb(204, 253, 253);
       color: black;
-      border-radius: 5px;
-      width: 120px;
-      height: 40px;
     }
 
     .main {
@@ -51,12 +51,28 @@
     }
 
     .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 25px;
       color: #0905f1;
     }
 
     .header h1 {
       font-size: 28px;
+    }
+
+    .john {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header-icons {
+      display: flex;
+      align-items: center;
+      gap: 15px;
     }
 
     .stats {
@@ -98,6 +114,7 @@
       border-radius: 10px;
       margin-bottom: 15px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      gap: 15px;
     }
 
     .candidate:hover {
@@ -109,10 +126,13 @@
     }
 
     .match {
-      color: green;
+      color: #065f46;
       font-weight: bold;
       margin-left: 20px;
       white-space: nowrap;
+      background: #d1fae5;
+      padding: 5px 10px;
+      border-radius: 5px;
     }
 
     .Interview {
@@ -158,24 +178,99 @@
       padding: 10px;
     }
 
-    .dash {
-      text-decoration: none;
+    .candidate img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
     }
+
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.modal-box h2 {
+  color: #2563eb;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.modal-box label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.modal-box input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancel-btn {
+  background: #ccc;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.confirm-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 
 <body>
-  <div class="sidebar" class="d">
-    <a class="dash">Dashboard</a><br><br>
-    <a class="dash" href="28recruiterjobposting.html">Jobs</a><br><br>
-    <a class="dash" href="27atsdashboard.html">ATS</a><br><br>
-    <a class="dash" href="30recruitersheduleinterview.html">Interviews</a><br><br>
-    <a class="dash" href="31recruiterinterviewmonitor.html">InterviewMonitor</a><br><br>
+  <div class="sidebar">
+    <a href="#" class="active"><i class="fa-solid fa-house" style="color: #0927ed;"></i> Dashboard</a>
+    <a href="29recruiterposjobt.html"><i class="fa-solid fa-briefcase"></i> Jobs</a>
+    <a href="27atsdashboard.html"><i class="fa-solid fa-user-group"></i> ATS</a>
+    <a href="30recruitersheduleinterview.html"><i class="fa-regular fa-calendar"></i> Interviews</a>
+    <a href="31recruiterinterviewmonitor.html"><i class="fa-solid fa-user-group"></i> Interview Monitor</a>
   </div>
 
   <div class="main">
     <div class="header">
       <h1>Recruiter Dashboard</h1>
+      <div class="header-icons">
+        <i class="fa-regular fa-bell" style="font-size: 22px; color: #1a0e0e;"></i>
+<a href="26recruiterprofile.html">
+  <img src="/rsimages/john.jpeg" alt="john" class="john" />
+</a>
+      </div>
     </div>
 
     <div class="stats">
@@ -221,6 +316,7 @@
 
     <div class="candidates">
       <div class="candidate" data-skill="UX" data-role="Designer" data-name="Sarah Johnson">
+        <img src="/rsimages/sarah.jpeg" alt="Sarah Johnson">
         <div class="candidate-info">
           <strong>Sarah Johnson</strong><br />
           Senior UX Designer • 8 years experience
@@ -230,6 +326,7 @@
       </div>
 
       <div class="candidate" data-skill="Full Stack" data-role="Developer" data-name="Michael Chen">
+        <img src="/rsimages/michael.jpeg" alt="Michael Chen">
         <div class="candidate-info">
           <strong>Michael Chen</strong><br />
           Full Stack Developer • 5 years experience
@@ -239,6 +336,7 @@
       </div>
 
       <div class="candidate" data-skill="Product" data-role="Manager" data-name="Emily Rodriguez">
+        <img src="/rsimages/emily.jpeg" alt="Emily Rodriguez">
         <div class="candidate-info">
           <strong>Emily Rodriguez</strong><br />
           Product Manager • 6 years experience
@@ -248,10 +346,33 @@
       </div>
     </div>
   </div>
+<!-- schedule-modal.html -->
+<div id="scheduleModal" class="modal-overlay">
+  <div class="modal-box">
+    <h2>Schedule Interview</h2>
+    
+    <label>Candidate Name</label>
+    <input type="text" id="modalCandidateName" readonly />
+
+    <label>Role</label>
+    <input type="text" id="modalCandidateRole" readonly />
+
+    <label>Date & Time</label>
+    <input type="datetime-local" id="modalDateTime" />
+
+    <label>Meeting Link / Venue</label>
+    <input type="text" id="modalLocation" placeholder="Enter link or venue" />
+
+    <div class="modal-buttons">
+      <button onclick="closeScheduleModal()" class="cancel-btn">Cancel</button>
+      <button onclick="confirmSchedule()" class="confirm-btn">Schedule</button>
+    </div>
+  </div>
+</div>
 
   <script>
-
-    const sidebarItems = document.querySelectorAll('.sidebar p');
+    // Sidebar active state
+    const sidebarItems = document.querySelectorAll('.sidebar a');
     sidebarItems.forEach(item => {
       item.addEventListener('click', () => {
         sidebarItems.forEach(i => i.classList.remove('active'));
@@ -259,22 +380,18 @@
       });
     });
 
-
     const skillFilter = document.getElementById("skillFilter");
     const roleFilter = document.getElementById("roleFilter");
     const jobSearch = document.getElementById("jobSearch");
     const candidates = document.querySelectorAll(".candidate");
 
-
     const skillSelect = document.getElementById("skillSelect");
     const locationSelect = document.getElementById("locationSelect");
     const timeSelect = document.getElementById("timeSelect");
 
-
     const skills = ["JavaScript", "Python", "React", "Node.js", "HTML", "CSS"];
     const locations = ["New York", "San Francisco", "London", "Mumbai", "Bangalore", "Remote"];
     const times = ["Full-Time", "Part-Time", "Internship", "Freelance"];
-
 
     function populateSelect(selectElement, optionsArray) {
       optionsArray.forEach(option => {
@@ -288,7 +405,6 @@
     populateSelect(skillSelect, skills);
     populateSelect(locationSelect, locations);
     populateSelect(timeSelect, times);
-
 
     function filterCandidates() {
       const selectedSkill = skillFilter.value;
@@ -320,27 +436,58 @@
     jobSearch.addEventListener("input", filterCandidates);
 
     document.addEventListener("DOMContentLoaded", () => {
-
       const buttons = document.querySelectorAll(".Interview");
-
       buttons.forEach(button => {
         button.addEventListener("click", () => {
           const candidateDiv = button.closest(".candidate");
-
           const name = candidateDiv.dataset.name;
           const role = candidateDiv.dataset.role;
           const skill = candidateDiv.dataset.skill;
-
           alert(`Scheduling interview with ${name} (${role} - ${skill})`);
-
-          document.write(`<p>Interview scheduled for: ${name} (${role} - ${skill})</p>`);
-
         });
       });
     });
+  let selectedCandidate = {};
 
+  function openScheduleModal(name, role) {
+    document.getElementById("modalCandidateName").value = name;
+    document.getElementById("modalCandidateRole").value = role;
+    document.getElementById("modalDateTime").value = '';
+    document.getElementById("modalLocation").value = '';
+    document.getElementById("scheduleModal").style.display = "flex";
+    selectedCandidate = { name, role };
+  }
 
-  </script>
+  function closeScheduleModal() {
+    document.getElementById("scheduleModal").style.display = "none";
+  }
+
+  function confirmSchedule() {
+    const datetime = document.getElementById("modalDateTime").value;
+    const location = document.getElementById("modalLocation").value;
+
+    if (!datetime || !location) {
+      alert("Please enter date/time and location.");
+      return;
+    }
+
+    alert(`Interview scheduled with ${selectedCandidate.name} (${selectedCandidate.role}) on ${datetime} at ${location}.`);
+    closeScheduleModal();
+  }
+
+  // Attach event listeners after DOM is loaded
+  document.addEventListener("DOMContentLoaded", () => {
+    const buttons = document.querySelectorAll(".Interview");
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const card = button.closest(".candidate");
+        const name = card.dataset.name;
+        const role = card.dataset.role;
+        openScheduleModal(name, role);
+      });
+    });
+  });
+</script>
 </body>
 
 </html>

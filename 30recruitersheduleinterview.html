@@ -2,241 +2,302 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Schedule Interview</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Schedule Interview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
 
-        body {
-            background: #f4f6f8;
-            margin: 0;
-            padding: 30px;
-            color: #333;
-        }
+    body {
+      background: #f4f6f8;
+      margin: 0;
+      padding: 30px;
+      color: #333;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-        }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
 
-        label {
-            font-weight: bold;
-            display: block;
-            margin: 10px 0 5px;
-        }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
 
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
 
-        .resume-link {
-            display: inline-block;
-            margin-top: 5px;
-            color: #2980b9;
-            text-decoration: none;
-        }
+    .resume-link {
+      display: inline-block;
+      margin-top: 5px;
+      color: #2980b9;
+      text-decoration: none;
+    }
 
-        .tag {
-            display: inline-block;
-            background-color: #ecf0f1;
-            padding: 8px 15px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            margin-right: 5px;
-        }
+    .tag {
+      display: inline-block;
+      background-color: #ecf0f1;
+      padding: 8px 15px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      margin-right: 5px;
+    }
 
-        .features p {
-            margin: 5px 0;
-        }
+    .features p {
+      margin: 5px 0;
+    }
 
-        .calendar-links span {
-            display: inline-block;
-            margin-right: 15px;
-            background-color: #3498db;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+    .calendar-links span {
+      display: inline-block;
+      margin-right: 15px;
+      background-color: #3498db;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
 
-        .status-options label {
-            margin-right: 20px;
-            cursor: pointer;
-        }
+    .status-options label {
+      margin-right: 20px;
+      cursor: pointer;
+    }
 
-        .buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
 
-        .buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+    .buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        .cancel {
-            background-color: #bdc3c7;
-            color: white;
-        }
+    .cancel {
+      background-color: #bdc3c7;
+      color: white;
+    }
 
-        .schedule {
-            background-color: #2ecc71;
-            color: white;
-        }
+    .schedule {
+      background-color: #2563eb;
+      color: white;
+    }
 
-        .error {
-            color: red;
-            font-size: 14px;
-            margin-top: -10px;
-            margin-bottom: 10px;
-        }
-        .home-button {
-  background-color:  #3027b2;;
-  color: white;
-  padding: 8px ;
-  border-radius: 6px;
-  font-size: 14px;
-  text-decoration: none;
-  display: inline-block;
-  margin-bottom: 20px;
-}
-    </style>
+    #confirmationModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #2563eb;
+    }
+
+    .modal-content button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
- <a href="25recruiterdashboard.html" class="home-button">Home</a>
-    <div class="container">
-        <h1>Schedule Interview</h1>
+    <div class="header-icons">
+      <a href="25recruiterdashboard.html">
+        <i class="fa-solid fa-house" style="color: #0927ed;"></i>
+      </a>
+  <div class="container">
+    <h1>Schedule Interview</h1>
+    <h3>Candidate Information</h3>
+    <label>Name</label>
+    <input type="text" value="John Smith" readonly />
 
-        <h3>Candidate Information</h3>
-        <label>Name</label>
-        <input type="text" value="John Smith" readonly />
+    <label>Role Applied</label>
+    <input type="text" value="Senior UX Designer" readonly />
 
-        <label>Role Applied</label>
-        <input type="text" value="Senior UX Designer" readonly />
+    <label>Resume</label>
+    <a class="resume-link" href="#">📄John_Smith_Resume.pdf</a>
 
-        <label>Resume</label>
-        <a class="resume-link" href="#">John_Smith_Resume.pdf</a>
+    <h3>Interview Details</h3>
 
-        <h3>Interview Details</h3>
+    <label>Interview Type</label>
+    <select id="interviewType">
+      <option value="">Select</option>
+      <option>Online</option>
+      <option>Offline</option>
+    </select>
 
-        <label>Interview Type</label>
-        <select id="interviewType">
-            <option value="">Select</option>
-            <option>Online</option>
-            <option>Offline</option>
-        </select>
+    <label>Duration</label>
+    <select id="duration">
+      <option value="">Select</option>
+      <option>30 minutes</option>
+      <option>45 minutes</option>
+      <option>1 hour</option>
+    </select>
 
-        <label>Duration</label>
-        <select id="duration">
-            <option value="">Select</option>
-            <option>30 minutes</option>
-            <option>45 minutes</option>
-            <option>1 hour</option>
-        </select>
+    <label>Date & Time</label>
+    <input type="datetime-local" id="datetime" />
 
-        <label>Date & Time</label>
-        <input type="datetime-local" id="datetime" />
+    <label>Meeting Link/Venue</label>
+    <input type="text" id="location" placeholder="Enter meeting link or venue" />
 
-        <label>Meeting Link/Venue</label>
-        <input type="text" id="location" placeholder="Enter meeting link or venue" />
+    <h3>Interview Panel Members</h3>
+    <div id="panelMembers">
+      <div class="tag">David Chen</div>
+    </div>
+    <input type="text" id="newMember" placeholder="Add Member"
+      onkeydown="if(event.key==='Enter'){addPanelMember()}" />
 
-        <h3>Interview Panel Members</h3>
-        <div id="panelMembers">
-            <div class="tag">David Chen</div>
-        </div>
-        <input type="text" id="newMember" placeholder="Add Member"
-            onkeydown="if(event.key==='Enter'){addPanelMember()}" />
+    <label>Notes (Optional)</label>
+    <textarea placeholder="Add any additional notes..." rows="4" id="notes"></textarea>
 
-        <label>Notes (Optional)</label>
-        <textarea placeholder="Add any additional notes..." rows="4" id="notes"></textarea>
-
-        <h3>Smart Features</h3>
-        <div class="features">
-            <p>✅ Auto Email Invite to candidate & interviewers</p>
-            <p>Add to Calendar:</p>
-            <div class="calendar-links">
-                <span onclick="alert('Added to Google Calendar')">Google</span>
-                <span onclick="alert('Added to Outlook Calendar')">Outlook</span>
-            </div>
-        </div>
-
-        <h3>Interview Status</h3>
-        <div class="status-options" id="statusGroup">
-            <label><input type="radio" name="status" value="Scheduled" checked /> Scheduled</label>
-            <label><input type="radio" name="status" value="Rescheduled" /> Rescheduled</label>
-            <label><input type="radio" name="status" value="Completed" /> Completed</label>
-        </div>
-
-        <div class="buttons">
-            <button class="cancel" onclick="resetForm()">Cancel</button>
-            <button class="schedule" onclick="submitForm()">Schedule Interview</button>
-        </div>
+    <h3>Smart Features</h3>
+    <div class="features">
+      <p>✅ Auto Email Invite to candidate & interviewers</p>
+      <p>Add to Calendar:</p>
+      <div class="calendar-links">
+        <span onclick="alert('Added to Google Calendar')">Google</span>
+        <span onclick="alert('Added to Outlook Calendar')">Outlook</span>
+      </div>
     </div>
 
-    <script>
-        function addPanelMember() {
-            const input = document.getElementById('newMember');
-            const name = input.value.trim();
-            if (name) {
-                const tag = document.createElement('div');
-                tag.className = 'tag';
-                tag.textContent = name;
-                document.getElementById('panelMembers').appendChild(tag);
-                input.value = '';
-            }
-        }
+    <h3>Interview Status</h3>
+    <div class="status-options" id="statusGroup">
+      <label><input type="radio" name="status" value="Scheduled" checked /> Scheduled</label>
+      <label><input type="radio" name="status" value="Rescheduled" /> Rescheduled</label>
+      <label><input type="radio" name="status" value="Completed" /> Completed</label>
+    </div>
 
-        function resetForm() {
-            document.getElementById('interviewType').value = '';
-            document.getElementById('duration').value = '';
-            document.getElementById('datetime').value = '';
-            document.getElementById('location').value = '';
-            document.getElementById('newMember').value = '';
-            document.getElementById('notes').value = '';
-            alert("Form cleared.");
-        }
+    <div class="buttons">
+      <button class="cancel" onclick="resetForm()">Cancel</button>
+      <button class="schedule" onclick="submitForm()">Schedule Interview</button>
+    </div>
+  </div>
 
-        function submitForm() {
-            const type = document.getElementById('interviewType').value;
-            const duration = document.getElementById('duration').value;
-            const datetime = document.getElementById('datetime').value;
-            const location = document.getElementById('location').value;
-            const status = document.querySelector('input[name="status"]:checked').value;
+  <!-- Confirmation Modal -->
+  <div id="confirmationModal">
+    <div class="modal-content">
+      <h2>Interview Scheduled!</h2>
+      <p id="modalDetails"></p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
 
-            if (!type || !duration || !datetime || !location) {
-                alert("Please fill all required fields.");
-                return;
-            }
+  <script>
+    function addPanelMember() {
+      const input = document.getElementById('newMember');
+      const name = input.value.trim();
+      if (name) {
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+        tag.textContent = name;
+        document.getElementById('panelMembers').appendChild(tag);
+        input.value = '';
+      }
+    }
 
-            alert(`Interview Scheduled!\nType: ${type}\nDuration: ${duration}\nDate/Time: ${datetime}\nLocation: ${location}\nStatus: ${status}`);
-        }
-    </script>
+    function resetForm() {
+      document.getElementById('interviewType').value = '';
+      document.getElementById('duration').value = '';
+      document.getElementById('datetime').value = '';
+      document.getElementById('location').value = '';
+      document.getElementById('newMember').value = '';
+      document.getElementById('notes').value = '';
+      // Also reset status
+      document.querySelector('input[name="status"][value="Scheduled"]').checked = true;
+      // Clear panel members except default
+      const panel = document.getElementById('panelMembers');
+      panel.innerHTML = '<div class="tag">David Chen</div>';
+    }
 
+    function submitForm() {
+      const type = document.getElementById('interviewType').value;
+      const duration = document.getElementById('duration').value;
+      const datetime = document.getElementById('datetime').value;
+      const location = document.getElementById('location').value;
+      const status = document.querySelector('input[name="status"]:checked').value;
+
+      if (!type || !duration || !datetime || !location) {
+        alert("Please fill all required fields.");
+        return;
+      }
+
+      const details = `
+        <strong>Type:</strong> ${type}<br>
+        <strong>Duration:</strong> ${duration}<br>
+        <strong>Date/Time:</strong> ${datetime}<br>
+        <strong>Location:</strong> ${location}<br>
+        <strong>Status:</strong> ${status}
+      `;
+      document.getElementById('modalDetails').innerHTML = details;
+      document.getElementById('confirmationModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('confirmationModal').style.display = 'none';
+      resetForm(); // auto-reset form
+    }
+
+    // Close modal if clicking outside content
+    window.onclick = function (event) {
+      const modal = document.getElementById('confirmationModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+        resetForm();
+      }
+    }
+  </script>
 </body>
 
 </html>
