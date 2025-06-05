@@ -2,206 +2,353 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Platform Settings</title>
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9fafb;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Settings</title>
+  <!-- Include Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Function to show a specific section and hide others
+    document.addEventListener("DOMContentLoaded", () => {
+      showSection("branding"); // Show the branding section by default
+    });
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+    function showSection(sectionId) {
+      // Hide all admin sections
+      const sections = document.querySelectorAll(".admin-section");
+      sections.forEach((sec) => (sec.style.display = "none"));
+      // Show the selected section
+      document.getElementById(sectionId).style.display = "block";
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #fff;
-            padding: 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
+      // Update the sidebar links to highlight the active section
+      const links = document.querySelectorAll(".sidebar a");
+      links.forEach((link) => link.classList.remove("bg-blue-100", "text-blue-700", "font-semibold"));
+      document.querySelector(`[data-section="${sectionId}"]`).classList.add("bg-blue-100", "text-blue-700", "font-semibold");
+    }
 
-        .header h1 {
-            font-size: 24px;
-            color: #1f2937;
-        }
+    // Function to save settings (currently just an alert)
+    function saveSettings() {
+      alert("Changes Saved Successfully! 🚀");
+    }
 
-        .header button {
-            background-color: #2563eb;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
+    // Function to add a new admin email
+    function addEmail() {
+      const emailInput = document.getElementById("new-admin-email");
+      const email = emailInput.value.trim();
+      if (!isValidEmail(email)) {
+        alert("Please enter a valid email.");
+        return;
+      }
+      addEmailRow(email); // Add the email to the list
+      emailInput.value = ""; // Clear the input
+    }
 
-        .sidebar {
-            width: 250px;
-            background-color: #fff;
-            border-right: 1px solid #e5e7eb;
-            padding: 20px;
-            position: fixed;
-            height: 100%;
-        }
+    // Function to validate email format
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
 
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
+    // Function to add a new email row to the admin access form
+    function addEmailRow(email) {
+      const form = document.getElementById("admin-access-form");
+      const div = document.createElement("div");
+      div.className = "flex space-x-3 mt-2";
 
-        .sidebar ul li {
-            margin-bottom: 15px;
-        }
+      const input = document.createElement("input");
+      input.type = "email";
+      input.value = email;
+      input.className = "flex-grow border border-gray-300 rounded px-4 py-2";
+      input.readOnly = true; // Make the input read-only
 
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #1f2937;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-        }
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "Remove";
+      btn.className = "bg-red-600 hover:bg-red-700 text-white px-3 rounded";
+      btn.onclick = function () { div.remove(); }; // Remove the email row
 
-        .sidebar ul li a:hover {
-            color: #2563eb;
-        }
+      div.appendChild(input);
+      div.appendChild(btn);
 
-        .content {
-            margin-left: 270px;
-            padding: 20px;
-        }
+      // Insert the new email row before the input field
+      form.insertBefore(div, document.getElementById("new-admin-email").parentNode);
+    }
 
-        .section {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
+    // Initialize Admin Access section with one default email
+    document.addEventListener("DOMContentLoaded", () => {
+      addEmailRow("admin@smartrecruit.com");
+    });
+  </script>
+  <style>
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #374151;
+      /* Adjust as needed */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* Optional shadow */
+      z-index: 1000;
+      /* Ensure it stays on top */
+    }
 
-        .section h2 {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .section p {
-            color: #4b5563;
-            margin-bottom: 20px;
-        }
-
-        .button-group button {
-            background-color: #2563eb;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-group label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .input-group input,
-        .input-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        .input-group textarea {
-            resize: none;
-            height: 100px;
-        }
-
-        .select {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .select select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 16px;
-            appearance: none;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij48cGF0aCBkPSJNNC4yOTMgNi4yOTNsNC4yOTMgNC4yOTMgNC4yOTMtNC4yOTMtMS40MTQtMS40MTQtMi44NzkgMi44NzktMi44NzktMi44NzktMS40MTQgMS40MTR6IiBmaWxsPSIjMDAwIi8+PC9zdmc+') no-repeat right 10px center;
-            background-size: 12px;
-        }
-    </style>
+    .sidebar {
+      height: 100vh; /* Make sidebar full height */
+      top: 0; /* Align to the top */
+      margin-top: 0;
+      background-color: #374151;
+    }
+  </style>
 </head>
 
-<body>
-    <div class="sidebar">
-        <ul>
-            <li><a href="#">Branding</a></li>
-            <li><a href="#">Email Configuration</a></li>
-            <li><a href="#">Notifications</a></li>
-            <li><a href="#">Localization</a></li>
-            <li><a href="#">Admin Access</a></li>
-            <li><a href="#">Backup & Restore</a></li>
-        </ul>
-    </div>
+<body class="bg-gray-100 font-sans">
 
-    <div class="content">
-        <header class="header">
-            <h1>Platform Settings</h1>
-            <button>Save Changes</button>
-        </header>
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex-shrink-0 sidebar">
+      <div class="h-full p-5 flex flex-col">
+        <h2 class="text-2xl font-bold text-blue-700 mb-8 text-center">Admin Panel</h2>
+        <nav class="flex-grow">
+          <ul class="space-y-3">
+            <!-- Sidebar links -->
+            <li><a href="#" data-section="branding" onclick="showSection('branding')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Branding</a></li>
+            <li><a href="#" data-section="email" onclick="showSection('email')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Email Configuration</a></li>
+            <li><a href="#" data-section="notifications" onclick="showSection('notifications')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Notifications</a></li>
+            <li><a href="#" data-section="localization" onclick="showSection('localization')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Localization</a></li>
+            <li><a href="#" data-section="admin-access" onclick="showSection('admin-access')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Admin Access</a></li>
+            <li><a href="#" data-section="backup" onclick="showSection('backup')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Backup & Restore</a></li>
+            <li><a href="#" data-section="security" onclick="showSection('security')" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Security Settings</a></li>
+            <li><a href="40-Admin Panel Home.html" class="block py-2 px-4 rounded-lg text-gray-700 hover:bg-blue-100">Home</a></li>
+          </ul>
+        </nav>
+        <footer class="mt-auto text-center text-gray-400 text-sm">© 2025 SmartRecruit</footer>
+      </div>
+    </aside>
 
-        <div class="section">
-            <h2>Branding Settings</h2>
-            <p>Customize your SmartRecruit platform with your brand.</p>
-            <div class="button-group">
-                <button>Upload Logo</button>
-                <button>Upload Favicon</button>
-            </div>
+    <!-- Content -->
+    <main class="flex-1 p-8 overflow-auto mt-16">
+      <header class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-extrabold text-gray-800">Platform Settings</h1>
+        <!-- Save Changes Button -->
+        <button onclick="saveSettings()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-6 rounded shadow-lg transition duration-150">Save Changes</button>
+      </header>
+
+      <!-- Branding -->
+      <section id="branding" class="admin-section bg-white rounded-lg shadow p-8 mb-8">
+        <h2 class="text-2xl font-semibold mb-4">Branding Settings</h2>
+        <p class="text-gray-600 mb-6">Customize your SmartRecruit platform with your brand identity.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Upload Logo -->
+          <div>
+            <label class="block font-medium mb-2">Upload Logo</label>
+            <input type="file" accept="image/*" class="border p-2 rounded w-full" />
+          </div>
+          <!-- Upload Favicon -->
+          <div>
+            <label class="block font-medium mb-2">Upload Favicon</label>
+            <input type="file" accept="image/*" class="border p-2 rounded w-full" />
+          </div>
+          <!-- Platform Name -->
+          <div>
+            <label class="block font-medium mb-2">Platform Name</label>
+            <input type="text" value="SmartRecruit" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- Theme Color -->
+          <div>
+            <label class="block font-medium mb-2">Theme Color</label>
+            <input type="color" value="#4F46E5" class="w-20 h-10 border rounded" />
+          </div>
+          <!-- Footer Text -->
+          <div class="md:col-span-2">
+            <label class="block font-medium mb-2">Footer Text</label>
+            <textarea rows="2" class="w-full border border-gray-300 rounded px-4 py-2" placeholder="e.g. © 2025 SmartRecruit. All rights reserved."></textarea>
+          </div>
         </div>
+      </section>
 
-        <div class="section">
-            <h2>Email Configuration</h2>
-            <p>Setup and manage platform-wide email notifications.</p>
-            <div class="input-group">
-                <label for="sender-name">Sender Name</label>
-                <input type="text" id="sender-name" placeholder="Company Name">
-            </div>
-            <div class="input-group">
-                <label for="sender-email">Sender Email</label>
-                <input type="email" id="sender-email" placeholder="noreply@company.com">
-            </div>
-        </div>
+      <!-- Email Configuration -->
+      <section id="email" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Email Configuration</h2>
+        <p class="text-gray-600 mb-6">Setup and manage platform-wide email notifications.</p>
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Sender Name -->
+          <div>
+            <label for="sender-name" class="block font-medium mb-2">Sender Name</label>
+            <input type="text" id="sender-name" value="SmartRecruit Mailer" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- Sender Email -->
+          <div>
+            <label for="sender-email" class="block font-medium mb-2">Sender Email</label>
+            <input type="email" id="sender-email" value="noreply@smartrecruit.com" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- SMTP Server -->
+          <div>
+            <label for="smtp-server" class="block font-medium mb-2">SMTP Server</label>
+            <input type="text" id="smtp-server" value="smtp.smartrecruit.com" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- SMTP Port -->
+          <div>
+            <label for="smtp-port" class="block font-medium mb-2">SMTP Port</label>
+            <input type="number" id="smtp-port" value="587" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- SMTP Username -->
+          <div>
+            <label for="smtp-user" class="block font-medium mb-2">SMTP Username</label>
+            <input type="text" id="smtp-user" value="user@smartrecruit.com" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- SMTP Password -->
+          <div>
+            <label for="smtp-pass" class="block font-medium mb-2">SMTP Password</label>
+            <input type="password" id="smtp-pass" value="password123" class="w-full border border-gray-300 rounded px-4 py-2" />
+          </div>
+          <!-- Use Secure Connection -->
+          <div class="md:col-span-2 flex items-center space-x-4">
+            <input type="checkbox" id="smtp-secure" checked />
+            <label for="smtp-secure" class="font-medium">Use Secure Connection (TLS/SSL)</label>
+          </div>
+        </form>
+      </section>
 
-        <div class="section">
-            <h2>Localization Settings</h2>
-            <div class="input-group">
-                <label for="language">Default Language</label>
-                <div class="select">
-                    <select id="language">
-                        <option>English (US)</option>
-                        <option>French</option>
-                        <option>Spanish</option>
-                    </select>
-                </div>
-            </div>
+      <!-- Notifications -->
+      <section id="notifications" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Notifications</h2>
+        <p class="text-gray-600 mb-6">Manage system alerts and push notifications here.</p>
+        <div class="space-y-4 max-w-md">
+          <!-- Enable Email Notifications -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
+            <span class="text-gray-800 font-medium">Enable Email Notifications</span>
+          </label>
+          <!-- Enable SMS Alerts -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <span class="text-gray-800 font-medium">Enable SMS Alerts</span>
+          </label>
+          <!-- Enable In-App Notifications -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
+            <span class="text-gray-800 font-medium">Enable In-App Notifications</span>
+          </label>
+          <!-- Send Weekly Summary Reports -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <span class="text-gray-800 font-medium">Send Weekly Summary Reports</span>
+          </label>
+          <!-- Send Monthly Usage Reports -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <span class="text-gray-800 font-medium">Send Monthly Usage Reports</span>
+          </label>
         </div>
-    </div>
+      </section>
+
+      <!-- Localization -->
+      <section id="localization" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Localization Settings</h2>
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-lg">
+          <!-- Default Language -->
+          <div>
+            <label for="language" class="block font-medium mb-2">Default Language</label>
+            <select id="language" class="w-full border border-gray-300 rounded px-4 py-2">
+              <option value="en" selected>English (US)</option>
+              <option value="hi">Hindi</option>
+              <option value="mr">Marathi</option>
+              <option value="es">Spanish</option>
+              <option value="fr">French</option>
+              <option value="de">German</option>
+            </select>
+          </div>
+          <!-- Timezone -->
+          <div>
+            <label for="timezone" class="block font-medium mb-2">Timezone</label>
+            <select id="timezone" class="w-full border border-gray-300 rounded px-4 py-2">
+              <option value="Asia/Kolkata" selected>Asia/Kolkata (IST)</option>
+              <option value="UTC">UTC</option>
+              <option value="America/New_York">America/New_York (EST)</option>
+              <option value="Europe/London">Europe/London (GMT)</option>
+              <option value="Asia/Tokyo">Asia/Tokyo (JST)</option>
+            </select>
+          </div>
+          <!-- Date Format -->
+          <div class="md:col-span-2">
+            <label for="date-format" class="block font-medium mb-2">Date Format</label>
+            <select id="date-format" class="w-full border border-gray-300 rounded px-4 py-2">
+              <option value="MM/DD/YYYY">MM/DD/YYYY</option>
+              <option value="DD/MM/YYYY" selected>DD/MM/YYYY</option>
+              <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+            </select>
+          </div>
+        </form>
+      </section>
+
+      <!-- Admin Access -->
+      <section id="admin-access" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Admin Access</h2>
+        <p class="text-gray-600 mb-6">Control who can access the admin panel. Add or remove admin emails.</p>
+        <form id="admin-access-form" class="space-y-4 max-w-md">
+          <div>
+            <!-- Input for adding new admin email -->
+            <input type="email" id="new-admin-email" placeholder="Add new admin email" class="w-full border border-gray-300 rounded px-4 py-2" />
+            <!-- Button to add the email -->
+            <button type="button" onclick="addEmail()" class="mt-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">Add Admin</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Backup & Restore -->
+      <section id="backup" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Backup & Restore</h2>
+        <p class="text-gray-600 mb-6">Manage database backups and restore points.</p>
+        <div class="space-y-6 max-w-md">
+          <!-- Create Backup Button -->
+          <button onclick="alert('Backup created! 📦')" class="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-3 rounded font-semibold shadow">Create Backup</button>
+          <div>
+            <label class="block font-medium mb-2">Available Backups:</label>
+            <ul class="list-disc pl-5 space-y-1 text-gray-700">
+              <!-- List of available backups -->
+              <li>backup_2025_05_28.sql <button onclick="alert('Restored backup_2025_05_28.sql')" class="ml-4 text-blue-600 hover:underline">Restore</button></li>
+              <li>backup_2025_05_20.sql <button onclick="alert('Restored backup_2025_05_20.sql')" class="ml-4 text-blue-600 hover:underline">Restore</button></li>
+              <li>backup_2025_05_10.sql <button onclick="alert('Restored backup_2025_05_10.sql')" class="ml-4 text-blue-600 hover:underline">Restore</button></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Security Settings -->
+      <section id="security" class="admin-section bg-white rounded-lg shadow p-8 mb-8 hidden">
+        <h2 class="text-2xl font-semibold mb-4">Security Settings</h2>
+        <p class="text-gray-600 mb-6">Configure security features to protect your platform.</p>
+        <form class="space-y-4 max-w-md">
+          <!-- Enable Two-Factor Authentication (2FA) -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
+            <span>Enable Two-Factor Authentication (2FA)</span>
+          </label>
+          <!-- Force Password Reset Every 90 Days -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <span>Force Password Reset Every 90 Days</span>
+          </label>
+          <!-- Lock Account After 5 Failed Login Attempts -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
+            <span>Lock Account After 5 Failed Login Attempts</span>
+          </label>
+          <!-- Enable HTTPS Only Access -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" checked class="form-checkbox h-5 w-5 text-blue-600" />
+            <span>Enable HTTPS Only Access</span>
+          </label>
+          <!-- Enable IP Whitelisting -->
+          <label class="inline-flex items-center space-x-3">
+            <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" />
+            <span>Enable IP Whitelisting</span>
+          </label>
+        </form>
+      </section>
+    </main>
+  </div>
 </body>
 
 </html>

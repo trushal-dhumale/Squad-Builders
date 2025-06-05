@@ -1,251 +1,536 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Institute Analytics Dashboard</title>
+    <!-- Include Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Include Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      /* Modal background */
+      .modal-bg {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Institute Analytics Dashboard</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Nunito', sans-serif;
-    }
+  <body class="bg-bg text-gray-800 font-sans p-6">
+    <!-- Main container -->
+    <div class="max-w-7xl mx-auto space-y-6">
+      <!-- Header section -->
+      <header class="flex justify-between items-center">
+        <h1 class="text-3xl font-bold">Analytics Dashboard</h1>
+        <button
+          onclick="showAlert()"
+          class="bg-green-100 text-green-700 px-4 py-1 rounded-full hover:bg-green-200 transition"
+        >
+          Live
+        </button>
+      </header>
 
-    body {
-      background: #f8f9fb;
-      padding: 2rem;
-      color: #1f2937;
-    }
-
-    .dashboard {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .badge {
-      background: #dcfce7;
-      color: #16a34a;
-      padding: 4px 12px;
-      font-size: 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .badge:hover {
-      background-color: #bbf7d0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 1rem;
-      padding: 1.25rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .title {
-      font-weight: 600;
-      font-size: 14px;
-      margin-bottom: 0.5rem;
-    }
-
-    .value {
-      font-size: 28px;
-      font-weight: 700;
-      color: #10b981;
-    }
-
-    .subtext {
-      font-size: 12px;
-      color: #9ca3af;
-    }
-
-    .progress-bar {
-      width: 100%;
-      background: #e5e7eb;
-      height: 8px;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-
-    .progress {
-      height: 100%;
-      background: #60a5fa;
-      transition: width 0.5s ease-in-out;
-    }
-
-    .center-text {
-      text-align: center;
-      font-size: 20px;
-      font-weight: 700;
-      color: #3b82f6;
-    }
-
-    .stat-box {
-      background: #f1f5f9;
-      padding: 1rem;
-      border-radius: 0.75rem;
-      text-align: center;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .stat-box:hover {
-      background-color: #e2e8f0;
-    }
-
-    .stat-box span {
-      display: block;
-      font-size: 14px;
-    }
-
-    .icons-row img {
-      height: 32px;
-      margin-right: 10px;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .icons-row img:hover {
-      transform: scale(1.1);
-    }
-
-    .footer-cards {
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    .positive {
-      color: #16a34a;
-    }
-
-    .negative {
-      color: #dc2626;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="dashboard">
-    <header>
-      <h1>Analytics Dashboard</h1>
-      <div class="badge" onclick="showAlert()">Live</div>
-    </header>
-
-    <div class="grid">
-      <div class="card">
-        <div class="title">Placement Rate</div>
-        <div class="value">84%</div>
-        <div class="subtext positive">+12%</div>
-        <div class="progress-bar">
-          <div class="progress" style="width: 84%"></div>
-        </div>
+      <!-- Year selector -->
+      <div class="mb-4">
+        <label for="yearSelect" class="font-semibold mr-2">Select Year:</label>
+        <select
+          id="yearSelect"
+          class="border border-gray-300 rounded px-3 py-1"
+          onchange="updateDashboard()"
+        >
+          <option value="2019">2019</option>
+          <option value="2020" selected>2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+        </select>
       </div>
-      <div class="card">
-        <div class="title">Students Placed</div>
-        <div class="value">127/150</div>
-        <div class="subtext">84.6%</div>
+
+      <!-- Stats Grid -->
+      <div
+        id="statsGrid"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
+        <!-- Cards will be dynamically filled -->
       </div>
-      <div class="card">
-        <div class="title">Top Companies</div>
-        <div class="icons-row">
-          <img src="https://cionews.co.in/wp-content/uploads/2023/03/Article-Main-Image-2-6.png" alt="TCS" onclick="showCompany('TCS')" />
-          <img src="https://th.bing.com/th/id/OIP.uXnnAuphDdWsXe7PfzTD5AHaEB?cb=iwp2&w=920&h=500&rs=1&pid=ImgDetMain" alt="Infosys" onclick="showCompany('Infosys')" />
-          <img src="https://mms.businesswire.com/media/20190123005482/en/594194/23/Wiprologo1.jpg" alt="Wipro" onclick="showCompany('Wipro')" />
-          <img src="https://logowik.com/content/uploads/images/byjus2816.jpg" alt="Byju's" onclick="showCompany('Byjus')" />
-        </div>
+
+      <!-- Chart Section -->
+      <div class="bg-white rounded-xl shadow-md p-6 mt-6">
+        <h2 class="text-lg font-semibold mb-4">📈 Placement Trends</h2>
+        <canvas id="placementChart" height="100"></canvas>
       </div>
     </div>
 
-    <div class="grid" style="margin-top: 1.5rem;">
-      <div class="card">
-        <div class="title">Course-wise Breakdown</div>
-        <div class="subtext">CSE</div>
-        <div class="progress-bar">
-          <div class="progress" style="width: 92%"></div>
-        </div>
-        <div class="subtext">ECE</div>
-        <div class="progress-bar">
-          <div class="progress" style="width: 85%"></div>
-        </div>
-        <div class="subtext">MECH</div>
-        <div class="progress-bar">
-          <div class="progress" style="width: 76%"></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="title">Applications Per Student</div>
-        <div class="grid">
-          <div class="stat-box" onclick="showStat('Min')">
-            <span>Min</span>
-            <strong>2</strong>
-          </div>
-          <div class="stat-box" onclick="showStat('Avg')">
-            <span>Avg</span>
-            <strong class="center-text">5.6</strong>
-          </div>
-          <div class="stat-box" onclick="showStat('Max')">
-            <span>Max</span>
-            <strong>12</strong>
-          </div>
-        </div>
+    <!-- Modal -->
+    <div
+      id="detailModal"
+      class="fixed inset-0 hidden justify-center items-center modal-bg"
+    >
+      <div class="bg-white rounded-lg p-6 max-w-lg w-full shadow-lg relative">
+        <button
+          onclick="closeModal()"
+          class="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl font-bold"
+        >
+          &times;
+        </button>
+        <div id="modalContent" class="space-y-2 text-gray-700"></div>
       </div>
     </div>
 
-    <div class="grid footer-cards" style="margin-top: 1.5rem;">
-      <div class="card">
-        <div class="title">Drives Conducted</div>
-        <div class="value">24</div>
-        <div class="subtext positive">↑ 8% vs last month</div>
-      </div>
-      <div class="card">
-        <div class="title">Student Participation</div>
-        <div class="value">92%</div>
-        <div class="subtext positive">↑ 12% vs last month</div>
-      </div>
-      <div class="card">
-        <div class="title">Offer Acceptance</div>
-        <div class="value">78%</div>
-        <div class="subtext negative">↓ 3% vs last month</div>
-      </div>
-    </div>
-  </div>
+    <script>
+      // Global variable for chart instance
+      let placementChart
 
-  <script>
-    function showAlert() {
-      alert("Dashboard is live!");
-    }
+      // Data for 5 years
+      const dashboardData = {
+        2019: {
+          placementRate: 75,
+          placementRateChange: '+5%',
+          studentsPlaced: '112/150',
+          placementPercent: '74.6%',
+          topCompanies: [
+            {
+              name: 'TCS',
+              logo: 'https://indiancompanies.in/wp-content/uploads/2020/05/TCS-Logo-Tata-consultancy-service-1920x1144.png',
+              details:
+                'TCS hired 40 students in 2019. Known for stable IT jobs.'
+            },
+            {
+              name: 'Infosys',
+              logo: 'https://vectorseek.com/wp-content/uploads/2023/04/Infosys-Logo-Vector.jpg',
+              details: 'Infosys hired 30 students. Great training programs.'
+            },
+            {
+              name: 'Wipro',
+              logo: 'https://th.bing.com/th/id/OIP.8WnXrAKgFQlJ6qXVGpA8qQHaEZ?cb=iwc2&w=1280&h=760&rs=1&pid=ImgDetMain',
+              details: 'Wipro hired 20 students. Focus on innovation.'
+            },
+            {
+              name: "Byju's",
+              logo: 'https://th.bing.com/th/id/OIP.qTZlE_NWEj9hhzm98_FRGwHaHa?cb=iwc2&rs=1&pid=ImgDetMain',
+              details: "Byju's hired 22 students. EdTech giant growing fast."
+            }
+          ],
+          courses: {
+            CSE: 90,
+            ECE: 80,
+            MECH: 70
+          },
+          applications: { Min: 1, Avg: 4, Max: 10 },
+          drivesConducted: 20,
+          studentParticipation: '85%',
+          offerAcceptance: '75%',
+          placementTrend: [60, 65, 70, 75, 80]
+        },
+        2020: {
+          placementRate: 80,
+          placementRateChange: '+8%',
+          studentsPlaced: '127/150',
+          placementPercent: '84.6%',
+          topCompanies: [
+            {
+              name: 'TCS',
+              logo: 'https://indiancompanies.in/wp-content/uploads/2020/05/TCS-Logo-Tata-consultancy-service-1920x1144.png',
+              details: 'TCS hired 45 students in 2020. Strong tech teams.'
+            },
+            {
+              name: 'Infosys',
+              logo: 'https://vectorseek.com/wp-content/uploads/2023/04/Infosys-Logo-Vector.jpg',
+              details: 'Infosys hired 35 students. Employee friendly.'
+            },
+            {
+              name: 'Wipro',
+              logo: 'https://th.bing.com/th/id/OIP.8WnXrAKgFQlJ6qXVGpA8qQHaEZ?cb=iwc2&w=1280&h=760&rs=1&pid=ImgDetMain',
+              details: 'Wipro hired 25 students. Good work culture.'
+            },
+            {
+              name: "Byju's",
+              logo: 'https://th.bing.com/th/id/OIP.qTZlE_NWEj9hhzm98_FRGwHaHa?cb=iwc2&rs=1&pid=ImgDetMain',
+              details: "Byju's hired 22 students. Rapid growth."
+            }
+          ],
+          courses: {
+            CSE: 92,
+            ECE: 85,
+            MECH: 76
+          },
+          applications: { Min: 2, Avg: 5.6, Max: 12 },
+          drivesConducted: 24,
+          studentParticipation: '92%',
+          offerAcceptance: '78%',
+          placementTrend: [60, 68, 75, 80, 84]
+        },
+        2021: {
+          placementRate: 78,
+          placementRateChange: '-2%',
+          studentsPlaced: '120/155',
+          placementPercent: '77.4%',
+          topCompanies: [
+            {
+              name: 'TCS',
+              logo: 'https://indiancompanies.in/wp-content/uploads/2020/05/TCS-Logo-Tata-consultancy-service-1920x1144.png',
+              details: 'TCS hired 42 students in 2021. Expanding teams.'
+            },
+            {
+              name: 'Infosys',
+              logo: 'https://vectorseek.com/wp-content/uploads/2023/04/Infosys-Logo-Vector.jpg',
+              details: 'Infosys hired 30 students. Good environment.'
+            },
+            {
+              name: 'Wipro',
+              logo: 'https://th.bing.com/th/id/OIP.8WnXrAKgFQlJ6qXVGpA8qQHaEZ?cb=iwc2&w=1280&h=760&rs=1&pid=ImgDetMain',
+              details: 'Wipro hired 23 students. Focus on R&D.'
+            },
+            {
+              name: "Byju's",
+              logo: 'https://th.bing.com/th/id/OIP.qTZlE_NWEj9hhzm98_FRGwHaHa?cb=iwc2&rs=1&pid=ImgDetMain',
+              details: "Byju's hired 25 students. New product launches."
+            }
+          ],
+          courses: {
+            CSE: 88,
+            ECE: 80,
+            MECH: 74
+          },
+          applications: { Min: 1, Avg: 6, Max: 13 },
+          drivesConducted: 22,
+          studentParticipation: '90%',
+          offerAcceptance: '77%',
+          placementTrend: [58, 62, 70, 78, 80]
+        },
+        2022: {
+          placementRate: 85,
+          placementRateChange: '+5%',
+          studentsPlaced: '135/160',
+          placementPercent: '84.4%',
+          topCompanies: [
+            {
+              name: 'TCS',
+              logo: 'https://indiancompanies.in/wp-content/uploads/2020/05/TCS-Logo-Tata-consultancy-service-1920x1144.png',
+              details: 'TCS hired 50 students in 2022. Tech leader.'
+            },
+            {
+              name: 'Infosys',
+              logo: 'https://vectorseek.com/wp-content/uploads/2023/04/Infosys-Logo-Vector.jpg',
+              details: 'Infosys hired 40 students. Employee centric.'
+            },
+            {
+              name: 'Wipro',
+              logo: 'https://th.bing.com/th/id/OIP.8WnXrAKgFQlJ6qXVGpA8qQHaEZ?cb=iwc2&w=1280&h=760&rs=1&pid=ImgDetMain',
+              details: 'Wipro hired 28 students. Innovative projects.'
+            },
+            {
+              name: "Byju's",
+              logo: 'https://th.bing.com/th/id/OIP.qTZlE_NWEj9hhzm98_FRGwHaHa?cb=iwc2&rs=1&pid=ImgDetMain',
+              details: "Byju's hired 30 students. Fast growing."
+            }
+          ],
+          courses: {
+            CSE: 95,
+            ECE: 90,
+            MECH: 80
+          },
+          applications: { Min: 3, Avg: 7, Max: 14 },
+          drivesConducted: 26,
+          studentParticipation: '95%',
+          offerAcceptance: '82%',
+          placementTrend: [65, 70, 78, 85, 90]
+        },
+        2023: {
+          placementRate: 90,
+          placementRateChange: '+7%',
+          studentsPlaced: '140/155',
+          placementPercent: '90.3%',
+          topCompanies: [
+            {
+              name: 'TCS',
+              logo: 'https://indiancompanies.in/wp-content/uploads/2020/05/TCS-Logo-Tata-consultancy-service-1920x1144.png',
+              details: 'TCS hired 55 students in 2023. Expansion continues.'
+            },
+            {
+              name: 'Infosys',
+              logo: 'https://vectorseek.com/wp-content/uploads/2023/04/Infosys-Logo-Vector.jpg',
+              details: 'Infosys hired 45 students. Great benefits.'
+            },
+            {
+              name: 'Wipro',
+              logo: 'https://th.bing.com/th/id/OIP.8WnXrAKgFQlJ6qXVGpA8qQHaEZ?cb=iwc2&w=1280&h=760&rs=1&pid=ImgDetMain',
+              details: 'Wipro hired 35 students. Strong R&D.'
+            },
+            {
+              name: "Byju's",
+              logo: 'https://th.bing.com/th/id/OIP.qTZlE_NWEj9hhzm98_FRGwHaHa?cb=iwc2&rs=1&pid=ImgDetMain',
+              details: "Byju's hired 33 students. Market leader."
+            }
+          ],
+          courses: {
+            CSE: 97,
+            ECE: 92,
+            MECH: 85
+          },
+          applications: { Min: 4, Avg: 8, Max: 15 },
+          drivesConducted: 28,
+          studentParticipation: '97%',
+          offerAcceptance: '85%',
+          placementTrend: [70, 75, 82, 88, 95]
+        }
+      }
 
-    function showCompany(companyName) {
-      alert("You selected " + companyName);
-    }
+      // Function to display a live dashboard alert
+      function showAlert() {
+        alert('Dashboard is live!')
+      }
 
-    function showStat(statType) {
-      alert("You selected " + statType + " Applications");
-    }
-  </script>
-</body>
+      // Fill the stats grid dynamically for selected year
+      function fillStats(year) {
+        // Get data for the selected year
+        const data = dashboardData[year]
+        // Get the stats grid element
+        const statsGrid = document.getElementById('statsGrid')
+        // Clear the existing content
+        statsGrid.innerHTML = ''
 
+        // Placement Rate Card
+        const placementRateCard = document.createElement('div')
+        placementRateCard.className =
+          'bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer'
+        placementRateCard.innerHTML = `
+        <div class="text-sm font-semibold text-gray-500">Placement Rate</div>
+        <div class="text-3xl font-bold text-success" style="color:#10b981;">${data.placementRate}%</div>
+        <div class="text-xs text-success" style="color:#10b981;">${data.placementRateChange}</div>
+        <div class="w-full h-2 bg-gray-200 rounded mt-2">
+          <div class="h-full bg-blue-400 rounded" style="width: ${data.placementRate}%"></div>
+        </div>
+      `
+        placementRateCard.onclick = () =>
+          showDetailPopup(
+            'Placement Rate',
+            `The placement rate for ${year} is <strong>${data.placementRate}%</strong> with a change of <strong>${data.placementRateChange}</strong> compared to the previous year.`
+          )
+
+        // Students Placed Card
+        const studentsPlacedCard = document.createElement('div')
+        studentsPlacedCard.className =
+          'bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer'
+        studentsPlacedCard.innerHTML = `
+        <div class="text-sm font-semibold text-gray-500">Students Placed</div>
+        <div class="text-3xl font-bold">${data.studentsPlaced}</div>
+        <div class="text-xs text-gray-500">${data.placementPercent}</div>
+      `
+        studentsPlacedCard.onclick = () =>
+          showDetailPopup(
+            'Students Placed',
+            `In ${year}, <strong>${data.studentsPlaced}</strong> students were placed, which is approximately <strong>${data.placementPercent}</strong> of the total.`
+          )
+
+        // Top Companies Card
+        const topCompaniesCard = document.createElement('div')
+        topCompaniesCard.className =
+          'bg-white rounded-xl shadow-md p-4 hover:shadow-lg transition transform hover:-translate-y-1'
+        topCompaniesCard.innerHTML = `
+        <div class="text-sm font-semibold text-gray-500 mb-2">Top Companies</div>
+        <div class="flex space-x-4">
+          ${data.topCompanies
+            .map(
+              (comp, i) =>
+                `<img src="${comp.logo}" alt="${
+                  comp.name
+                }" class="h-10 cursor-pointer hover:scale-110 transition" onclick="showDetailPopup('${
+                  comp.name
+                }', '${comp.details.replace(
+                  /'/g,
+                  '&apos;'
+                )}')" title="Click for details" />`
+            )
+            .join('')}
+        </div>
+      `
+
+        // Course-wise Breakdown Card
+        const courseBreakdownCard = document.createElement('div')
+        courseBreakdownCard.className =
+          'bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1'
+        courseBreakdownCard.innerHTML = `
+        <div class="text-sm font-semibold mb-2">Course-wise Breakdown</div>
+        <div class="space-y-2">
+          ${Object.entries(data.courses)
+            .map(
+              ([course, percent]) => `
+            <div>
+              <div class="text-xs text-gray-500">${course}</div>
+              <div class="w-full h-2 bg-gray-200 rounded">
+                <div class="h-full bg-blue-500 rounded" style="width: ${percent}%"></div>
+              </div>
+            </div>`
+            )
+            .join('')}
+        </div>
+      `
+        courseBreakdownCard.onclick = () => {
+          let details = 'Course-wise placement percentages:<br>'
+          for (const [course, percent] of Object.entries(data.courses)) {
+            details += `<strong>${course}</strong>: ${percent}%<br>`
+          }
+          showDetailPopup('Course-wise Breakdown', details)
+        }
+
+        // Applications Per Student Card
+        const applicationsCard = document.createElement('div')
+        applicationsCard.className =
+          'bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1'
+        applicationsCard.innerHTML = `
+        <div class="text-sm font-semibold mb-2">Applications Per Student</div>
+        <div class="grid grid-cols-3 gap-4 text-center">
+          <div class="bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition cursor-pointer" onclick="showDetailPopup('Min Applications', 'Minimum applications submitted by a student is <strong>${data.applications.Min}</strong>')">
+            <div class="text-xs">Min</div>
+            <div class="text-xl font-bold">${data.applications.Min}</div>
+          </div>
+          <div class="bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition cursor-pointer" onclick="showDetailPopup('Avg Applications', 'Average applications submitted by students is <strong>${data.applications.Avg}</strong>')">
+            <div class="text-xs">Avg</div>
+            <div class="text-xl font-bold">${data.applications.Avg}</div>
+          </div>
+          <div class="bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition cursor-pointer" onclick="showDetailPopup('Max Applications', 'Maximum applications submitted by a student is <strong>${data.applications.Max}</strong>')">
+            <div class="text-xs">Max</div>
+            <div class="text-xl font-bold">${data.applications.Max}</div>
+          </div>
+        </div>
+      `
+
+        // Drives Conducted Card
+        const drivesCard = document.createElement('div')
+        drivesCard.className =
+          'bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1'
+        drivesCard.innerHTML = `
+        <div class="text-sm font-semibold mb-2">Drives Conducted</div>
+        <div class="text-3xl font-bold">${data.drivesConducted}</div>
+      `
+        drivesCard.onclick = () =>
+          showDetailPopup(
+            'Drives Conducted',
+            `Total placement drives conducted in ${year} were <strong>${data.drivesConducted}</strong>.`
+          )
+
+        // Student Participation Card
+        const participationCard = document.createElement('div')
+        participationCard.className =
+          'bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1'
+        participationCard.innerHTML = `
+        <div class="text-sm font-semibold mb-2">Student Participation</div>
+        <div class="text-3xl font-bold">${data.studentParticipation}</div>
+      `
+        participationCard.onclick = () =>
+          showDetailPopup(
+            'Student Participation',
+            `Student participation in placement drives for ${year} was <strong>${data.studentParticipation}</strong>.`
+          )
+
+        // Offer Acceptance Card
+        const offerAcceptanceCard = document.createElement('div')
+        offerAcceptanceCard.className =
+          'bg-white rounded-xl shadow-md p-4 cursor-pointer hover:shadow-lg transition transform hover:-translate-y-1'
+        offerAcceptanceCard.innerHTML = `
+        <div class="text-sm font-semibold mb-2">Offer Acceptance</div>
+        <div class="text-3xl font-bold">${data.offerAcceptance}</div>
+      `
+        offerAcceptanceCard.onclick = () =>
+          showDetailPopup(
+            'Offer Acceptance',
+            `Offer acceptance rate for ${year} was <strong>${data.offerAcceptance}</strong>.`
+          )
+
+        // Append all cards to grid
+        ;[
+          placementRateCard,
+          studentsPlacedCard,
+          topCompaniesCard,
+          courseBreakdownCard,
+          applicationsCard,
+          drivesCard,
+          participationCard,
+          offerAcceptanceCard
+        ].forEach(card => statsGrid.appendChild(card))
+      }
+
+      // Function to show detail popup
+      function showDetailPopup(title, content) {
+        const modal = document.getElementById('detailModal')
+        const modalContent = document.getElementById('modalContent')
+        modalContent.innerHTML = `<h3 class="text-lg font-semibold mb-2">${title}</h3><p>${content}</p>`
+        modal.classList.remove('hidden')
+        modal.classList.add('flex')
+      }
+
+      // Function to close the modal
+      function closeModal() {
+        const modal = document.getElementById('detailModal')
+        modal.classList.add('hidden')
+        modal.classList.remove('flex')
+      }
+
+      // Chart initialization and update
+      function drawChart(year) {
+        const ctx = document.getElementById('placementChart').getContext('2d')
+
+        if (placementChart) {
+          placementChart.destroy()
+        }
+
+        const trendData = dashboardData[year].placementTrend
+
+        placementChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: ['Year-1', 'Year-2', 'Year-3', 'Year-4', 'Year-5'],
+            datasets: [
+              {
+                label: 'Placement Percentage',
+                data: trendData,
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59, 130, 246, 0.3)',
+                fill: true,
+                tension: 0.3,
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                borderWidth: 3,
+                hoverBorderWidth: 4
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: {
+                  stepSize: 10,
+                  callback: val => val + '%'
+                }
+              }
+            },
+            plugins: {
+              legend: { display: true },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ctx.parsed.y + '%'
+                }
+              }
+            }
+          }
+        })
+      }
+
+      // Update everything on dropdown change
+      function updateDashboard() {
+        const year = document.getElementById('yearSelect').value
+        fillStats(year)
+        drawChart(year)
+      }
+
+      // Initial load
+      window.onload = () => {
+        updateDashboard()
+      }
+    </script>
+  </body>
 </html>

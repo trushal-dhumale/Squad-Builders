@@ -1,266 +1,691 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel Analytics</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* General body styling */
-        body {
-            font-family: "Roboto", Helvetica, sans-serif;
-            margin: 0;
-            background-color: #f9fafb;
+      /* Animation for table row fade-in */
+      .fade-in-row {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInRow 0.5s forwards;
+      }
+      @keyframes fadeInRow {
+        to {
+          opacity: 1;
+          transform: none;
         }
-
-        /* Main admin panel container */
-        .admin-panel {
-            display: flex;
-            justify-content: center;
-            padding: 32px;
-        }
-
-        /* Inner container for content */
-        .container {
-            width: 1440px;
-        }
-
-        /* Header section styling */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-        }
-
-        .header-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: #1f2937;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 16px;
-        }
-
-        /* Dropdown select styling */
-        .select {
-            display: flex;
-            align-items: center;
-            padding: 8px 16px;
-            background-color: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 16px;
-            color: #000;
-        }
-
-        /* Button styling */
-        .button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 8px 16px;
-            background-color: #2563eb;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        /* Grid layout for cards */
-        .grid {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-        }
-
-        /* Individual card styling */
-        .card {
-            flex: 1;
-            background-color: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .card-title {
-            font-size: 16px;
-            color: #6b7280;
-            margin-bottom: 8px;
-        }
-
-        .card-value {
-            font-size: 30px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .card-subtext {
-            font-size: 14px;
-            color: #6b7280;
-        }
-
-        /* Section styling */
-        .section {
-            margin-bottom: 32px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #000;
-            margin-bottom: 16px;
-        }
-
-        /* Chart placeholder styling */
-        .chart {
-            height: 300px;
-            background-color: #f9fafb;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-        }
-
-        /* Recent activity section styling */
-        .recent-activity {
-            background-color: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 16px;
-        }
-
-        /* Individual activity item styling */
-        .activity-item {
-            display: flex;
-            align-items: center;
-            padding: 8px 0;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Activity icon styling */
-        .activity-icon {
-            width: 40px;
-            height: 40px;
-            background-color: #dbeafe;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 16px;
-        }
-
-        /* Activity text styling */
-        .activity-text {
-            font-size: 16px;
-            color: #1f2937;
-        }
-
-        .activity-time {
-            font-size: 14px;
-            color: #6b7280;
-        }
+      }
+      /* Card hover effect */
+      .card-hover {
+        transition: box-shadow 0.3s, transform 0.3s;
+      }
+      .card-hover:hover {
+        box-shadow: 0 8px 32px 0 rgba(59,130,246,0.15), 0 1.5px 4px 0 rgba(0,0,0,0.06);
+        transform: translateY(-4px) scale(1.03);
+      }
+      /* Modal fade effect */
+      .modal-fade {
+        transition: opacity 0.3s;
+      }
+      .modal-fade.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .modal-fade:not(.hidden) {
+        opacity: 1;
+      }
     </style>
-</head>
-
-<body>
-    <div class="admin-panel">
-        <div class="container">
-            <!-- Header Section -->
-            <div class="header">
-                <div class="header-title">Analytics Overview</div>
-                <div class="header-actions">
-                    <!-- Dropdown for date range -->
-                    <div class="select">Last 30 days</div>
-                    <!-- Button to export report -->
-                    <button class="button">Export Report</button>
-                </div>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="flex justify-center p-8">
+      <div class="w-full max-w-screen-xl">
+        <!-- Header Section -->
+        <header class="flex flex-wrap justify-between items-center mb-8 gap-4">
+          <h1 class="text-2xl font-bold text-gray-800">Analytics Overview</h1>
+          <div class="flex items-center gap-4">
+            <!-- Home Button Start -->
+            <a
+              href="40-Admin Panel Home.html"
+              id="homeBtn"
+              class="px-4 py-2 bg-white border rounded-lg text-sm text-gray-700 flex items-center gap-2 cursor-pointer hover:bg-blue-50 transition shadow-sm hover:scale-105 active:scale-95"
+              title="Go to Home"
+            >
+              <!-- Home Icon SVG -->
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10" />
+              </svg>
+              Home
+            </a>
+            <!-- Home Button End -->
+            <!-- Search Input -->
+            <input
+              type="text"
+              placeholder="Search…"
+              id="searchInput"
+              class="px-4 py-2 rounded-full border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none transition-all duration-200 shadow-sm focus:shadow-lg bg-white text-gray-800 placeholder-gray-400 w-56 md:w-72 hover:border-blue-400 hover:bg-blue-50"
+              style="box-shadow: 0 2px 8px 0 rgba(59,130,246,0.07);"
+              autocomplete="off"
+            />
+            <!-- Notification Button -->
+            <button class="relative group transition-all duration-200 hover:scale-105 active:scale-95 focus:ring-2 focus:ring-blue-400"
+              id="notificationBtn"
+              title="Notifications"
+              type="button"
+            >
+              <!-- Bell Icon SVG -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 text-gray-600 group-hover:text-blue-600 transition-colors"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 17h5l-1.405-1.405M19 13v-2a7 7 0 10-14 0v2m5 6h4"
+                />
+              </svg>
+              <!-- Notification Badge -->
+              <span
+                class="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1 rounded-full"
+                >3</span
+              >
+            </button>
+            <!-- Date Range Dropdown -->
+            <div class="relative">
+              <button
+                id="dateRangeBtn"
+                class="px-4 py-2 bg-white border rounded-lg text-sm text-gray-700 flex items-center gap-1 cursor-pointer hover:bg-blue-50 transition w-full"
+                type="button"
+                title="Change Date Range"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+              >
+                <span id="dateRangeLabel">Last 30 days</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  />
+                </svg>
+              </button>
+              <ul
+                id="dateRangeDropdown"
+                class="absolute left-0 mt-1 z-10 bg-white border rounded shadow-lg w-full hidden"
+                style="min-width: 150px;"
+                tabindex="-1"
+                role="listbox"
+              >
+                <li class="px-4 py-2 hover:bg-blue-100 cursor-pointer" data-value="Last 7 days" role="option">Last 7 days</li>
+                <li class="px-4 py-2 hover:bg-blue-100 cursor-pointer" data-value="Last 30 days" role="option">Last 30 days</li>
+                <li class="px-4 py-2 hover:bg-blue-100 cursor-pointer" data-value="Last 90 days" role="option">Last 90 days</li>
+                <li class="px-4 py-2 hover:bg-blue-100 cursor-pointer" data-value="This Year" role="option">This Year</li>
+              </ul>
             </div>
+            <!-- Export Report Button -->
+            <button
+              id="exportReportBtn"
+              class="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:ring-2 focus:ring-blue-400 text-white rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 shadow-sm hover:scale-105 active:scale-95"
+              type="button"
+              title="Export table as CSV"
+            >
+              <!-- Export Icon SVG -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+              </svg>
+              Export Report
+            </button>
+          </div>
+        </header>
 
-            <!-- Cards Section -->
-            <div class="grid">
-                <!-- Card 1: Total Applications -->
-                <div class="card">
-                    <div class="card-title">Total Applications</div>
-                    <div class="card-value">2,847</div>
-                    <div class="card-subtext">12.5% from last month</div>
-                </div>
-                <!-- Card 2: Hired Candidates -->
-                <div class="card">
-                    <div class="card-title">Hired Candidates</div>
-                    <div class="card-value">156</div>
-                    <div class="card-subtext">8.3% from last month</div>
-                </div>
-                <!-- Card 3: Time to Hire -->
-                <div class="card">
-                    <div class="card-title">Time to Hire</div>
-                    <div class="card-value">18.5 days</div>
-                    <div class="card-subtext">2.1 days longer than last month</div>
-                </div>
-                <!-- Card 4: Active Jobs -->
-                <div class="card">
-                    <div class="card-title">Active Jobs</div>
-                    <div class="card-value">42</div>
-                    <div class="card-subtext">Same as last month</div>
-                </div>
-            </div>
-
-            <!-- Applications by Department Section -->
-            <div class="section">
-                <div class="section-title">Applications by Department</div>
-                <div class="chart"></div>
-            </div>
-
-            <!-- Hiring Pipeline Overview Section -->
-            <div class="section">
-                <div class="section-title">Hiring Pipeline Overview</div>
-                <div class="chart"></div>
-            </div>
-
-            <!-- Recent Activity Section -->
-            <div class="section">
-                <div class="section-title">Recent Activity</div>
-                <div class="recent-activity">
-                    <!-- Activity 1 -->
-                    <div class="activity-item">
-                        <div class="activity-icon">
-                            <img src="https://c.animaapp.com/m9pz46ldCcDLNH/img/frame-2.svg" alt="icon">
-                        </div>
-                        <div>
-                            <div class="activity-text">New candidate applied for <strong>Senior Frontend
-                                    Developer</strong></div>
-                            <div class="activity-time">2 hours ago</div>
-                        </div>
-                    </div>
-                    <!-- Activity 2 -->
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #d1fae5;">
-                            <img src="https://c.animaapp.com/m9pz46ldCcDLNH/img/frame-12.svg" alt="icon">
-                        </div>
-                        <div>
-                            <div class="activity-text">Interview scheduled with <strong>John Smith</strong></div>
-                            <div class="activity-time">5 hours ago</div>
-                        </div>
-                    </div>
-                    <!-- Activity 3 -->
-                    <div class="activity-item">
-                        <div class="activity-icon" style="background-color: #ede9fe;">
-                            <img src="https://c.animaapp.com/m9pz46ldCcDLNH/img/frame-3.svg" alt="icon">
-                        </div>
-                        <div>
-                            <div class="activity-text">Offer letter sent to <strong>Sarah Johnson</strong></div>
-                            <div class="activity-time">1 day ago</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Date Filter Section -->
+        <div class="flex items-center mb-4 gap-4">
+          <label for="startDate" class="text-gray-700">Start Date:</label>
+          <input type="date" id="startDate" class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-400 transition" />
+          <label for="endDate" class="text-gray-700">End Date:</label>
+          <input type="date" id="endDate" class="border rounded px-3 py-2 focus:ring-2 focus:ring-blue-400 transition" />
+          <button
+            id="applyFilterBtn"
+            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 focus:ring-2 focus:ring-blue-400 text-white rounded-lg text-sm font-medium transition-all duration-200 flex items-center gap-2 shadow-sm hover:scale-105 active:scale-95"
+            type="button"
+          >
+            <!-- Apply Icon SVG -->
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            Apply Filters
+          </button>
         </div>
-    </div>
-</body>
 
+        <!-- Analytics Cards Section -->
+        <section
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8"
+        >
+          <!-- Total Applications Card -->
+          <div class="bg-white border rounded-xl p-4 shadow-sm text-center card-hover">
+            <h2 class="text-gray-500 text-sm">Total Applications</h2>
+            <p class="text-3xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">2,847</p>
+            <p class="text-sm text-gray-500">⬆ 12.5% from last month</p>
+          </div>
+          <!-- Hired Candidates Card -->
+          <div class="bg-white border rounded-xl p-4 shadow-sm text-center card-hover">
+            <h2 class="text-gray-500 text-sm">Hired Candidates</h2>
+            <p class="text-3xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-green-600">156</p>
+            <p class="text-sm text-gray-500">⬆ 8.3% from last month</p>
+          </div>
+          <!-- Time to Hire Card -->
+          <div class="bg-white border rounded-xl p-4 shadow-sm text-center card-hover">
+            <h2 class="text-gray-500 text-sm">Time to Hire</h2>
+            <p class="text-3xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-yellow-600">18.5 days</p>
+            <p class="text-sm text-gray-500">⬆ 2.1 days slower</p>
+          </div>
+          <!-- Active Jobs Card -->
+          <div class="bg-white border rounded-xl p-4 shadow-sm text-center card-hover">
+            <h2 class="text-gray-500 text-sm">Active Jobs</h2>
+            <p class="text-3xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-purple-600">42</p>
+            <p class="text-sm text-gray-500">No change</p>
+          </div>
+        </section>
+
+        <!-- Department Analytics Charts Section -->
+        <section class="mb-8">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">
+            Applications by Department
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 transition-all duration-300">
+            <!-- Applications by Department Chart Card -->
+            <div class="bg-white rounded-xl border p-4 card-hover transition-all duration-300 cursor-pointer"
+              onclick="openChartModal(0)">
+              <h4 class="text-md font-semibold text-blue-700 mb-2">Applications by Department</h4>
+              <p class="text-xs text-gray-500 mb-2">Total applications received in each department.</p>
+              <canvas id="departmentChart1" width="400" height="200"></canvas>
+            </div>
+            <!-- Hires by Department Chart Card -->
+            <div class="bg-white rounded-xl border p-4 card-hover transition-all duration-300 cursor-pointer"
+              onclick="openChartModal(1)">
+              <h4 class="text-md font-semibold text-green-700 mb-2">Hires by Department</h4>
+              <p class="text-xs text-gray-500 mb-2">Number of candidates hired per department.</p>
+              <canvas id="departmentChart2" width="400" height="200"></canvas>
+            </div>
+            <!-- Avg. Time to Hire Chart Card -->
+            <div class="bg-white rounded-xl border p-4 card-hover transition-all duration-300 cursor-pointer"
+              onclick="openChartModal(2)">
+              <h4 class="text-md font-semibold text-yellow-700 mb-2">Avg. Time to Hire</h4>
+              <p class="text-xs text-gray-500 mb-2">Average days to hire in each department.</p>
+              <canvas id="departmentChart3" width="400" height="200"></canvas>
+            </div>
+            <!-- Open Positions Chart Card -->
+            <div class="bg-white rounded-xl border p-4 card-hover transition-all duration-300 cursor-pointer"
+              onclick="openChartModal(3)">
+              <h4 class="text-md font-semibold text-purple-700 mb-2">Open Positions</h4>
+              <p class="text-xs text-gray-500 mb-2">Current open positions by department.</p>
+              <canvas id="departmentChart4" width="400" height="200"></canvas>
+            </div>
+          </div>
+        </section>
+
+        <!-- Application Status Table Section -->
+        <section class="bg-white border rounded-xl p-4 mb-8 transition-shadow duration-300 hover:shadow-lg">
+          <h3 class="text-lg font-semibold text-gray-800 mb-4">
+            Application Status Table
+          </h3>
+          <table
+            class="min-w-full divide-y divide-gray-200"
+            id="applicationTable"
+          >
+            <thead>
+              <tr>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer transition-colors duration-200 hover:text-blue-600"
+                  onclick="sortTable(0)"
+                >
+                  Status
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer transition-colors duration-200 hover:text-blue-600"
+                  onclick="sortTable(1)"
+                >
+                  Count
+                </th>
+                <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer transition-colors duration-200 hover:text-blue-600"
+                  onclick="sortTable(2)"
+                >
+                  Percentage
+                </th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200"></tbody>
+          </table>
+          <!-- Pagination Buttons -->
+          <div class="mt-4 flex justify-end gap-2">
+            <button
+              onclick="previousPage()"
+              id="prevBtn"
+              class="px-3 py-1 bg-gray-200 rounded hover:bg-blue-200 active:bg-blue-300 focus:ring-2 focus:ring-blue-400 transition-all duration-200 font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+              type="button"
+            >
+              <!-- Left Arrow SVG -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+              </svg>
+              Previous
+            </button>
+            <button
+              onclick="nextPage()"
+              id="nextBtn"
+              class="px-3 py-1 bg-gray-200 rounded hover:bg-blue-200 active:bg-blue-300 focus:ring-2 focus:ring-blue-400 transition-all duration-200 font-medium text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+              type="button"
+            >
+              Next
+              <!-- Right Arrow SVG -->
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- Row Modal (Table Row Details) -->
+    <div
+      id="rowModal"
+      class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 modal-fade hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm relative transition-all duration-300">
+        <button
+          onclick="closeModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl transition-colors duration-200"
+        >
+          &times;
+        </button>
+        <h4 class="text-lg font-bold mb-4">Application Status Details</h4>
+        <div id="modalContent" class="space-y-2"></div>
+      </div>
+    </div>
+
+    <!-- Notification Modal -->
+    <div
+      id="notificationModal"
+      class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 modal-fade hidden"
+    >
+      <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm relative transition-all duration-300">
+        <button
+          onclick="closeNotificationModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl transition-colors duration-200"
+        >&times;</button>
+        <h4 class="text-lg font-bold mb-4">Notifications</h4>
+        <ul id="notificationList" class="space-y-3">
+          <!-- Notifications will be filled here -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- Chart Modal -->
+    <div
+      id="chartModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 modal-fade hidden"
+    >
+      <div class="bg-white rounded-lg shadow-2xl p-6 w-full max-w-3xl relative transition-all duration-300" style="max-width:900px;">
+        <button
+          onclick="closeChartModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-gray-700 text-xl transition-colors duration-200"
+        >
+          &times;
+        </button>
+        <h4 id="chartModalTitle" class="text-xl font-bold mb-2"></h4>
+        <p id="chartModalDesc" class="text-sm text-gray-500 mb-4"></p>
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-1 flex items-center justify-center">
+            <canvas id="chartModalCanvas" width="500" height="350" style="max-width:500px;max-height:350px;"></canvas>
+          </div>
+          <div class="flex-1 overflow-x-auto">
+            <table id="chartModalTable" class="min-w-[250px] w-full text-xs border border-gray-200 rounded">
+              <thead>
+                <tr id="chartModalTableHead" class="bg-gray-100"></tr>
+              </thead>
+              <tbody id="chartModalTableBody"></tbody>
+            </table>
+            <div id="chartModalDetails" class="mt-4 text-xs text-gray-700"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Table data for Application Status Table
+      const tableData = [
+        { status: "Applied", count: 1200, percentage: "42%" },
+        { status: "Reviewed", count: 800, percentage: "28%" },
+        { status: "Interviewing", count: 500, percentage: "18%" },
+        { status: "Offer Extended", count: 200, percentage: "7%" },
+        { status: "Hired", count: 100, percentage: "3%" },
+      ];
+      let currentSortColumn = 0, currentSortDirection = "asc", currentPage = 1, rowsPerPage = 5;
+      let filteredData = [...tableData];
+
+      // Search functionality for table
+      document.getElementById("searchInput").addEventListener("input", e => {
+        const val = e.target.value.trim().toLowerCase();
+        filteredData = tableData.filter(row =>
+          row.status.toLowerCase().includes(val) ||
+          String(row.count).includes(val) ||
+          row.percentage.toLowerCase().includes(val)
+        );
+        currentPage = 1;
+        displayList(filteredData);
+        updatePaginationButtons();
+      });
+
+      // Export table as CSV
+      document.getElementById("exportReportBtn").onclick = () => {
+        const rows = [["Status","Count","Percentage"], ...filteredData.map(r=>[r.status,r.count,r.percentage])];
+        const csv = rows.map(r=>r.map(x=>`"${x}"`).join(",")).join("\n");
+        const blob = new Blob([csv], {type:"text/csv"});
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "application_status_report.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      };
+
+      // Apply date filters (demo: shuffle data)
+      document.getElementById("applyFilterBtn").onclick = () => {
+        // In real app, filter by date; here, shuffle data for demo
+        filteredData = [...tableData].sort(()=>Math.random()-0.5);
+        currentPage = 1;
+        displayList(filteredData);
+        updatePaginationButtons();
+      };
+
+      // Date Range Dropdown logic
+      const dateRangeBtn = document.getElementById("dateRangeBtn");
+      const dateRangeDropdown = document.getElementById("dateRangeDropdown");
+      const dateRangeLabel = document.getElementById("dateRangeLabel");
+      dateRangeBtn.onclick = (e) => {
+        e.stopPropagation();
+        dateRangeDropdown.classList.toggle("hidden");
+        dateRangeBtn.setAttribute("aria-expanded", dateRangeDropdown.classList.contains("hidden") ? "false" : "true");
+      };
+      dateRangeDropdown.querySelectorAll("li").forEach(li => {
+        li.onclick = (e) => {
+          dateRangeLabel.textContent = li.getAttribute("data-value");
+          dateRangeDropdown.classList.add("hidden");
+          dateRangeBtn.setAttribute("aria-expanded", "false");
+          // Optionally: trigger filter logic here
+        };
+      });
+      document.addEventListener("click", (e) => {
+        if (!dateRangeDropdown.classList.contains("hidden")) {
+          dateRangeDropdown.classList.add("hidden");
+          dateRangeBtn.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      // Notification data and modal logic
+      const notifications = [
+        { title: "New Application", desc: "A new candidate applied for Software Engineer.", time: "2 min ago" },
+        { title: "Interview Scheduled", desc: "Interview scheduled for John Doe.", time: "1 hour ago" },
+        { title: "Job Closed", desc: "Sales Manager position has been closed.", time: "Yesterday" }
+      ];
+
+      // Show notification modal
+      document.getElementById("notificationBtn").onclick = () => {
+        const modal = document.getElementById("notificationModal");
+        const list = document.getElementById("notificationList");
+        list.innerHTML = notifications.map(n =>
+          `<li class="border-b pb-2">
+            <div class="font-semibold text-blue-700">${n.title}</div>
+            <div class="text-gray-600 text-sm">${n.desc}</div>
+            <div class="text-xs text-gray-400">${n.time}</div>
+          </li>`
+        ).join("");
+        modal.classList.remove("hidden");
+        setTimeout(() => modal.classList.add("modal-fade"), 10);
+      };
+
+      // Render table rows
+      function displayList(arr) {
+        const table = document.getElementById("applicationTable").getElementsByTagName("tbody")[0];
+        table.innerHTML = "";
+        arr.slice(rowsPerPage * (currentPage - 1), rowsPerPage * currentPage).forEach(rowData => {
+          const row = document.createElement("tr");
+          row.className = "fade-in-row cursor-pointer hover:bg-blue-50 transition-all duration-200";
+          ["status", "count", "percentage"].forEach(key => {
+            const cell = document.createElement("td");
+            cell.className = "px-6 py-4 whitespace-nowrap transition-colors duration-200";
+            cell.textContent = rowData[key];
+            cell.onclick = e => { e.stopPropagation(); openModal(rowData); };
+            row.appendChild(cell);
+          });
+          row.onclick = () => openModal(rowData);
+          table.appendChild(row);
+        });
+      }
+
+      // Sort table columns
+      function sortTable(i) {
+        const keyMap = ["status", "count", "percentage"], key = keyMap[i];
+        const getValue = item => key === "percentage" ? parseFloat(item[key]) : key === "status" ? item[key].toLowerCase() : item[key];
+        currentSortDirection = currentSortColumn === i && currentSortDirection === "asc" ? "desc" : "asc";
+        currentSortColumn = i;
+        filteredData.sort((a, b) => {
+          const av = getValue(a), bv = getValue(b);
+          return typeof av === "string"
+            ? (currentSortDirection === "asc" ? av.localeCompare(bv) : bv.localeCompare(av))
+            : (currentSortDirection === "asc" ? av - bv : bv - av);
+        });
+        currentPage = 1;
+        displayList(filteredData);
+        updatePaginationButtons();
+      }
+
+      // Open row modal with details
+      function openModal(d) {
+        document.getElementById("modalContent").innerHTML = `
+          <p><strong>Status:</strong> ${d.status}</p>
+          <p><strong>Count:</strong> ${d.count}</p>
+          <p><strong>Percentage:</strong> ${d.percentage}</p>
+        `;
+        document.getElementById("rowModal").classList.remove("hidden");
+        setTimeout(()=>document.getElementById("rowModal").classList.add("modal-fade"),10);
+      }
+      // Close row modal
+      function closeModal() {
+        const modal = document.getElementById("rowModal");
+        modal.classList.remove("modal-fade");
+        setTimeout(()=>modal.classList.add("hidden"),250);
+      }
+      // Close row modal on Escape
+      document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+      // Close notification modal
+      function closeNotificationModal() {
+        const modal = document.getElementById("notificationModal");
+        modal.classList.remove("modal-fade");
+        setTimeout(() => modal.classList.add("hidden"), 250);
+      }
+
+      // Only close topmost modal on Escape
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") {
+          const chartModal = document.getElementById("chartModal");
+          const notificationModal = document.getElementById("notificationModal");
+          const rowModal = document.getElementById("rowModal");
+          if (!chartModal.classList.contains("hidden")) closeChartModal();
+          else if (!notificationModal.classList.contains("hidden")) closeNotificationModal();
+          else if (!rowModal.classList.contains("hidden")) closeModal();
+        }
+      });
+
+      // Pagination: previous page
+      function previousPage() {
+        if (currentPage > 1) {
+          currentPage--;
+          displayList(filteredData);
+          updatePaginationButtons();
+        }
+      }
+      // Pagination: next page
+      function nextPage() {
+        if (currentPage * rowsPerPage < filteredData.length) {
+          currentPage++;
+          displayList(filteredData);
+          updatePaginationButtons();
+        }
+      }
+      // Enable/disable pagination buttons
+      function updatePaginationButtons() {
+        document.getElementById("prevBtn").disabled = currentPage === 1;
+        document.getElementById("nextBtn").disabled = currentPage * rowsPerPage >= filteredData.length;
+      }
+
+      // Initial render of table and pagination
+      displayList(filteredData);
+      updatePaginationButtons();
+
+      // Chart.js: data for 4 department charts
+      const chartData = [
+        {
+          labels: ["IT", "HR", "Sales", "Marketing"],
+          data: [400, 200, 150, 100],
+          label: "Applications",
+          bg: "rgba(59,130,246,0.7)",
+          title: "Applications by Department",
+          desc: "Total applications received in each department.",
+          details: "This chart shows the number of applications received by each department in the selected period."
+        },
+        {
+          labels: ["IT", "HR", "Sales", "Marketing"],
+          data: [50, 30, 40, 20],
+          label: "Hires",
+          bg: "rgba(16,185,129,0.7)",
+          title: "Hires by Department",
+          desc: "Number of candidates hired per department.",
+          details: "This chart displays the number of successful hires in each department."
+        },
+        {
+          labels: ["IT", "HR", "Sales", "Marketing"],
+          data: [15, 22, 18, 20],
+          label: "Avg. Days to Hire",
+          bg: "rgba(234,179,8,0.7)",
+          title: "Average Time to Hire",
+          desc: "Average days to hire in each department.",
+          details: "This chart represents the average number of days taken to hire candidates in each department."
+        },
+        {
+          labels: ["IT", "HR", "Sales", "Marketing"],
+          data: [8, 5, 3, 2],
+          label: "Open Positions",
+          bg: "rgba(139,92,246,0.7)",
+          title: "Open Positions",
+          desc: "Current open positions by department.",
+          details: "This chart shows the current number of open job positions in each department."
+        }
+      ];
+      // Render all 4 department charts
+      chartData.forEach((d, i) => {
+        const ctx = document.getElementById(`departmentChart${i+1}`).getContext("2d");
+        new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: d.labels,
+            datasets: [{
+              label: d.label,
+              data: d.data,
+              backgroundColor: d.bg
+            }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true } }
+          }
+        });
+      });
+
+      // Chart Modal logic
+      let chartModalInstance = null;
+      // Open chart modal with details
+      function openChartModal(idx) {
+        const modal = document.getElementById("chartModal");
+        document.getElementById("chartModalTitle").textContent = chartData[idx].title;
+        document.getElementById("chartModalDesc").textContent = chartData[idx].desc;
+        document.getElementById("chartModalDetails").textContent = chartData[idx].details;
+        modal.classList.remove("hidden");
+        setTimeout(() => modal.classList.add("modal-fade"), 10);
+
+        // Destroy previous chart if exists
+        if (chartModalInstance) {
+          chartModalInstance.destroy();
+        }
+        const ctx = document.getElementById("chartModalCanvas").getContext("2d");
+        chartModalInstance = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: chartData[idx].labels,
+            datasets: [{
+              label: chartData[idx].label,
+              data: chartData[idx].data,
+              backgroundColor: chartData[idx].bg
+            }]
+          },
+          options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: true } },
+            scales: { y: { beginAtZero: true } }
+          }
+        });
+
+        // Fill table with chart data
+        const head = document.getElementById("chartModalTableHead");
+        const body = document.getElementById("chartModalTableBody");
+        head.innerHTML = `<th class="px-2 py-1 border">Department</th><th class="px-2 py-1 border">${chartData[idx].label}</th>`;
+        body.innerHTML = chartData[idx].labels.map((label, i) =>
+          `<tr>
+            <td class="px-2 py-1 border">${label}</td>
+            <td class="px-2 py-1 border">${chartData[idx].data[i]}</td>
+          </tr>`
+        ).join("");
+      }
+      // Close chart modal
+      function closeChartModal() {
+        const modal = document.getElementById("chartModal");
+        modal.classList.remove("modal-fade");
+        setTimeout(() => modal.classList.add("hidden"), 250);
+      }
+      // Close chart modal on Escape
+      document.addEventListener("keydown", e => {
+        if (e.key === "Escape") closeChartModal();
+      });
+
+      // Close all popups on outside click
+      document.addEventListener("mousedown", (e) => {
+        const modals = [
+          { el: document.getElementById("rowModal"), inner: ".bg-white" },
+          { el: document.getElementById("notificationModal"), inner: ".bg-white" },
+          { el: document.getElementById("chartModal"), inner: ".bg-white" }
+        ];
+        modals.forEach(({el, inner}) => {
+          if (!el.classList.contains("hidden") && !e.target.closest(inner)) {
+            el.classList.remove("modal-fade");
+            setTimeout(() => el.classList.add("hidden"), 250);
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
