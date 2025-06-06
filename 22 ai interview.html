@@ -217,6 +217,11 @@
           </div>
         </aside>
       </div>
+      <div id="question-container">
+  <p id="question-text">Question will appear here</p>
+  <button id="next-question-btn">Next Question</button>
+</div>
+
 
       <script>
   //  TIMER 
@@ -302,6 +307,40 @@
     e.preventDefault();
     alert("Next question logic not yet implemented.");
   });
+
+  const questions = [
+    "What is React?",
+    "Explain useState hook.",
+    "What is a component?",
+    "What is JSX?",
+    "How do you pass props in React?"
+  ];
+
+  // Index to track current question
+  let currentIndex = 0;
+
+  // Grab the HTML elements by their IDs
+  const questionText = document.getElementById('question-text');
+  const nextBtn = document.getElementById('next-question-btn');
+
+  // Function to show the question at a given index
+  function showQuestion(index) {
+    if (index < questions.length) {
+      questionText.textContent = questions[index];
+    } else {
+      questionText.textContent = "No more questions!";
+      nextBtn.disabled = true; // disable button when done
+    }
+  }
+
+  // Event listener for the button click
+  nextBtn.addEventListener('click', () => {
+    currentIndex++;
+    showQuestion(currentIndex);
+  });
+
+  // Show the first question as page loads
+  showQuestion(currentIndex);
 </script>
 
 </body>

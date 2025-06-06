@@ -199,7 +199,9 @@
     
         <div class="right-icons">
           <img src="C:\Users\Hp\OneDrive\Desktop\recrutment software\screen shots\bellicon.png" alt="Notifications" class="bell-icon" />
-          <img src="C:\Users\Hp\OneDrive\Desktop\recrutment software\screen shots\profile pic.png" alt="User" class="profile-pic" />
+<a href="14 js profile.html">
+  <img src="C:\Users\Hp\OneDrive\Desktop\recrutment software\screen shots\profile pic.png" alt="User Profile" class="profile-pic" />
+</a>
         </div>
       </header>
     
@@ -249,7 +251,7 @@
               <span class="badge full-time">Full-time</span>
               <div class="salary">$120k - $150k</div>
             </div>
-            <button class="apply-btn">Apply</button>
+<button class="apply-btn" onclick="location.href='apply job.html'">Apply Now</button>
           </div>
     
           <div class="job-card">
@@ -259,7 +261,7 @@
               <span class="badge remote">Remote</span>
               <div class="salary">$90k - $120k</div>
             </div>
-            <button class="apply-btn">Apply</button>
+<button class="apply-btn" onclick="location.href='apply job.html'">Apply Now</button>
           </div>
     
           <div class="job-card">
@@ -269,7 +271,7 @@
               <span class="badge full-time">Full-time</span>
               <div class="salary">$140k - $180k</div>
             </div>
-            <button class="apply-btn">Apply</button>
+<button class="apply-btn" onclick="location.href='apply job.html'">Apply Now</button>
           </div>
     
           <div class="pagination">
@@ -281,5 +283,26 @@
           </div>
         </div>
       </div>
+
+      <script>
+  document.querySelector('button').addEventListener('click', function () {
+    const keyword = document.querySelectorAll('.search-bar input')[0].value.toLowerCase();
+    const location = document.querySelectorAll('.search-bar input')[1].value.toLowerCase();
+
+    const jobCards = document.querySelectorAll('.job-card');
+
+    jobCards.forEach(card => {
+      const title = card.querySelector('.job-title').textContent.toLowerCase();
+      const companyLocation = card.querySelector('.company-location').textContent.toLowerCase();
+
+      if (title.includes(keyword) && companyLocation.includes(location)) {
+        card.style.display = 'flex'; // show
+      } else {
+        card.style.display = 'none'; // hide
+      }
+    });
+  });
+</script>
+
 </body>
 </html>

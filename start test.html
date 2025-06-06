@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Technical Assessment</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .question {
+      background: #fff;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .question p {
+      font-weight: 600;
+    }
+    .question label {
+      display: block;
+      margin: 8px 0;
+    }
+    .submit-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #2e63f7;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .result {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <h1>Technical Assessment</h1>
+  <form id="quizForm">
+    <!-- Questions will be injected here -->
+  </form>
+  <div class="result" id="resultBox"></div>
+
+  <script>
+    const questions = [
+      { q: "What does HTML stand for?", options: ["Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"], answer: 0 },
+      { q: "Which language is used for styling web pages?", options: ["HTML", "JQuery", "CSS", "XML"], answer: 2 },
+      { q: "Which is not a JavaScript framework?", options: ["Python Script", "JQuery", "Django", "NodeJS"], answer: 2 },
+      { q: "Which language is used for web apps?", options: ["PHP", "Python", "JavaScript", "All"], answer: 3 },
+      { q: "What does DBMS stand for?", options: ["Database Management System", "Data Backup and Management System", "Database Machine Storage"], answer: 0 },
+      { q: "Which one is a NoSQL database?", options: ["MongoDB", "MySQL", "Oracle", "SQL Server"], answer: 0 },
+      { q: "Which protocol is used to access a website?", options: ["HTTP", "FTP", "TCP", "IP"], answer: 0 },
+      { q: "What does CSS stand for?", options: ["Cascading Style Sheets", "Color Style Sheets", "Creative Style Sheets"], answer: 0 },
+      { q: "Which one is a React feature?", options: ["Virtual DOM", "Data Mining", "Machine Learning"], answer: 0 },
+      { q: "Which method is used to render content in React?", options: ["getElement", "render()", "display()", "print()"], answer: 1 },
+      { q: "Which of these is not a programming language?", options: ["Python", "HTML", "Java", "C++"], answer: 1 },
+      { q: "Which OS is developed by Apple?", options: ["Linux", "Windows", "iOS", "Android"], answer: 2 },
+      { q: "What is the brain of a computer?", options: ["RAM", "Motherboard", "CPU", "Hard Drive"], answer: 2 },
+      { q: "What does API stand for?", options: ["Application Programming Interface", "Application Process Interface", "Applied Programming Interface"], answer: 0 },
+      { q: "Which tool is used for version control?", options: ["Git", "Docker", "Kubernetes", "Jira"], answer: 0 },
+      { q: "Which of these is not a backend language?", options: ["Node.js", "Ruby", "PHP", "HTML"], answer: 3 },
+      { q: "Which HTML tag is used to insert an image?", options: ["<img>", "<image>", "<pic>", "<src>"], answer: 0 },
+      { q: "In CSS, how do you select an element with ID 'main'?", options: [".main", "#main", "main", "*main"], answer: 1 },
+      { q: "Which of these is used to loop in JavaScript?", options: ["for", "loop", "each", "repeat"], answer: 0 },
+      { q: "React is a...", options: ["Library", "Framework", "Programming Language", "CMS"], answer: 0 },
+    ];
+
+    const quizForm = document.getElementById("quizForm");
+    const resultBox = document.getElementById("resultBox");
+
+    questions.forEach((question, index) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `<p>${index + 1}. ${question.q}</p>` +
+        question.options.map((opt, i) =>
+          `<label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>`
+        ).join("");
+      quizForm.appendChild(div);
+    });
+
+    const submitBtn = document.createElement("button");
+    submitBtn.className = "submit-btn";
+    submitBtn.innerText = "Submit Test";
+    submitBtn.type = "button";
+    quizForm.appendChild(submitBtn);
+
+    submitBtn.addEventListener("click", () => {
+      let score = 0;
+      questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && parseInt(selected.value) === q.answer) {
+          score++;
+        }
+      });
+      resultBox.innerText = `You scored ${score} out of ${questions.length}`;
+    });
+  </script>
+</body>
+</html>

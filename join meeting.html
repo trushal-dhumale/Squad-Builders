@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Meeting</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f1f5f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .meeting-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 {
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+    p {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .video-box {
+      width: 100%;
+      height: 280px;
+      background-color: #dbeafe;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      color: #1d4ed8;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .btn.leave {
+      background-color: #ef4444;
+      color: white;
+    }
+    .btn.leave:hover {
+      background-color: #dc2626;
+    }
+    .btn.mute {
+      background-color: #f3f4f6;
+    }
+    .btn.mute:hover {
+      background-color: #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="meeting-container">
+    <h1>Product Designer Interview</h1>
+    <p>Company: Meta | Date: Tomorrow | Time: 10:00 AM</p>
+
+    <div class="video-box">
+      📹 Live Video Feed (Simulated)
+    </div>
+
+    <div class="btn-group">
+      <button class="btn mute">🔇 Mute</button>
+      <button class="btn leave" onclick="leaveMeeting()">🚪 Leave Meeting</button>
+    </div>
+  </div>
+
+  <script>
+    function leaveMeeting() {
+      alert("You have left the meeting.");
+      window.location.href = "dashboard.html";
+    }
+  </script>
+</body>
+</html>
