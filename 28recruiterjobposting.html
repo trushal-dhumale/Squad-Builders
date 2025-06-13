@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job Posting</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f8;
+      padding: 30px;
+      color: #333;
+
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .template {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 800px;
+      margin: 0 auto 30px;
+    }
+
+    .template h3 {
+      margin-bottom: 20px;
+    }
+
+    .tech,
+    .business,
+    .creative {
+      width: 32%;
+      float: left;
+      background: #f0f4f8;
+      margin-right: 2%;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .creative {
+      margin-right: 0;
+    }
+
+    .template::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    .tech strong,
+    .business strong,
+    .creative strong {
+      display: block;
+      color: #007bff;
+      margin-bottom: 5px;
+    }
+
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 600px;
+      height: auto;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .Title {
+      width: 100%;
+    }
+
+    .role {
+      width: 100%;
+      height: 100px;
+    }
+
+    .salary-range input {
+      width: 48%;
+      display: inline-block;
+    }
+
+    .salary-range input:first-child {
+      margin-right: 4%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Job Posting</h1>
+
+  <div class="template">
+    <h3>Choose Template</h3>
+
+    <div class="tech">
+      <strong>Tech Position</strong>
+      <p>Perfect for IT, development <br> and technical roles</p>
+    </div>
+
+    <div class="business">
+      <strong>Business Role</strong>
+      <p>Suitable for management <br> and business positions</p>
+    </div>
+
+    <div class="creative">
+      <strong>Creative Role</strong>
+      <p>Ideal for design and <br> creative positions</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <h3>Job Details</h3>
+
+    <label for="title">Job Title</label>
+    <input class="Title" placeholder="e.g Senior Software Engineer" />
+
+    <label for="location">Location</label>
+    <input type="text" placeholder="City, Location" />
+
+    <label for="type">Employment Type</label>
+    <select>
+      <option>Full Time</option>
+      <option>Part Time</option>
+    </select>
+
+    <label for="salary">Salary Range (Annual)</label>
+    <div class="salary-range">
+      <input type="text" placeholder="Min" />
+      <input type="text" placeholder="Max" />
+    </div>
+
+    <label for="level">Experience Level</label>
+    <select>
+      <option>Entry Level</option>
+      <option>Mid Level</option>
+      <option>Senior Level</option>
+    </select>
+
+    <label>Required Skills</label>
+    <input type="text" value="JavaScript" placeholder="Add skills" />
+
+    <label>Job Description</label>
+    <textarea class="role" placeholder="Describe Role, Responsibilities, & Requirements"></textarea>
+  </div>
+
+</body>
+
+</html>

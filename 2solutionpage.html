@@ -7,13 +7,15 @@
 </head>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-<style>body {
+<style>
+body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
     line-height: 1.6;
     background-color: #f4f7f6;
     color: #333;
+    text-decoration: none;
 }
 
 .container {
@@ -66,6 +68,7 @@ nav ul li a:hover {
     color: #555;
     margin-right: 20px;
     transition: color 0.3s ease;
+       text-decoration: none;
 }
 
 .auth a:hover {
@@ -225,6 +228,7 @@ body {
     cursor: pointer;
     margin: 0 10px;
     transition: background-color 0.3s ease;
+       text-decoration: none;
 }
 
 .get-started-cta {
@@ -324,15 +328,15 @@ footer .container {
             <div class="logo">SmartRecruit</div>
             <nav>
                 <ul>
-                    <li><a href="#">Solutions</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Resources</a></li>
-                    <li><a href="#">About</a></li>
+                    <li><a href="2solutionpage.html" style="text-decoration: none;">Solutions</a></li>
+                    <li><a href="3pricingpage.html" style="text-decoration: none;">Pricing</a></li>
+                    <li><a href="4resourcespage.html"style="text-decoration: none;">Resources</a></li>
+                    <li><a href="5aboutpage.html"style="text-decoration: none;">About</a></li>
                 </ul>
             </nav>
             <div class="auth">
-                <a href="#">Sign In</a>
-                <button class="get">Get Started</button>
+                <a href="6signinpage.html" style="text-decoration: none;" >Sign In</a>
+                <button class="get"><a href="6signinpage.html" style="text-decoration: none;" > Started</a></button>
             </div>
         </div>
     </header>
@@ -355,7 +359,7 @@ footer .container {
                     <li><i class="fas fa-check"></i> Personalized job matches</li>
                     <li><i class="fas fa-check"></i> Application tracking dashboard</li>
                 </ul>
-                <button class="try-free">Try for Free</button>
+                <button onclick="tryForFreeJob()" class="try-free"><a href="8jobseekeraccpages.html">Try for Free</a></button>
             </div>
 
             <div class="feature-card">
@@ -366,7 +370,7 @@ footer .container {
                     <li><i class="fas fa-check"></i> Smart candidate recommendations</li>
                     <li><i class="fas fa-check"></i> Analytics dashboard</li>
                 </ul>
-                <button class="explore-dashboard">Explore Dashboard</button>
+                <button onclick="dashboard()" class="explore-dashboard"><a href="9recriteraccpages.html">Explore Dashboard</a></button>
             </div>
 
             <div class="feature-card">
@@ -377,7 +381,7 @@ footer .container {
                     <li><i class="fas fa-check"></i> Track student applications</li>
                     <li><i class="fas fa-check"></i> Reports & insights</li>
                 </ul>
-                <button class="try-for-free-institute">Try for Free</button>
+                <button onclick="tryforfreeinstitute()" class="try-for-free-institute"><a href="10instituteaccpages.html">Try for Free</a></button>
             </div>
         </div>
     </section>
@@ -387,8 +391,8 @@ footer .container {
             <h2>Ready to Transform Your Career Journey?</h2>
             <p>Join thousands of successful professionals, companies, and institutions who trust our platform.</p>
             <div class="cta-buttons">
-                <button class="get-started-cta">Get Started</button>
-                <button class="schedule-demo">Schedule Demo</button>
+                <button onclick="get()" class="get-started-cta"><a href="6signinpage.html"style="text-decoration: none;"> Started</a></button>
+                <button onclick="demo()" class="schedule-demo"><a href="6signinpage.html"style="text-decoration: none;"> Schedule Demo</a></button>
             </div>
         </div>
     </section>
@@ -431,7 +435,66 @@ footer .container {
             <p>&copy; 2025 SmartRecruit. All rights reserved.</p>
         </div>
     </footer>
+<script>
+    // Smooth Scroll for Navigation Links
+   // document.querySelectorAll("nav ul li a").forEach(link => {
+     //   link.addEventListener("click", (event) => {
+       //     event.preventDefault();
+         //   alert(`Navigating to ${link.textContent} section...`);
+            // You can add real scrolling logic here using window.scrollTo()
+       // });
+   // });
 
+    // Jobseekers "Try for Free" Button
+    //function tryForFreeJob() {
+   //     alert("Redirecting to jobseeker tools...");
+     //   window.location.href = "jobseekers.html"; // Update with actual page URL
+  //  }
 
+    // Companies "Explore Dashboard" Button
+  //  function dashboard() {
+    //    alert("Opening AI-powered company dashboard...");
+        
+    //}
+
+    // Institutes "Try for Free" Button
+    //function tryforfreeinstitute() {
+      //  alert("Redirecting to institute management tools...");
+        //window.location.href = "institutes.html"; // Update with actual page URL
+   // }
+
+    // CTA Buttons - Get Started & Demo
+    //function get() {
+      //  alert("Let's get started!");
+        //window.location.href = "6signinpage.html"; // Update with actual page URL
+    //}
+
+    //function demo() {
+      //  alert("Scheduling a demo...");
+        //window.location.href = "demo.html"; // Update with actual page URL
+   // }
+
+    // Sign In and Get Started Buttons in Header
+    //document.querySelector(".auth a").addEventListener("click", () => {
+      //  alert("Redirecting to Sign In...");
+        //window.location.href = "signin.html"; // Update URL for Sign In page
+   // });
+
+    //document.querySelector(".get").addEventListener("click", () => {
+      //  alert("Redirecting to Get Started...");
+        //window.location.href = "signup.html"; // Update URL for Sign Up page
+    //});
+
+    // Hover Effect for Footer Links
+    document.querySelectorAll("footer ul li a").forEach(link => {
+        link.addEventListener("mouseover", () => {
+            link.style.color = "#007bff";
+        });
+
+        link.addEventListener("mouseleave", () => {
+            link.style.color = "";
+        });
+    });
+</script>
 </body>
 </html>

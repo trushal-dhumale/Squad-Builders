@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recruiter Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: #f4f4f4;
+    }
+
+    .sidebar {
+      width: 220px;
+      background: #fff;
+      color: #333;
+      padding: 40px 20px;
+      border-right: 1px solid #e0e0e0;
+    }
+
+    .sidebar p {
+      margin: 20px 0;
+    }
+
+    .dash {
+      color: #007bff;
+      background-color: rgb(178, 230, 247)
+    }
+
+    .main {
+      padding: 30px;
+    }
+
+    .header {
+      margin-bottom: 25px;
+      color: #0905f1;
+    }
+
+    .header h1 {
+      font-size: 28px;
+    }
+
+    .stats {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stats p {
+      flex: 1;
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      color: #444;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .filters select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .candidate {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 15px;
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .candidate:hover {
+      background: #f9f9f9;
+    }
+
+    .candidate-info {
+      flex-grow: 1;
+    }
+
+    .match {
+      color: green;
+      font-weight: bold;
+      margin-left: 20px;
+      white-space: nowrap;
+    }
+
+    .Interview {
+      margin-left: 20px;
+    }
+
+    .interview {
+      float: inline-end;
+      gap: 12px;
+    }
+
+    .job {
+      width: 800px;
+      height: 30px;
+      padding: 10px;
+    }
+
+    button {
+      background-color: #007bff;
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .search {
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 15px;
+      background: #fff;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .JOB {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sidebar">
+    <p class="dash">Dashboard</p>
+    <p>Jobs</p>
+    <p>ATS</p>
+    <p>Interviews</p>
+    <p>Interview Monitor</p>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <h1>Recruiter Dashboard</h1>
+    </div>
+
+    <div class="stats">
+      <p>Active Jobs <br><br><strong>24</strong></p>
+      <p>Total Applications <br><br><strong>842</strong></p>
+      <p>Shortlisted <br><br><strong>156</strong></p>
+      <p>Interviews <br><br><strong>38</strong></p>
+    </div>
+
+    <div class="search">
+      <div class="JOB">
+        <input class="job" placeholder="search job">
+        <button class="interview">Fitter</button>
+      </div>
+      <div class="filters">
+        <select>
+          <option>Any Skill</option>
+        </select>
+        <select>
+          <option>Select Skill</option>
+        </select>
+        <select>
+          <option>Any Location</option>
+        </select>
+        <select>
+          <option>Any Roles</option>
+        </select>
+        <select>
+          <option>Any Time</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="candidates">
+      <div class="candidate">
+        <div class="candidate-info">
+          <strong>Sarah Johnson</strong><br>
+          Senior UX Designer • 8 years experience
+        </div>
+        <div class="match">94% Match</div>
+        <button class="Interview">Schedule Interview</button>
+      </div>
+
+      <div class="candidate">
+        <div class="candidate-info">
+          <strong>Michael Chen</strong><br>
+          Full Stack Developer • 5 years experience
+        </div>
+        <div class="match">93% Match</div>
+        <button class="Interview">Schedule Interview</button>
+      </div>
+
+      <div class="candidate">
+        <div class="candidate-info">
+          <strong>Emily Rodriguez</strong><br>
+          Product Manager • 6 years experience
+        </div>
+        <div class="match">92% Match</div>
+        <button class="Interview">Schedule Interview</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

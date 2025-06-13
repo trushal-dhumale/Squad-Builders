@@ -15,6 +15,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+               text-decoration: none;
         }
 
         .container {
@@ -161,7 +162,7 @@
         </div>
 
         <div class="action">
-            Already have an account? <a href="#">Sign In</a>
+            Already have an account? <a href="6signinpage.html">Sign In</a>
         </div>
 
         <div class="terms-privacy">
@@ -169,4 +170,37 @@
         </div>
     </div>
 </body>
+
+<script>
+    // Function for Account Type Selection
+    function selectType(type) {
+        alert("Selected account type: " + type);
+        window.location.href = type + "-dashboard.html"; // Update with actual page URL
+    }
+
+    // Function for Sign-In Validation
+    function signin() {
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!email || !password) {
+            alert("Please fill in both fields.");
+            return;
+        }
+
+        alert("Logged in as: " + email);
+        window.location.href = "user-dashboard.html"; // Update with actual dashboard URL
+    }
+
+    // Attach event listener to sign-in button
+    document.querySelector(".blue").addEventListener("click", signin);
+
+    // Social Sign-In Buttons
+    document.querySelectorAll(".social-buttons button").forEach(button => {
+        button.addEventListener("click", () => {
+            alert("Redirecting to social login...");
+            window.location.href = "social-login.html"; // Update with actual social login URL
+        });
+    });
+</script>
 </html>

@@ -15,6 +15,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+               text-decoration: none;
         }
 
         .container {
@@ -289,4 +290,63 @@
         </form>
     </div>
 </body>
+<script>
+    // Function to validate form before submission
+    document.querySelector("form").addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const fullName = document.getElementById("full-name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const termsChecked = document.getElementById("terms").checked;
+
+        if (!fullName || !email || !password) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        if (!termsChecked) {
+            alert("You must agree to the Terms and Conditions.");
+            return;
+        }
+
+        alert("Account created successfully!");
+        window.location.href = "dashboard.html"; // Redirect to dashboard after success
+    });
+
+    // Resume Upload Handling
+    document.getElementById("resume-file").addEventListener("change", () => {
+        const fileName = document.getElementById("resume-file").files[0].name;
+        alert("Resume Uploaded: " + fileName);
+    });
+
+    // Profile Picture Upload
+    document.querySelector(".profile-picture button").addEventListener("click", () => {
+        document.getElementById("profile-picture-file").click();
+    });
+
+    document.getElementById("profile-picture-file").addEventListener("change", () => {
+        const fileName = document.getElementById("profile-picture-file").files[0].name;
+        alert("Profile Picture Uploaded: " + fileName);
+    });
+
+    // Dynamically Add Skills
+    document.getElementById("skills-input").addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            const skill = event.target.value.trim();
+            if (skill) {
+                const skillTag = document.createElement("span");
+                skillTag.className = "skill-tag";
+                skillTag.innerHTML = `${skill} <span style="cursor:pointer;" onclick="removeSkill(this)">X</span>`;
+                document.querySelector(".skills-tags").appendChild(skillTag);
+                event.target.value = "";
+            }
+        }
+    });
+
+    function removeSkill(element) {
+        element.parentElement.remove();
+    }
+</script>
 </html>

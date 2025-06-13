@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Institute Analytics Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    body {
+      background: #f8f9fb;
+      padding: 2rem;
+      color: #1f2937;
+    }
+
+    .dashboard {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .badge {
+      background: #dcfce7;
+      color: #16a34a;
+      padding: 4px 12px;
+      font-size: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .badge:hover {
+      background-color: #bbf7d0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 1rem;
+      padding: 1.25rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 0.5rem;
+    }
+
+    .value {
+      font-size: 28px;
+      font-weight: 700;
+      color: #10b981;
+    }
+
+    .subtext {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background: #e5e7eb;
+      height: 8px;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress {
+      height: 100%;
+      background: #60a5fa;
+      transition: width 0.5s ease-in-out;
+    }
+
+    .center-text {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 700;
+      color: #3b82f6;
+    }
+
+    .stat-box {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .stat-box:hover {
+      background-color: #e2e8f0;
+    }
+
+    .stat-box span {
+      display: block;
+      font-size: 14px;
+    }
+
+    .icons-row img {
+      height: 32px;
+      margin-right: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .icons-row img:hover {
+      transform: scale(1.1);
+    }
+
+    .footer-cards {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .positive {
+      color: #16a34a;
+    }
+
+    .negative {
+      color: #dc2626;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard">
+    <header>
+      <h1>Analytics Dashboard</h1>
+      <div class="badge" onclick="showAlert()">Live</div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <div class="title">Placement Rate</div>
+        <div class="value">84%</div>
+        <div class="subtext positive">+12%</div>
+        <div class="progress-bar">
+          <div class="progress" style="width: 84%"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="title">Students Placed</div>
+        <div class="value">127/150</div>
+        <div class="subtext">84.6%</div>
+      </div>
+      <div class="card">
+        <div class="title">Top Companies</div>
+        <div class="icons-row">
+          <img src="https://cionews.co.in/wp-content/uploads/2023/03/Article-Main-Image-2-6.png" alt="TCS" onclick="showCompany('TCS')" />
+          <img src="https://th.bing.com/th/id/OIP.uXnnAuphDdWsXe7PfzTD5AHaEB?cb=iwp2&w=920&h=500&rs=1&pid=ImgDetMain" alt="Infosys" onclick="showCompany('Infosys')" />
+          <img src="https://mms.businesswire.com/media/20190123005482/en/594194/23/Wiprologo1.jpg" alt="Wipro" onclick="showCompany('Wipro')" />
+          <img src="https://logowik.com/content/uploads/images/byjus2816.jpg" alt="Byju's" onclick="showCompany('Byjus')" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="title">Course-wise Breakdown</div>
+        <div class="subtext">CSE</div>
+        <div class="progress-bar">
+          <div class="progress" style="width: 92%"></div>
+        </div>
+        <div class="subtext">ECE</div>
+        <div class="progress-bar">
+          <div class="progress" style="width: 85%"></div>
+        </div>
+        <div class="subtext">MECH</div>
+        <div class="progress-bar">
+          <div class="progress" style="width: 76%"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title">Applications Per Student</div>
+        <div class="grid">
+          <div class="stat-box" onclick="showStat('Min')">
+            <span>Min</span>
+            <strong>2</strong>
+          </div>
+          <div class="stat-box" onclick="showStat('Avg')">
+            <span>Avg</span>
+            <strong class="center-text">5.6</strong>
+          </div>
+          <div class="stat-box" onclick="showStat('Max')">
+            <span>Max</span>
+            <strong>12</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid footer-cards" style="margin-top: 1.5rem;">
+      <div class="card">
+        <div class="title">Drives Conducted</div>
+        <div class="value">24</div>
+        <div class="subtext positive">↑ 8% vs last month</div>
+      </div>
+      <div class="card">
+        <div class="title">Student Participation</div>
+        <div class="value">92%</div>
+        <div class="subtext positive">↑ 12% vs last month</div>
+      </div>
+      <div class="card">
+        <div class="title">Offer Acceptance</div>
+        <div class="value">78%</div>
+        <div class="subtext negative">↓ 3% vs last month</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showAlert() {
+      alert("Dashboard is live!");
+    }
+
+    function showCompany(companyName) {
+      alert("You selected " + companyName);
+    }
+
+    function showStat(statType) {
+      alert("You selected " + statType + " Applications");
+    }
+  </script>
+</body>
+
+</html>

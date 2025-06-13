@@ -16,6 +16,7 @@ body {
     align-items: center;
     min-height: 100vh;
     margin: 0;
+       text-decoration: none;
 }
 
 .container {
@@ -24,20 +25,21 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 80%;
-    max-width: 960px;
+    max-width: 600px;
 }
 
 .header {
     text-align: center;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .header h1 {
     color: #333;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .header p {
+    text-align: center;
     color: #777;
     font-size: 0.9em;
 }
@@ -86,7 +88,7 @@ body {
 .form input[type="tel"],
 .form select,
 .form textarea {
-    width: 100%;
+    width: calc(100% - 12px);
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -179,12 +181,15 @@ body {
 .submit-button {
     background-color: #007bff;
     color: white;
-    padding: 15px 100px;
+    padding: 12px 20px;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 1em;
     transition: background-color 0.3s ease;
+    width: 100%;
+    display: block;
+    margin-top: 20px;
 }
 
 .submit-button:hover {
@@ -299,4 +304,50 @@ body {
         </div>
     </div>
 </body>
+<script>
+    // Validate Form Before Submission
+    document.querySelector(".submit-button").addEventListener("click", (event) => {
+        event.preventDefault(); // Prevent default form submission
+
+        const instituteName = document.getElementById("instituteName").value.trim();
+        const email = document.getElementById("coordinatorEmail").value.trim();
+        const website = document.getElementById("officialWebsite").value.trim();
+        const termsChecked = document.getElementById("terms").checked;
+
+        if (!instituteName || !email || !website) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        if (!termsChecked) {
+            alert("You must agree to the Terms and Conditions.");
+            return;
+        }
+
+        alert("Institute account created successfully!");
+        window.location.href = "dashboard.html"; // Redirect after success
+    });
+
+    // Logo Upload & Preview
+    document.getElementById("logoUpload").addEventListener("change", (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById("logoPreview").innerHTML = `<img src="${e.target.result}" alt="Institute Logo" style="max-width: 150px;">`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Handle Job Posting Preferences Checkbox Selections
+    document.querySelectorAll(".checkbox-group input").forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            const selectedOptions = Array.from(document.querySelectorAll(".checkbox-group input:checked"))
+                                         .map(checkbox => checkbox.nextElementSibling.textContent.trim());
+            alert("Selected job posting preferences: " + selectedOptions.join(", "));
+        });
+    });
+
+</script>
 </html>

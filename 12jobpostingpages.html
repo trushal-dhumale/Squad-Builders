@@ -242,6 +242,66 @@
   </div>
 
 </body>
+<script>
+    // Grid/List View Toggle
+    document.querySelector(".grid-button").addEventListener("click", () => {
+        document.querySelector(".grid-button").classList.add("active");
+        document.querySelector(".list-button").classList.remove("active");
+        document.querySelector(".job-listings").classList.remove("list-view");
+        alert("Switched to Grid View");
+    });
+
+    document.querySelector(".list-button").addEventListener("click", () => {
+        document.querySelector(".list-button").classList.add("active");
+        document.querySelector(".grid-button").classList.remove("active");
+        document.querySelector(".job-listings").classList.add("list-view");
+        alert("Switched to List View");
+    });
+
+    // Search Job Functionality
+    document.querySelector(".search-input").addEventListener("keyup", (event) => {
+        const query = event.target.value.toLowerCase();
+        document.querySelectorAll(".job-card").forEach(job => {
+            const jobTitle = job.querySelector(".job-header h3").textContent.toLowerCase();
+            job.style.display = jobTitle.includes(query) ? "block" : "none";
+        });
+    });
+
+    // Filter Selection
+    document.querySelectorAll(".filters select").forEach(select => {
+        select.addEventListener("change", () => {
+            alert(`Filter applied: ${select.value}`);
+            // Add logic for filtering job listings dynamically
+        });
+    });
+
+    // Pagination Click Effect
+    document.querySelectorAll(".pagination button").forEach(button => {
+        button.addEventListener("click", () => {
+            if (!button.classList.contains("active-page")) {
+                document.querySelector(".pagination .active-page").classList.remove("active-page");
+                button.classList.add("active-page");
+                alert(`Navigated to page ${button.textContent}`);
+            }
+        });
+    });
+
+    // Post New Job Button Redirect
+    document.querySelector(".top-bar button").addEventListener("click", () => {
+        alert("Redirecting to job posting page...");
+        window.location.href = "post-job.html"; // Update with actual job posting URL
+    });
+
+    // View Job Details Click Effect
+    document.querySelectorAll(".view-details").forEach(link => {
+        link.addEventListener("click", (event) => {
+            event.preventDefault();
+            alert(`Viewing details for: ${link.parentElement.querySelector(".job-header h3").textContent}`);
+            window.location.href = "job-details.html"; // Update with actual job details URL
+        });
+    });
+
+</script>
 </html>
 
 

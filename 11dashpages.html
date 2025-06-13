@@ -299,4 +299,55 @@
     </main>
   </div>
 </body>
+<script>
+    // Sidebar Navigation Toggle
+    document.querySelectorAll(".nav ul li").forEach(item => {
+        item.addEventListener("click", () => {
+            document.querySelector(".nav ul li.active").classList.remove("active");
+            item.classList.add("active");
+            alert(`Navigating to: ${item.textContent}`);
+        });
+    });
+
+    // Edit Profile Button
+    document.querySelector(".edit-profile").addEventListener("click", () => {
+        alert("Redirecting to Edit Profile...");
+        window.location.href = "edit-profile.html"; // Update with actual profile page URL
+    });
+
+    // Post Job/Internship Button
+    document.querySelector(".post-job").addEventListener("click", () => {
+        alert("Opening Job Posting Form...");
+        window.location.href = "post-job.html"; // Update with actual job posting page URL
+    });
+
+    // Filter & Export Buttons in Student Overview
+    document.querySelector(".student-overview .section-header button:nth-child(1)").addEventListener("click", () => {
+        alert("Filtering Student Records...");
+    });
+
+    document.querySelector(".student-overview .section-header button:nth-child(2)").addEventListener("click", () => {
+        alert("Exporting Student Data...");
+    });
+
+    // Announcements Click Effect
+    document.querySelectorAll(".announcements .notice").forEach(notice => {
+        notice.addEventListener("click", () => {
+            alert(`Opening announcement details: ${notice.textContent}`);
+        });
+    });
+
+    // Placement Calendar Hover Effect
+    document.querySelectorAll(".placement-calendar ul li").forEach(event => {
+        event.addEventListener("mouseover", () => {
+            event.style.fontWeight = "bold";
+            event.style.cursor = "pointer";
+        });
+
+        event.addEventListener("mouseleave", () => {
+            event.style.fontWeight = "normal";
+        });
+    });
+
+</script>
 </html>

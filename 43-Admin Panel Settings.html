@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Settings</title>
+    <style>
+        body {
+            background: #f9fafb;
+            font-family: 'Poppins', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 32px auto;
+            padding: 24px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px #0001;
+            border: 1px solid #e5e7eb;
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin: 0 0 6px 0;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .settings-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .settings-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px #0001;
+            flex: 1 1 320px;
+            min-width: 320px;
+            max-width: 360px;
+            padding: 20px 20px 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .settings-card .icon {
+            width: 24px;
+            height: 24px;
+            background: #2563eb11;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 4px;
+        }
+
+        .settings-card-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .settings-card-desc {
+            color: #4b5563;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .settings-card a {
+            color: #2563eb;
+            font-size: 13px;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .settings-card a:hover {
+            text-decoration: underline;
+        }
+
+        .system-status {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px #0001;
+            padding: 24px;
+            margin-top: 8px;
+        }
+
+        .system-status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .system-status-title {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .system-status-desc {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .status-badge {
+            background: #d1fae5;
+            color: #059669;
+            border-radius: 9999px;
+            padding: 4px 16px;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        .status-bars {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .status-bar-card {
+            background: #f9fafb;
+            border-radius: 8px;
+            padding: 12px 16px 10px 16px;
+            min-width: 220px;
+            flex: 1 1 220px;
+            margin-bottom: 8px;
+        }
+
+        .status-bar-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .status-bar-label {
+            color: #4b5563;
+        }
+
+        .status-bar-value {
+            font-weight: 500;
+            color: #000;
+        }
+
+        .progress-bg {
+            background: #e5e7eb;
+            border-radius: 9999px;
+            height: 8px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .progress-fg {
+            background: #2563eb;
+            height: 8px;
+            border-radius: 9999px;
+        }
+
+        @media (max-width: 900px) {
+            .settings-grid {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .status-bars {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Settings</h1>
+        <div class="subtitle">Manage your recruitment system preferences</div>
+        <div class="settings-grid">
+            <div class="settings-card">
+                <div class="icon">🏢</div>
+                <div class="settings-card-title">Company Settings</div>
+                <div class="settings-card-desc">Manage company information and branding</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+            <div class="settings-card">
+                <div class="icon">👥</div>
+                <div class="settings-card-title">User Management</div>
+                <div class="settings-card-desc">Manage team members and permissions</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+            <div class="settings-card">
+                <div class="icon">✉️</div>
+                <div class="settings-card-title">Email Templates</div>
+                <div class="settings-card-desc">Customize recruitment email templates</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+            <div class="settings-card">
+                <div class="icon">🔄</div>
+                <div class="settings-card-title">Workflow Settings</div>
+                <div class="settings-card-desc">Customize recruitment stages and workflow</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+            <div class="settings-card">
+                <div class="icon">🔗</div>
+                <div class="settings-card-title">Integrations</div>
+                <div class="settings-card-desc">Connect with external tools and services</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+            <div class="settings-card">
+                <div class="icon">🔔</div>
+                <div class="settings-card-title">Notifications</div>
+                <div class="settings-card-desc">Configure notification preferences</div>
+                <a href="#">Configure &rarr;</a>
+            </div>
+        </div>
+        <div class="system-status">
+            <div class="system-status-header">
+                <div>
+                    <div class="system-status-title">System Status</div>
+                    <div class="system-status-desc">Current system performance and statistics</div>
+                </div>
+                <div class="status-badge">All Systems Operational</div>
+            </div>
+            <div class="status-bars">
+                <div class="status-bar-card">
+                    <div class="status-bar-label-row">
+                        <span class="status-bar-label">Storage</span>
+                        <span class="status-bar-value">75%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fg" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="status-bar-card">
+                    <div class="status-bar-label-row">
+                        <span class="status-bar-label">API Usage</span>
+                        <span class="status-bar-value">45%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fg" style="width: 45%"></div>
+                    </div>
+                </div>
+                <div class="status-bar-card">
+                    <div class="status-bar-label-row">
+                        <span class="status-bar-label">Email Quota</span>
+                        <span class="status-bar-value">60%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fg" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="status-bar-card">
+                    <div class="status-bar-label-row">
+                        <span class="status-bar-label">Database</span>
+                        <span class="status-bar-value">30%</span>
+                    </div>
+                    <div class="progress-bg">
+                        <div class="progress-fg" style="width: 30%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

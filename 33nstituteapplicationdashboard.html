@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      padding: 20px;
+      margin: 0;
+      color: #333;
+    }
+
+    .header h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #2c3e50;
+    }
+
+    .filter-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+
+    .filter-group {
+      flex: 1 1 180px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .filter-group select {
+      padding: 8px 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      background: #fff;
+    }
+
+    .row-header,
+    .row-data {
+      display: flex;
+      gap: 40px;
+      background: #fff;
+      padding: 15px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      max-width: 100%;
+    }
+
+    .row-header span,
+    .row-data span {
+      flex: 1 1 150px;
+      font-weight: 500;
+    }
+
+    .row-header {
+      background-color: #e9ecef;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+
+      .row-header span,
+      .row-data span {
+        flex: 1 1 100%;
+      }
+
+      .filter-box {
+        flex-direction: column;
+      }
+
+      .result {
+        float: inline-start;
+      }
+
+    }
+
+    .button {
+      float: inline-end;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>Application Dashboard</h1>
+  </div>
+  <div class="filter-box">
+    <div class="filter-group">
+      <label>Job Title</label>
+      <select>
+        <option>All Positions</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Students</label>
+      <select>
+        <option>All Students</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Status</label>
+      <select>
+        <option>All Status</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Recruiters</label>
+      <select>
+        <option>All Recruiters</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row-header">
+    <span>Student Info</span>
+    <span>Job Details</span>
+    <span>Application Date</span>
+    <span>Resume</span>
+    <span>Status</span>
+    <span>Actions</span>
+  </div>
+
+  <div class="row-data">
+    <span>Sarah Wilson</span>
+    <span>Frontend Developer</span>
+    <span>Jan 15, 2025</span>
+    <span><a href="#">Upload</a></span>
+    <span>Pending</span>
+    <span>
+    </span>
+  </div>
+
+
+  <p class="result">Showing 1 to 97 results</p>
+
+  <div class="button">
+    <button>&lt;</button>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>&gt;</button>
+  </div>
+
+</body>
+
+</html>

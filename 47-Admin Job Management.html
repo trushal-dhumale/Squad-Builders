@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Management</title>
+    <style>
+        /* General body styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            height: 100vh; /* Full screen height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Container styling */
+        .container {
+            width: 93%; /* Full width */
+            height: 93%; /* Full height */
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Scroll if content overflows */
+        }
+
+        /* Header styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .header button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .header button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Filters section styling */
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filters input,
+        .filters select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        /* Table styling */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .table th {
+            background-color: #f1f1f1;
+        }
+
+        /* Status badge styling */
+        .status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .status.active {
+            background-color: #28a745;
+        }
+
+        /* Actions button styling */
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .actions button {
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+        }
+
+        .actions button.view {
+            background-color: #007bff;
+        }
+
+        .actions button.edit {
+            background-color: #ffc107;
+        }
+
+        .actions button.reject {
+            background-color: #dc3545;
+        }
+
+        /* Employer image styling */
+        .employer-img {
+            border-radius: 50%;
+            vertical-align: middle;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Job type text styling */
+        .job-type {
+            color: #6c757d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header section -->
+        <div class="header">
+            <h1>Job Management</h1>
+            <button>+ Add New Job</button>
+        </div>
+
+        <!-- Filters section -->
+        <div class="filters">
+            <input type="text" placeholder="Search jobs..."> <!-- Search input -->
+            <select>
+                <option>All Companies</option> <!-- Company filter -->
+            </select>
+            <select>
+                <option>All Roles</option> <!-- Role filter -->
+            </select>
+            <select>
+                <option>All Status</option> <!-- Status filter -->
+            </select>
+        </div>
+
+        <!-- Job table -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Title</th> <!-- Job title column -->
+                    <th>Employer</th> <!-- Employer column -->
+                    <th>Status</th> <!-- Job status column -->
+                    <th>Deadline</th> <!-- Application deadline column -->
+                    <th>Applications</th> <!-- Number of applications column -->
+                    <th>Actions</th> <!-- Actions column -->
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Job row 1 -->
+                <tr>
+                    <td>
+                        Senior Frontend Developer
+                        <br>
+                        <span class="job-type">Remote</span> <!-- Job type -->
+                    </td>
+                    <td>
+                        <img src="https://i.pinimg.com/736x/46/bb/14/46bb1408bcf9bc89488d6235276a5ae8.jpg"
+                            alt="Employer" class="employer-img"> Google
+                    </td>
+                    <td><span class="status active">Active</span></td> <!-- Job status -->
+                    <td>Dec 31, 2025</td> <!-- Deadline -->
+                    <td>45</td> <!-- Applications count -->
+                    <td class="actions">
+                        <button class="view">View</button> <!-- View button -->
+                        <button class="edit">Edit</button> <!-- Edit button -->
+                        <button class="reject">Reject</button> <!-- Reject button -->
+                    </td>
+                </tr>
+
+                <!-- Job row 2 -->
+                <tr>
+                    <td>
+                        Backend Developer
+                        <br>
+                        <span class="job-type">Hybrid</span>
+                    </td>
+                    <td>
+                        <img src="https://i.pinimg.com/736x/b6/7d/8e/b67d8ef874242d8694b7c428c23ee6ba.jpg"
+                            alt="Employer" class="employer-img"> Microsoft
+                    </td>
+                    <td><span class="status active">Active</span></td>
+                    <td>Jan 15, 2026</td>
+                    <td>30</td>
+                    <td class="actions">
+                        <button class="view">View</button>
+                        <button class="edit">Edit</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+
+                <!-- Job row 3 -->
+                <tr>
+                    <td>
+                        UI/UX Designer
+                        <br>
+                        <span class="job-type">On Place</span>
+                    </td>
+                    <td>
+                        <img src="https://i.pinimg.com/736x/51/49/00/514900e62f1e846b04cd4b1f874df171.jpg"
+                            alt="Employer" class="employer-img"> Apple
+                    </td>
+                    <td><span class="status active">Active</span></td>
+                    <td>Feb 28, 2026</td>
+                    <td>25</td>
+                    <td class="actions">
+                        <button class="view">View</button>
+                        <button class="edit">Edit</button>
+                        <button class="reject">Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>SMARTRECRUIT</title>
 </head>
   <style>
     .home-page {
@@ -17,9 +17,10 @@
 
 .home-page .body {
   position: relative;
-  width: 1440px;
+  width: 1200px;
   height: 2777px;
   border: 0px none;
+     text-decoration: none;
   
 }
 
@@ -32,7 +33,7 @@
 
 .home-page .overlap-group {
   position: absolute;
-  width: 1440px;
+  width: 120px;
   height: 800px;
   top: 0;
   left: 0;
@@ -40,7 +41,7 @@
 
 .home-page .section {
   position: absolute;
-  width: 1440px;
+  width: 120px;
   height: 800px;
   top: 0;
   left: 0;
@@ -49,7 +50,7 @@
 
 .home-page .div-wrapper {
   position: relative;
-  width: 1280px;
+  width: 1200px;
   height: 760px;
   top: 96px;
   left: 80px;
@@ -58,7 +59,7 @@
 
 .home-page .div-2 {
   position: relative;
-  width: 1248px;
+  width: 1200px;
   height: 600px;
   top: 80px;
   left: 16px;
@@ -1592,6 +1593,8 @@
   line-height: 14px;
 }
 
+
+
   </style>
   <body>
     <div class="home-page">
@@ -1608,8 +1611,8 @@
                       candidates using advanced AI technology.
                     </p>
                     <div class="div-4">
-                      <button class="button"><div class="text-wrapper-2">Post a Job</div></button>
-                      <button class="button-2"><div class="text-wrapper-3">Explore Candidates</div></button>
+                      <button onclick="postjob()" class="button"><div class="text-wrapper-2"><a href="6signinpage.html"> Post a Job</a></div></button>
+                      <button onclick="exploreCandates()" class="button-2"><div class="text-wrapper-3"><a href="6signinpage.html"> Explore Candidates</a> </div></button>
                     </div>
                   </div>
                   <div class="img-wrapper"><div class="img"></div></div>
@@ -1621,14 +1624,14 @@
                 <div class="nav">
                   <div class="div-5"><div class="text-wrapper-4">SmartRecruit</div></div>
                   <div class="div-6">
-                    <div class="text-wrapper-5">Solutions</div>
-                    <div class="text-wrapper-6">Pricing</div>
-                    <div class="text-wrapper-7">Resources</div>
-                    <div class="text-wrapper-8">About</div>
+                    <a href="2solutionpage.html" style="text-decoration: none;" class="text-wrapper-5">Solutions</a>
+                    <a href="3pricingpage.html" style="text-decoration: none;" class="text-wrapper-6">Pricing</a>
+                    <a href="4resourcespage.html" style="text-decoration: none;" class="text-wrapper-7">Resources</a>
+                    <a href="5aboutpage.html" style="text-decoration: none;" class="text-wrapper-8">About</a>
                   </div>
                   <div class="div-7">
-                    <button class="button-3"><div class="text-wrapper-9">Sign In</div></button>
-                    <button class="button-4"><div class="text-wrapper-10">Get Started</div></button>
+                    <button class="button-3"><a href="6signinpage.html" class="text-wrapper-9" style="text-decoration: none;">Sign In</a></button>
+                    <button class="button-4"><a href="6signinpage.html" class="text-wrapper-10"style="text-decoration: none;">Get Started</a></button>
                   </div>
                 </div>
               </div>
@@ -1753,8 +1756,8 @@
                   <p class="text-wrapper-38">Join thousands of companies already hiring smarter with AI</p>
                 </div>
                 <div class="div-30">
-                  <button class="button-5"><div class="text-wrapper-39">Sign Up Now</div></button>
-                  <button class="button-6"><div class="text-wrapper-40">Request Demo</div></button>
+                  <button onclick="signup()" class="button-5"><div class="text-wrapper-39"><a href="6signinpage.html" style="text-decoration: none;"> Sign Up Now </a></div></button>
+                  <button onclick="requestdemo()" class="button-6"><div class="text-wrapper-40"><a href="6signinpage.html" style="text-decoration: none;"> Request Demo</a></div></button>
                 </div>
               </div>
             </div>
@@ -1804,5 +1807,50 @@
         </div>
       </div>
     </div>
+  <script>
+    
+    //function postjob() {
+      //  alert("Redirecting to job posting page...");
+       // window.location.href = "6signinpage.html"; // Update with actual job posting page URL
+    //}
+
+    //function exploreCandidates() {
+      //  alert("Opening candidate database...");
+        //window.location.href = "6signinpage.html"; // Update with actual candidate page URL
+    //}
+
+    // Smooth scroll for navigation links
+    //document.querySelectorAll(".nav-wrapper .div-6 div").forEach(link => {
+       // link.addEventListener("click", () => {
+           // alert(`Navigating to ${link.textContent} section...`);
+            // You can add real scrolling logic here
+      //  });
+    //});
+
+    // Sign In and Get Started Buttons
+    document.querySelector(".button-3").addEventListener("click", () => {
+        alert("Redirecting to Sign In...");
+        window.location.href = "6signinpage.html"; // Update URL for Sign In page
+    });
+
+    document.querySelector(".button-4").addEventListener("click", () => {
+        alert("Redirecting to Get Started...");
+        window.location.href = "6signinpage.html"; // Update URL for Get Started page
+    });
+
+    // Hover effect for user testimonials
+    document.querySelectorAll(".div-23").forEach(testimonial => {
+        testimonial.addEventListener("mouseover", () => {
+            testimonial.style.background = "#f0f0f0";
+            testimonial.style.transition = "0.3s ease";
+        });
+
+        testimonial.addEventListener("mouseleave", () => {
+            testimonial.style.background = "transparent";
+        });
+    });
+</script>
+  
+
   </body>
 </html>
